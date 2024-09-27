@@ -1,0 +1,29 @@
+---
+import Image from './Image.astro';
+const { projects } = Astro.props;
+---
+<section>
+  <h2>Projects</h2>
+
+  <ul>
+    {projects.map((project) => {
+      const { content } = project;
+
+      return (
+        <li
+          data-type={content.type}
+          style={`background-color: ${content.backgroundColor?.color || '#000'};`}
+        >
+          <a
+            href={`/${project.slug}`}
+            style={`color: ${content.textColor?.color || '#fff'};`}
+          >
+            {content.icon && <Image image={content.icon} />}
+            <h3>{content.title || project.name}</h3>
+            {content.tagline && <p>{content.tagline}</p>}
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</section>

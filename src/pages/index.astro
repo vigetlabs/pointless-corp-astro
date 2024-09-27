@@ -10,9 +10,22 @@ const { data: homeData } = await storyblokApi.get('cdn/stories/homepage', {
   resolve_assets: '1'
 });
 
+const { data: projectData } = await storyblokApi.get('cdn/stories', {
+  version: 'published',
+  starts_with: '',
+  filter_query: {
+    component: {
+      in: 'project'
+    }
+  },
+  resolve_assets: '1',
+  sort_by: 'published_at:desc'
+});
+
+const projects = projectData.stories;
 const story = homeData.story;
 ---
 
 <Application title={story.name}>
-    <StoryblokComponent blok={story.content} />
+    <StoryblokComponent blok={story.content} projects={projects} />
 </Application>

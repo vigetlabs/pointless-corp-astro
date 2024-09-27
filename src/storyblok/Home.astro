@@ -1,8 +1,8 @@
 ---
 import { renderRichText } from '@storyblok/astro';
 import Image from './components/Image.astro';
-
-const { blok } = Astro.props;
+import ProjectList from './components/ProjectList.astro';
+const { blok, projects } = Astro.props;
 
 function renderContent(content) {
   return content ? renderRichText(content) : '';
@@ -18,6 +18,10 @@ function renderContent(content) {
 
   {blok.aboutText && <section set:html={renderContent(blok.aboutText)} />}
   {blok.processText && <section set:html={renderContent(blok.processText)} />}
+
+  {projects && (
+    <ProjectList projects={projects} />
+  )}
 
   {blok.culturePhotos && blok.culturePhotos.map((image) => (
     <Image image={image} wrapperClass="w-1/2" />
