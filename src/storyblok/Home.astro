@@ -19,8 +19,6 @@ function renderContent(content) {
   {blok.aboutText && <section set:html={renderContent(blok.aboutText)} />}
   {blok.processText && <section set:html={renderContent(blok.processText)} />}
 
-
-
   {blok.culturePhotos && blok.culturePhotos.map((image) => (
     <Image image={image} wrapperClass="w-1/2" />
   ))}
