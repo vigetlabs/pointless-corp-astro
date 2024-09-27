@@ -1,16 +1,26 @@
 ---
+import Application from '../layouts/Application.astro'
+import { useStoryblokApi } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 
+const storyblokApi = useStoryblokApi();
+
+const { data: homeData } = await storyblokApi.get('cdn/stories/homepage', {
+  version: 'published',
+  resolve_assets: '1'
+})
+
+const { data: projectsData } = await storyblokApi.get('cdn/stories', {
+  version: 'published',
+  starts_with: 'projects/',
+  is_startpage: false
+})
+
+const story = homeData.story
+const projects = projectsData.stories
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Application title={story.name}>
+    <StoryblokComponent blok={story.content} />
+    <StoryblokComponent blok={{ component: 'ProjectList', projects }} />
+</Application>

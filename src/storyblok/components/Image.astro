@@ -1,0 +1,23 @@
+---
+interface ImageProps {
+  image: {
+    filename: string;
+    alt?: string;
+    title?: string;
+  };
+  class?: string;
+  wrapperClass?: string;
+  captionClass?: string;
+}
+
+const { image, class: className, wrapperClass, captionClass } = Astro.props as ImageProps;
+---
+
+<figure class={wrapperClass}>
+  <img
+    src={image.filename}
+    alt={image.alt || ''}
+    class={`block w-full ${className || ''}`}
+  />
+  {image.title && <figcaption class={captionClass}>{image.title}</figcaption>}
+</figure>
