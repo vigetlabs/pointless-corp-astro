@@ -5,7 +5,7 @@ const { projects } = Astro.props;
 <section>
   <h2>Projects</h2>
 
-  <ul>
+  <ul class="grid grid-cols-3 gap-4">
     {projects.map((project) => {
       const { content } = project;
 
