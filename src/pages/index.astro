@@ -7,7 +7,7 @@ const storyblokApi = useStoryblokApi();
 
 const { data: homeData } = await storyblokApi.get('cdn/stories/homepage', {
   version: 'published',
-  resolve_assets: '1'
+  resolve_assets: 1
 });
 
 const { data: projectData } = await storyblokApi.get('cdn/stories', {
@@ -18,7 +18,7 @@ const { data: projectData } = await storyblokApi.get('cdn/stories', {
       in: 'project'
     }
   },
-  resolve_assets: '1',
+  resolve_assets: 1,
   per_page: 12,
   sort_by: 'published_at:desc,name:asc'
 });
