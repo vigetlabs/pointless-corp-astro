@@ -19,7 +19,9 @@ const { projects } = Astro.props;
             style={`color: ${content.textColor?.color || '#fff'};`}
           >
             {content.icon && <Image image={content.icon} />}
-            <h3>{content.title || project.name}</h3>
+
+            <h3>{project.name}</h3>
+
             {content.tagline && <p>{content.tagline}</p>}
           </a>
         </li>
