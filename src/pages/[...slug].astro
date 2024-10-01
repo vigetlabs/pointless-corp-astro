@@ -1,0 +1,31 @@
+---
+import Application from '../layouts/Application.astro';
+import { useStoryblokApi } from '@storyblok/astro'
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+  const { data } = await storyblokApi.get('cdn/stories', {
+    version: 'published',
+    content_type: 'project',
+    per_page: 100,
+  });
+
+  return data.stories.map(({ full_slug }) => ({
+    params: { slug: full_slug },
+  }));
+}
+
+const { slug } = Astro.params;
+
+const storyblokApi = useStoryblokApi();
+const { data: { story } } = await storyblokApi.get(`cdn/stories/${slug}`, {
+  version: 'published',
+  resolve_assets: 1,
+});
+
+---
+
+<Application title={story.name}>
+  <StoryblokComponent blok={story.content} />
+</Application>

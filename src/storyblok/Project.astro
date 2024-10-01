@@ -1,0 +1,50 @@
+---
+import { renderRichText } from '@storyblok/astro';
+import Image from './components/Image.astro';
+
+const { blok } = Astro.props;
+
+function renderContent(content) {
+  return content ? renderRichText(content) : '';
+}
+---
+
+<article>
+  <h1>{blok.name}</h1>
+
+  {blok.logo && (
+    <Image image={blok.logo} />
+  )}
+
+  <ul>
+    {blok.url && (
+      <li>
+        <a href={blok.url} rel="noreferrer">
+          {blok.url}
+        </a>
+      </li>
+    )}
+    {blok.xHandle && (
+      <li>
+        <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">{blok.xHandle}</a>
+      </li>
+    )}
+    {blok.type && (
+      <li>
+        {blok.type}
+      </li>
+    )}
+    {blok.launchDate && (
+      <li>
+        {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
+      </li>
+    )}
+    {blok.retiredDate && (
+      <li>
+        archived
+      </li>
+    )}
+  </ul>
+
+  {blok.description && <section set:html={renderContent(blok.description)} />}
+</article>
