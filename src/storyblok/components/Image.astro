@@ -1,4 +1,6 @@
 ---
+import { Image as AstroImage } from 'astro:assets';
+
 interface ImageProps {
   image: {
     filename: string;
@@ -14,9 +16,10 @@ const { image, class: className, wrapperClass, captionClass } = Astro.props as I
 ---
 
 <figure class={wrapperClass}>
-  <img
+  <AstroImage
     src={image.filename}
     alt={image.alt || ''}
+    inferSize={true}
     class={`block w-full ${className || ''}`}
   />
   {image.title && <figcaption class={captionClass}>{image.title}</figcaption>}

@@ -1,7 +1,7 @@
 ---
 import Application from '../layouts/Application.astro';
-import { useStoryblokApi } from '@storyblok/astro'
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import { useStoryblokApi } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
@@ -24,8 +24,19 @@ const { data: { story } } = await storyblokApi.get(`cdn/stories/${slug}`, {
   resolve_assets: 1,
 });
 
+const { data: projectData } = await storyblokApi.get('cdn/stories', {
+  version: 'published',
+  starts_with: '',
+  filter_query: {
+    component: {
+      in: 'project'
+    }
+  },
+  per_page: 12,
+  sort_by: 'sort_by_date:desc,name:asc'
+});
 ---
 
-<Application title={story.name}>
-  <StoryblokComponent blok={story.content} />
+<Application title={`${story.name} - Pointlesscorp`}>
+  <StoryblokComponent blok={story.content} name={story.name} projects={projectData.stories} />
 </Application>

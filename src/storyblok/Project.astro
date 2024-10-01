@@ -1,32 +1,67 @@
 ---
 import { renderRichText } from '@storyblok/astro';
-import Image from './components/Image.astro';
+import { Image } from 'astro:assets';
 
-const { blok } = Astro.props;
+const { blok, name, projects } = Astro.props;
+
+import experiments from '../../src/images/svgs/experiments.svg';
+import stunts from '../../src/images/svgs/stunts.svg';
+import tools from '../../src/images/svgs/tools.svg';
+
+const fallback = {
+  experiments,
+  stunts,
+  tools
+}[blok.type.toLowerCase()] || experiments;
 
 function renderContent(content) {
   return content ? renderRichText(content) : '';
 }
+
+// Define default colors in case they're not provided
+const defaultColors = {
+  backgroundColor: '#ffffff',
+  accentColor: '#000000',
+  textColor: '#333333',
+  linkColor: '#0000ff',
+};
+
+// Merge provided colors with defaults
+const themeColors = {
+  ...defaultColors,
+  ...Object.fromEntries(
+    Object.entries(blok)
+      .filter(([key]) => ['backgroundColor', 'accentColor', 'textColor', 'linkColor'].includes(key))
+      .map(([key, value]) => [key, value || defaultColors[key]])
+  ),
+};
 ---
 
-<article>
-  <h1>{blok.name}</h1>
+<article class="project" style={`
+  --background-color: ${themeColors.backgroundColor.color};
+  --accent-color: ${themeColors.accentColor.color};
+  --text-color: ${themeColors.textColor.color};
+  --link-color: ${themeColors.linkColor.color};
+`}>
+  <h1>{name}</h1>
 
-  {blok.logo && (
-    <Image image={blok.logo} />
+  {blok.logo ? (
+    <Image src={blok.icon.filename} inferSize={true} alt="" />
+  ) : (
+    <Image src={fallback} inferSize={true} alt="" />
   )}
 
   <ul>
     {blok.url && (
       <li>
-        <a href={blok.url} rel="noreferrer">
-          {blok.url}
+        <a href={blok.url}>
+          {blok.url.replace(/^(https?:\/\/)?(www\.)?/i, '').split('/')[0]}
         </a>
       </li>
     )}
     {blok.xHandle && (
       <li>
-        <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">{blok.xHandle}</a>
+        <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">@{blok.xHandle}</a>
       </li>
     )}
     {blok.type && (
@@ -39,12 +74,56 @@ function renderContent(content) {
         {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
       </li>
     )}
-    {blok.retiredDate && (
-      <li>
-        archived
-      </li>
-    )}
+    <li>
+      {blok.retiredDate ? 'archived' : 'active'}
+    </li>
   </ul>
 
   {blok.description && <section set:html={renderContent(blok.description)} />}
+
+  <h2>More about {blok.name}</h2>
+
+  {blok.relatedContent && (
+    <>
+      <h2>More about {name}</h2>
+
+      <ul>
+        {blok.relatedContent.map((related) => (
+          <li>
+            {(() => {
+              const content = (
+                <>
+                  {related.title && <p>{related.title}</p>}
+                  {related.sourceName && <p>{related.sourceName}</p>}
+                </>
+              );
+              return related.url ? <a href={related.url}>{content}</a> : content;
+            })()}
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <h2>More Pointless Projects</h2>
+
+  <ul>
+    {projects.map((project) => (
+      <li>
+        <a href={`/${project.slug}`}>{project.name}</a>
+      </li>
+    ))}
+  </ul>
 </article>
+
+<style>
+  .project {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  .project a {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
+</style>
