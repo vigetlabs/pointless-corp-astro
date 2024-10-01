@@ -9,16 +9,19 @@ const { projects } = Astro.props;
   <ul class="grid grid-cols-3 gap-5">
     {projects.map((project) => {
       const { content } = project;
+      const backgroundColor = content.backgroundColor?.color || '#000';
+      const textColor = content.textColor?.color || '#fff';
 
       return (
         <li
+          class="project-item"
           data-type={content.type}
-          style={`background-color: ${content.backgroundColor?.color || '#000'};`}
+          style={`
+            --projectBackgroundColor: ${backgroundColor};
+            --projectTextColor: ${textColor};
+          `}
         >
-          <a
-            href={`/${project.slug}`}
-            style={`color: ${content.textColor?.color || '#fff'};`}
-          >
+          <a href={`/${project.slug}`}>
             {content.icon && <Image image={content.icon} />}
 
             <h3>{project.name}</h3>
@@ -30,3 +33,20 @@ const { projects } = Astro.props;
     })}
   </ul>
 </section>
+
+<style>
+  .project-item {
+    background-color: var(--projectBackgroundColor);
+    color: var(--projectTextColor);
+  }
+
+  .project-item a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .project-item h3,
+  .project-item p {
+    color: inherit;
+  }
+</style>
