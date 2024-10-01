@@ -35,8 +35,16 @@ const { data: projectData } = await storyblokApi.get('cdn/stories', {
   per_page: 12,
   sort_by: 'sort_by_date:desc,name:asc'
 });
+
+// Extract theme colors from the story content
+const themeColors = {
+  backgroundColor: story.content.backgroundColor?.color,
+  accentColor: story.content.accentColor?.color,
+  textColor: story.content.textColor?.color,
+  linkColor: story.content.linkColor?.color,
+};
 ---
 
-<Application title={`${story.name} - Pointlesscorp`}>
+<Application title={`${story.name} - Pointlesscorp`} themeColors={themeColors}>
   <StoryblokComponent blok={story.content} name={story.name} projects={projectData.stories} />
 </Application>

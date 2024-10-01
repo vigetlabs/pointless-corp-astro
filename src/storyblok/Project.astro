@@ -17,32 +17,9 @@ const fallback = {
 function renderContent(content) {
   return content ? renderRichText(content) : '';
 }
-
-// Define default colors in case they're not provided
-const defaultColors = {
-  backgroundColor: '#ffffff',
-  accentColor: '#000000',
-  textColor: '#333333',
-  linkColor: '#0000ff',
-};
-
-// Merge provided colors with defaults
-const themeColors = {
-  ...defaultColors,
-  ...Object.fromEntries(
-    Object.entries(blok)
-      .filter(([key]) => ['backgroundColor', 'accentColor', 'textColor', 'linkColor'].includes(key))
-      .map(([key, value]) => [key, value || defaultColors[key]])
-  ),
-};
 ---
 
-<article class="project" style={`
-  --background-color: ${themeColors.backgroundColor.color};
-  --accent-color: ${themeColors.accentColor.color};
-  --text-color: ${themeColors.textColor.color};
-  --link-color: ${themeColors.linkColor.color};
-`}>
+<article class="project">
   <h1>{name}</h1>
 
   {blok.logo ? (
@@ -118,12 +95,12 @@ const themeColors = {
 
 <style>
   .project {
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
   }
 
   .project a {
-    color: var(--link-color);
+    color: var(--linkColor);
     text-decoration: underline;
   }
 </style>
