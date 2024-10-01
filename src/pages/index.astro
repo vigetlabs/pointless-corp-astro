@@ -19,8 +19,8 @@ const { data: projectData } = await storyblokApi.get('cdn/stories', {
     }
   },
   resolve_assets: 1,
-  per_page: 12,
-  sort_by: 'published_at:desc,name:asc'
+  per_page: 100,
+  sort_by: 'sort_by_date:desc,name:asc'
 });
 
 const projects = projectData.stories;
