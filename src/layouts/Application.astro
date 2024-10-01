@@ -21,37 +21,36 @@ const finalColors = {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <title>{title}</title>
-    <style define:vars={finalColors}>
-      :root {
-        --backgroundColor: {finalColors.backgroundColor};
-        --accentColor: {finalColors.accentColor};
-        --textColor: {finalColors.textColor};
-        --linkColor: {finalColors.linkColor};
-      }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <title>{title}</title>
+  <style define:vars={finalColors}>
+    :root {
+      --backgroundColor: {finalColors.backgroundColor};
+      --accentColor: {finalColors.accentColor};
+      --textColor: {finalColors.textColor};
+      --linkColor: {finalColors.linkColor};
+    }
 
-      body {
-        background-color: var(--backgroundColor);
-        color: var(--textColor);
-      }
+    body {
+      background-color: var(--backgroundColor);
+      color: var(--textColor);
+    }
 
-      a {
-        color: var(--linkColor);
-      }
-      /* Add more global styles using theme colors as needed */
-    </style>
+    a {
+      color: var(--linkColor);
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>{title}</h1>
-    </header>
-    <main>
-        <slot />
-    </main>
-    <footer>
-    </footer>
+  <header>
+    <h1>{title}</h1>
+  </header>
+  <main>
+    <slot />
+  </main>
+  <footer>
+  </footer>
 </body>
 </html>
