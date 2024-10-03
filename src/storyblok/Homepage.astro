@@ -18,9 +18,13 @@ function renderContent(content) {
 
   {blok.aboutText && <section id="about" set:html={renderContent(blok.aboutText)} />}
 
-  {projects && (
-    <ProjectList projects={projects} />
-  )}
+  <section id="projects">
+    <h2>Projects</h2>
+
+    {projects && (
+      <ProjectList projects={projects} />
+    )}
+  </section>
 
   {blok.processText && <section id="process" set:html={renderContent(blok.processText)} />}
 
@@ -36,12 +40,14 @@ function renderContent(content) {
     <Image image={image} wrapperClass="w-1/2" />
   ))}
 
-  {blok.faq && blok.faq.map((item) => (
-    <section id="faq">
-      {item.question && <p>{item.question}</p>}
-      {item.answer && <div set:html={renderContent(item.answer)} />}
-    </section>
-  ))}
+  <section id="faq">
+    {blok.faq && blok.faq.map((item) => (
+      <>
+        {item.question && <p>{item.question}</p>}
+        {item.answer && <div set:html={renderContent(item.answer)} />}
+      </>
+    ))}
+  </section>
 
   <section id="contact">
     {blok.contactUs && <div set:html={renderContent(blok.contactUs)} />}

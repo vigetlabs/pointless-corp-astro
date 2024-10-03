@@ -3,36 +3,32 @@ import Image from './Image.astro';
 const { projects } = Astro.props;
 ---
 
-<section id="projects">
-  <h2>Projects</h2>
+<ul class="grid grid-cols-3 gap-5">
+  {projects.map((project) => {
+    const { content } = project;
+    const backgroundColor = content.backgroundColor?.color || '#000';
+    const textColor = content.textColor?.color || '#fff';
 
-  <ul class="grid grid-cols-3 gap-5">
-    {projects.map((project) => {
-      const { content } = project;
-      const backgroundColor = content.backgroundColor?.color || '#000';
-      const textColor = content.textColor?.color || '#fff';
+    return (
+      <li
+        class="project-item"
+        data-type={content.type}
+        style={`
+          --projectBackgroundColor: ${backgroundColor};
+          --projectTextColor: ${textColor};
+        `}
+      >
+        <a href={`/${project.slug}`}>
+          {content.icon && <Image image={content.icon} />}
 
-      return (
-        <li
-          class="project-item"
-          data-type={content.type}
-          style={`
-            --projectBackgroundColor: ${backgroundColor};
-            --projectTextColor: ${textColor};
-          `}
-        >
-          <a href={`/${project.slug}`}>
-            {content.icon && <Image image={content.icon} />}
+          <h3>{project.name}</h3>
 
-            <h3>{project.name}</h3>
-
-            {content.tagline && <p>{content.tagline}</p>}
-          </a>
-        </li>
-      );
-    })}
-  </ul>
-</section>
+          {content.tagline && <p>{content.tagline}</p>}
+        </a>
+      </li>
+    );
+  })}
+</ul>
 
 <style>
   .project-item {
