@@ -1,1 +1,43 @@
-<p>VIDEO BLOK</p>
+---
+const { blok } = Astro.props;
+
+function getEmbedUrl(url: string): string | null {
+  // YouTube
+  const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/;
+  const youtubeMatch = url.match(youtubeRegex);
+  if (youtubeMatch) {
+    return `https://www.youtube.com/embed/${youtubeMatch[1]}`;
+  }
+
+  // Vimeo
+  const vimeoRegex = /(?:https?:\/\/)?(?:www\.)?(?:vimeo\.com)\/(.+)/;
+  const vimeoMatch = url.match(vimeoRegex);
+  if (vimeoMatch) {
+    return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+  }
+
+  return null;
+}
+
+const embedUrl = getEmbedUrl(blok.videoUrl);
+---
+
+<figure>
+  {embedUrl ? (
+    <div class="video-container">
+      <iframe
+        src={embedUrl}
+        width="640"
+        height="360"
+        allow="fullscreen; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+  ) : (
+    <p>Invalid video URL</p>
+  )}
+
+  {blok.caption && (
+    <figcaption>{blok.caption}</figcaption>
+  )}
+</figure>

@@ -1,1 +1,11 @@
-<p>IMAGE BLOK</p>
+---
+import { Image } from 'astro:assets';
+const { blok } = Astro.props
+
+// Ensure we have a valid image URL
+const imageUrl = blok.image?.filename || ''
+---
+
+{imageUrl && (
+  <Image src={imageUrl} alt={blok.alt || ''} inferSize={true} />
+)}

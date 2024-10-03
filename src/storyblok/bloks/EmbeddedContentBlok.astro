@@ -1,1 +1,13 @@
-<p>EMBEDDED CONTENT BLOK</p>
+---
+const { blok } = Astro.props
+---
+
+<figure>
+  {blok.embed && (
+    <div set:html={blok.embed} />
+  )}
+
+  {blok.caption && (
+    <figcaption>{blok.caption}</figcaption>
+  )}
+</figure>
