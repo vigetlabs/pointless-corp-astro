@@ -1,6 +1,7 @@
 ---
 import { renderRichText } from '@storyblok/astro';
 import { Image } from 'astro:assets';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 
 const { blok, name, projects } = Astro.props;
 
@@ -20,14 +21,18 @@ function renderContent(content) {
 ---
 
 <article class="project">
+
+  <!-- Project Title -->
   <h1>{name}</h1>
 
+  <!-- Project Logo or Fallback Image -->
   {blok.logo ? (
     <Image src={blok.icon.filename} inferSize={true} alt="" />
   ) : (
     <Image src={fallback} inferSize={true} alt="" />
   )}
 
+  <!-- Project Details -->
   <ul>
     {blok.url && (
       <li>
@@ -56,10 +61,36 @@ function renderContent(content) {
     </li>
   </ul>
 
+  <!-- Project Description -->
   {blok.description && <section set:html={renderContent(blok.description)} />}
 
-  <h2>More about {blok.name}</h2>
+  <!-- Example Blocks -->
+  {blok.examples && blok.examples.length > 0 && (
+    <>
+      <h2>Examples</h2>
 
+      {blok.examples.map((nestedBlok) => (
+        <StoryblokComponent blok={nestedBlok} />
+      ))}
+    </>
+  )}
+
+  <!-- Project Process Images -->
+  {blok.process && blok.process.length > 0 && (
+    <>
+      <h2>Process</h2>
+
+      <ul>
+        {blok.process.map((image) => (
+          <li>
+            <Image src={image.filename} alt={image.alt || ''} inferSize={true} />
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <!-- Related Content -->
   {blok.relatedContent && (
     <>
       <h2>More about {name}</h2>
@@ -82,6 +113,7 @@ function renderContent(content) {
     </>
   )}
 
+  <!-- More Projects -->
   <h2>More Pointless Projects</h2>
 
   <ul>
@@ -94,6 +126,7 @@ function renderContent(content) {
 </article>
 
 <style>
+  /* Project Styles */
   .project {
     background-color: var(--backgroundColor);
     color: var(--textColor);
