@@ -12,9 +12,9 @@ function renderContent(content) {
 <div>
   {blok.heroText && <p>{blok.heroText}</p>}
 
-  {blok.featureImages && blok.featureImages.map((image) => (
-    <Image image={image} wrapperClass="w-1/2" />
-  ))}
+  {blok.featureImages && blok.featureImages.length > 0 && (
+    <Image image={blok.featureImages[0]} wrapperClass="w-1/2" />
+  )}
 
   {blok.aboutText && <section id="about" set:html={renderContent(blok.aboutText)} />}
 
@@ -25,6 +25,10 @@ function renderContent(content) {
       <ProjectList projects={projects} />
     )}
   </section>
+
+  {blok.featureImages && blok.featureImages.length > 1 && (
+    <Image image={blok.featureImages[blok.featureImages.length - 1]} wrapperClass="w-1/2" />
+  )}
 
   {blok.processText && <section id="process" set:html={renderContent(blok.processText)} />}
 
