@@ -26,10 +26,18 @@ function renderContent(content) {
   <h1>{name}</h1>
 
   <!-- Project Logo or Fallback Image -->
-  {blok.logo ? (
-    <Image src={blok.logo.filename} inferSize={true} alt="" />
+  {blok.logo?.filename ? (
+    <Image
+      src={blok.logo.filename}
+      inferSize={true}
+      alt=""
+    />
   ) : (
-    <Image src={fallback} inferSize={true} alt="" />
+    <Image
+      src={fallback}
+      inferSize={true}
+      alt=""
+    />
   )}
 
   <!-- Project Details -->
