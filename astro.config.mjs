@@ -24,7 +24,9 @@ export default defineConfig({
         region: 'us',
       },
     }),
-    alpinejs(),
+    alpinejs({
+      entrypoint: '/src/alpine.js'
+    }),
     tailwind(),
   ],
 });
