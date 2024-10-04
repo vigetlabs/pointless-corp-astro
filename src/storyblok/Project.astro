@@ -1,0 +1,147 @@
+---
+import { renderRichText } from '@storyblok/astro';
+import { Image } from 'astro:assets';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+
+const { blok, name, projects } = Astro.props;
+
+import experiments from '../../src/images/svgs/experiments.svg';
+import stunts from '../../src/images/svgs/stunts.svg';
+import tools from '../../src/images/svgs/tools.svg';
+
+const fallback = {
+  experiments,
+  stunts,
+  tools
+}[blok.type.toLowerCase()] || experiments;
+
+function renderContent(content) {
+  return content ? renderRichText(content) : '';
+}
+---
+
+<article class="project">
+
+  <!-- Project Title -->
+  <h1>{name}</h1>
+
+  <!-- Project Logo or Fallback Image -->
+  {blok.logo?.filename ? (
+    <Image
+      src={blok.logo.filename}
+      inferSize={true}
+      alt=""
+    />
+  ) : (
+    <Image
+      src={fallback}
+      inferSize={true}
+      alt=""
+    />
+  )}
+
+  <!-- Project Details -->
+  <ul>
+    {blok.url && (
+      <li>
+        <a href={blok.url}>
+          {blok.url.replace(/^(https?:\/\/)?(www\.)?/i, '').split('/')[0]}
+        </a>
+      </li>
+    )}
+    {blok.xHandle && (
+      <li>
+        <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">@{blok.xHandle}</a>
+      </li>
+    )}
+    {blok.type && (
+      <li>
+        {blok.type}
+      </li>
+    )}
+    {blok.launchDate && (
+      <li>
+        {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
+      </li>
+    )}
+    <li>
+      {blok.retiredDate ? 'archived' : 'active'}
+    </li>
+  </ul>
+
+  <!-- Project Description -->
+  {blok.description && <section set:html={renderContent(blok.description)} />}
+
+  <!-- Example Blocks -->
+  {blok.examples && blok.examples.length > 0 && (
+    <>
+      <h2>Examples</h2>
+
+      {blok.examples.map((nestedBlok) => (
+        <StoryblokComponent blok={nestedBlok} />
+      ))}
+    </>
+  )}
+
+  <!-- Project Process Images -->
+  {blok.process && blok.process.length > 0 && (
+    <>
+      <h2>Process</h2>
+
+      <ul>
+        {blok.process.map((image) => (
+          <li>
+            <Image src={image.filename} alt={image.alt || ''} inferSize={true} />
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <!-- Related Content -->
+  {blok.relatedContent && (
+    <>
+      <h2>More about {name}</h2>
+
+      <ul>
+        {blok.relatedContent.map((related) => (
+          <li>
+            {(() => {
+              const content = (
+                <>
+                  {related.title && <p>{related.title}</p>}
+                  {related.sourceName && <p>{related.sourceName}</p>}
+                </>
+              );
+              return related.url ? <a href={related.url}>{content}</a> : content;
+            })()}
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+
+  <!-- More Projects -->
+  <h2>More Pointless Projects</h2>
+
+  <ul>
+    {projects.map((project) => (
+      <li>
+        <a href={`/${project.slug}`}>{project.name}</a>
+      </li>
+    ))}
+  </ul>
+</article>
+
+<style>
+  /* Project Styles */
+  .project {
+    background-color: var(--backgroundColor);
+    color: var(--textColor);
+  }
+
+  .project a {
+    color: var(--linkColor);
+    text-decoration: underline;
+  }
+</style>

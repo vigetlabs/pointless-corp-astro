@@ -1,0 +1,50 @@
+---
+import Application from '../layouts/Application.astro';
+import { useStoryblokApi } from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+
+export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+  const { data } = await storyblokApi.get('cdn/stories', {
+    version: 'published',
+    content_type: 'project',
+    per_page: 100,
+  });
+
+  return data.stories.map(({ full_slug }) => ({
+    params: { slug: full_slug },
+  }));
+}
+
+const { slug } = Astro.params;
+
+const storyblokApi = useStoryblokApi();
+const { data: { story } } = await storyblokApi.get(`cdn/stories/${slug}`, {
+  version: 'published',
+  resolve_assets: 1,
+});
+
+const { data: projectData } = await storyblokApi.get('cdn/stories', {
+  version: 'published',
+  starts_with: '',
+  filter_query: {
+    component: {
+      in: 'project'
+    }
+  },
+  per_page: 12,
+  sort_by: 'sort_by_date:desc,name:asc'
+});
+
+// Extract theme colors from the story content
+const themeColors = {
+  backgroundColor: story.content.backgroundColor?.color,
+  accentColor: story.content.accentColor?.color,
+  textColor: story.content.textColor?.color,
+  linkColor: story.content.linkColor?.color,
+};
+---
+
+<Application title={`${story.name} - Pointlesscorp`} themeColors={themeColors}>
+  <StoryblokComponent blok={story.content} name={story.name} projects={projectData.stories} />
+</Application>

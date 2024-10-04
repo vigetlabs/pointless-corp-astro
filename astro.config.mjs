@@ -13,7 +13,12 @@ export default defineConfig({
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
       components: {
-        homepage: 'storyblok/Home',
+        homepage: 'storyblok/Homepage',
+        project: 'storyblok/Project',
+        embeddedContent: 'storyblok/bloks/EmbeddedContentBlok',
+        image: 'storyblok/bloks/ImageBlok',
+        text: 'storyblok/bloks/TextBlok',
+        video: 'storyblok/bloks/VideoBlok',
       },
       apiOptions: {
         region: 'us',

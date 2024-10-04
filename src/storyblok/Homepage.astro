@@ -12,16 +12,25 @@ function renderContent(content) {
 <div>
   {blok.heroText && <p>{blok.heroText}</p>}
 
-  {blok.featureImages && blok.featureImages.map((image) => (
-    <Image image={image} wrapperClass="w-1/2" />
-  ))}
-
-  {blok.aboutText && <section set:html={renderContent(blok.aboutText)} />}
-  {blok.processText && <section set:html={renderContent(blok.processText)} />}
-
-  {projects && (
-    <ProjectList projects={projects} />
+  {blok.featureImages && blok.featureImages.length > 0 && (
+    <Image image={blok.featureImages[0]} wrapperClass="w-1/2" />
   )}
+
+  {blok.aboutText && <section id="about" set:html={renderContent(blok.aboutText)} />}
+
+  <section id="projects">
+    <h2>Projects</h2>
+
+    {projects && (
+      <ProjectList projects={projects} />
+    )}
+  </section>
+
+  {blok.featureImages && blok.featureImages.length > 1 && (
+    <Image image={blok.featureImages[blok.featureImages.length - 1]} wrapperClass="w-1/2" />
+  )}
+
+  {blok.processText && <section id="process" set:html={renderContent(blok.processText)} />}
 
   {blok.culturePhotos && blok.culturePhotos.map((image) => (
     <Image image={image} wrapperClass="w-1/2" />
@@ -35,14 +44,16 @@ function renderContent(content) {
     <Image image={image} wrapperClass="w-1/2" />
   ))}
 
-  {blok.faq && blok.faq.map((item) => (
-    <>
-      {item.question && <p>{item.question}</p>}
-      {item.answer && <div set:html={renderContent(item.answer)} />}
-    </>
-  ))}
+  <section id="faq">
+    {blok.faq && blok.faq.map((item) => (
+      <>
+        {item.question && <p>{item.question}</p>}
+        {item.answer && <div set:html={renderContent(item.answer)} />}
+      </>
+    ))}
+  </section>
 
-  <section>
+  <section id="contact">
     {blok.contactUs && <div set:html={renderContent(blok.contactUs)} />}
     {blok.hireViget && <div set:html={renderContent(blok.hireViget)} />}
     {blok.joinViget && <div set:html={renderContent(blok.joinViget)} />}
