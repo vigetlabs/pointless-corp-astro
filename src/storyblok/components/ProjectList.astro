@@ -48,14 +48,14 @@ const { projects } = Astro.props;
       <button class="flex" @click="showMore = false">
         <span
           class="rounded-full bg-gray-500 h-6 w-6 inline-block"
-          :class="{ 'bg-green-500': !showMore, 'bg-gray-500': showMore }"
+          :class="{ 'bg-green-500': !showMore, 'bg-gray-200': showMore }"
         ></span>
         Top 12
       </button>
       <button class="flex" @click="showMore = true">
         <span
           class="rounded-full h-6 w-6 inline-block"
-          :class="{ 'bg-green-500': showMore, 'bg-gray-500': !showMore }"
+          :class="{ 'bg-green-500': showMore, 'bg-gray-200': !showMore }"
         ></span>
         All
       </button>
