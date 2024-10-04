@@ -14,9 +14,25 @@ const { projects } = Astro.props;
     projects: JSON.parse(JSON.stringify(projects)),
     isVisible(index, type) {
       return (index < 12 || this.showMore) && this.filters[type];
+    },
+    updateFilters(filterType) {
+      this.filters[filterType] = !this.filters[filterType];
+      if (!this.filters[filterType]) {
+        this.showMore = true;
+      }
+      if (!this.filters.tools && !this.filters.experiments && !this.filters.stunts) {
+        this.filters = {
+          tools: true,
+          experiments: true,
+          stunts: true
+        };
+      }
     }
   }"
   x-init="$watch('filters', value => {
+    if (!value.tools || !value.experiments || !value.stunts) {
+      this.showMore = true;
+    }
     if (!value.tools && !value.experiments && !value.stunts) {
       filters = {
         tools: true,
@@ -47,13 +63,13 @@ const { projects } = Astro.props;
 
     <div class="flex gap-4 mb-4">
       <label>
-        <input type="checkbox" x-model="filters.tools"> Tools
+        <input type="checkbox" :checked="filters.tools" @click="updateFilters('tools')"> Tools
       </label>
       <label>
-        <input type="checkbox" x-model="filters.experiments"> Experiments
+        <input type="checkbox" :checked="filters.experiments" @click="updateFilters('experiments')"> Experiments
       </label>
       <label>
-        <input type="checkbox" x-model="filters.stunts"> Stunts
+        <input type="checkbox" :checked="filters.stunts" @click="updateFilters('stunts')"> Stunts
       </label>
     </div>
   </div>
