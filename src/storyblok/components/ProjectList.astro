@@ -3,29 +3,52 @@ import Image from './Image.astro';
 const { projects } = Astro.props;
 ---
 
-<div x-data="{ showMore: false }">
+<div x-data="{
+  showMore: false,
+  filters: {
+    tools: true,
+    experiments: true,
+    stunts: true
+  },
+  projects: JSON.parse(JSON.stringify(projects)),
+  isVisible(index, type) {
+    return (index < 12 || this.showMore) && this.filters[type];
+  }
+}">
   <div>
-    <div class="flex gap-2">
+    <div class="flex gap-2 mb-4">
       Show
       <button class="flex" @click="showMore = false">
         <span
           class="rounded-full bg-gray-500 h-6 w-6 inline-block"
-          :class="{ 'bg-green-500': showMore === false, 'bg-gray-500': showMore === true }"
+          :class="{ 'bg-green-500': !showMore, 'bg-gray-500': showMore }"
         ></span>
         Top 12
       </button>
       <button class="flex" @click="showMore = true">
         <span
           class="rounded-full h-6 w-6 inline-block"
-          :class="{ 'bg-green-500': showMore === true, 'bg-gray-500': showMore === false }"
+          :class="{ 'bg-green-500': showMore, 'bg-gray-500': !showMore }"
         ></span>
         All
       </button>
     </div>
+
+    <div class="flex gap-4 mb-4">
+      <label>
+        <input type="checkbox" x-model="filters.tools"> Tools
+      </label>
+      <label>
+        <input type="checkbox" x-model="filters.experiments"> Experiments
+      </label>
+      <label>
+        <input type="checkbox" x-model="filters.stunts"> Stunts
+      </label>
+    </div>
   </div>
 
   <ul class="grid grid-cols-8 gap-5">
-    {projects.map((project) => {
+    {projects.map((project, index) => {
       const { content } = project;
       const backgroundColor = content.backgroundColor?.color || '#000';
       const textColor = content.textColor?.color || '#fff';
@@ -38,13 +61,11 @@ const { projects } = Astro.props;
             --projectBackgroundColor: ${backgroundColor};
             --projectTextColor: ${textColor};
           `}
-          x-show={`${projects.indexOf(project) < 12 ? 'true' : 'showMore'}`}
+          x-show={`isVisible(${index}, '${content.type}')`}
         >
           <a href={`/${project.slug}`}>
             {content.icon && <Image image={content.icon} />}
-
             <h3>{project.name}</h3>
-
             {content.tagline && <p>{content.tagline}</p>}
           </a>
         </li>
@@ -54,7 +75,6 @@ const { projects } = Astro.props;
 
   <button @click="showMore = true" x-show="!showMore">Load More</button>
 </div>
-
 
 <style>
   .project-item {
