@@ -74,7 +74,7 @@ const { projects } = Astro.props;
     </div>
   </div>
 
-  <ul class="grid grid-cols-8 gap-5">
+  <ul class="grid grid-cols-3 gap-5">
     {projects.map((project, index) => {
       const { content } = project;
       const backgroundColor = content.backgroundColor?.color || '#000';
