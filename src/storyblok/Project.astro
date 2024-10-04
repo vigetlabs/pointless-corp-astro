@@ -27,7 +27,7 @@ function renderContent(content) {
 
   <!-- Project Logo or Fallback Image -->
   {blok.logo ? (
-    <Image src={blok.icon.filename} inferSize={true} alt="" />
+    <Image src={blok.logo.filename} inferSize={true} alt="" />
   ) : (
     <Image src={fallback} inferSize={true} alt="" />
   )}
