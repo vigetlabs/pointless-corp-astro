@@ -3,18 +3,29 @@ import Image from './Image.astro';
 const { projects } = Astro.props;
 ---
 
-<div x-data="{
-  showMore: false,
-  filters: {
-    tools: true,
-    experiments: true,
-    stunts: true
-  },
-  projects: JSON.parse(JSON.stringify(projects)),
-  isVisible(index, type) {
-    return (index < 12 || this.showMore) && this.filters[type];
-  }
-}">
+<div
+  x-data="{
+    showMore: false,
+    filters: {
+      tools: true,
+      experiments: true,
+      stunts: true
+    },
+    projects: JSON.parse(JSON.stringify(projects)),
+    isVisible(index, type) {
+      return (index < 12 || this.showMore) && this.filters[type];
+    }
+  }"
+  x-init="$watch('filters', value => {
+    if (!value.tools && !value.experiments && !value.stunts) {
+      filters = {
+        tools: true,
+        experiments: true,
+        stunts: true
+      };
+    }
+  })"
+>
   <div>
     <div class="flex gap-2 mb-4">
       Show
