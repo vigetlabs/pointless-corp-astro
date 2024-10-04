@@ -5,12 +5,12 @@ const { projects } = Astro.props;
 
 <div
   x-data="{
-    showMore: false,
-    filters: {
+    showMore: $persist(false),
+    filters: $persist({
       tools: true,
       experiments: true,
       stunts: true
-    },
+    }),
     projects: JSON.parse(JSON.stringify(projects)),
     isVisible(index, type) {
       return (index < 12 || this.showMore) && this.filters[type];
