@@ -4,15 +4,15 @@ const { label, isActive, onClick } = Astro.props;
 
 <button class="flex uppercase" @click={onClick}>
   <span
-    class="rounded-full h-6 w-6 inline-block border border-gray-light relative transition duration-300"
+    class="relative inline-block h-6 w-6 rounded-full border transition duration-300 border-gray-light"
     :class={`{ 'border-green': ${isActive}, 'border-gray-light': !${isActive} }`}
   >
     <i
-      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full transition duration-300 z-10"
+      class="absolute top-1/2 left-1/2 z-10 h-3 w-3 -translate-x-1/2 -translate-y-1/2 transform rounded-full transition duration-300"
       :class={`{ 'bg-white': ${isActive}, 'bg-gray-light': !${isActive} }`}
     ></i>
     <i
-      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full transition-all duration-300 bg-green z-0"
+      class="absolute top-1/2 left-1/2 z-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 transform rounded-full transition-all duration-300 bg-green"
       :class={`{ 'w-6 h-6': ${isActive}, 'w-3 h-3': !${isActive} }`}
     ></i>
   </span>

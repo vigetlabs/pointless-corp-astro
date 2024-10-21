@@ -1,0 +1,20 @@
+---
+import Icon from './Icon.astro';
+import { renderRichText } from '@storyblok/astro';
+
+const { href, icon, title, content } = Astro.props;
+
+function renderContent(content) {
+  return content ? renderRichText(content) : '';
+}
+---
+
+<a href={href} class="relative block md:w-1/3 px-10 text-center leading-7 pt-[284px] text-brick-light pb-[70px]">
+  <div class="absolute right-0 left-0 flex justify-center" style={`top: ${icon === 'contact' ? '64px' : icon === 'hire' ? '89px' : '100px'};`}>
+    <Icon icon={icon} />
+  </div>
+
+  <h3 class="mb-6 text-4xl uppercase font-functionpro">{title}</h3>
+  <div set:html={renderContent(content)} />
+</a>
+

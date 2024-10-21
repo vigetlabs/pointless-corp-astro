@@ -4,6 +4,7 @@ import { Image as AstroImage } from 'astro:assets';
 import { renderRichText } from '@storyblok/astro';
 import Image from './components/Image.astro';
 import ProjectList from './components/ProjectList.astro';
+import ContactLink from './components/ContactLink.astro';
 const { blok, projects } = Astro.props;
 
 function renderContent(content) {
@@ -11,15 +12,15 @@ function renderContent(content) {
 }
 ---
 
-<div class="h-screen pt-[160px] relative h-screen min-h-[480px]">
-  {blok.heroText && <p class="relative z-10 text-white text-4xl font-functionpro uppercase">{blok.heroText}</p>}
+<div class="relative h-screen pt-[160px] min-h-[480px]">
+  {blok.heroText && <p class="relative z-10 text-4xl uppercase text-white font-functionpro">{blok.heroText}</p>}
 
   {blok.featureImages && blok.featureImages.length > 0 && (
     <AstroImage
       src={blok.featureImages[0].filename}
       alt={blok.featureImages[0].title || ''}
       inferSize={true}
-      class="absolute top-0 left-0 h-full w-full object-cover z-0"
+      class="absolute top-0 left-0 z-0 h-full w-full object-cover"
     />
   )}
 </div>
@@ -55,22 +56,29 @@ function renderContent(content) {
     ))}
   </section>
 
-  <section>
-    <h2>Frequently Asked Questions</h2>
+  <section class="py-[60px]">
+    <h2 class="flex flex-col items-center gap-4 font-functionpro text-mud">
+      <Icon icon="faq" />
+      <abbr class="no-underline" title="Frequently Asked Questions">FAQ</abbr>
+    </h2>
 
-    <ul>
+    <ul class="max-w-7xl mx-auto mt-[50px]">
       {blok.faq && blok.faq.map((item, index) => (
-        <li x-data="{ expanded: false }" x-id="['faq-question', 'faq-answer']">
+        <li
+          x-data={`{ expanded: ${index === 0} }`}
+          x-id="['faq-question', 'faq-answer']"
+          class="mb-11 px-3"
+        >
           {item.question && (
-            <h3>
-              <span class="block w-6 h-6 rounded-full transition-colors duration-300 relative" :class="expanded ? 'bg-red' : 'bg-green'"><i class="block w-3 h-[2px] bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></i><i class="block w-3 h-[2px] bg-white absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-transform duration-300" :class="expanded ? 'rotate-0' : '-rotate-90'"></i></span>
+            <h3 class="pl-10 relative">
+              <span class="absolute top-0 left-0 block h-6 w-6 rounded-full transition-colors duration-300" :class="expanded ? 'bg-red' : 'bg-green'"><i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white h-[2px]"></i><i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white transition-transform duration-300 h-[2px]" :class="expanded ? 'rotate-0' : '-rotate-90'"></i></span>
 
               <button
                 @click="expanded = !expanded"
                 :aria-expanded="expanded"
                 :aria-controls="$id('faq-answer')"
                 :id="$id('faq-question')"
-                class="font-functionpro uppercase text-base text-green"
+                class="text-base uppercase font-functionpro text-green leading-6"
               >
                 {item.question}
               </button>
@@ -83,6 +91,7 @@ function renderContent(content) {
               set:html={renderContent(item.answer)}
               x-show="expanded"
               x-collapse
+              class="px-10 leading-7"
             />
           )}
         </li>
@@ -90,38 +99,32 @@ function renderContent(content) {
     </ul>
   </section>
 
-  <section id="contact" class="bg-tiled flex">
+  <section id="contact" class="md:flex bg-tiled">
     {blok.contactUs && (
-      <div class="pt-[174px] relative">
-        <div class="absolute top-[-36px] left-0 right-[7px] flex justify-center">
-          <Icon icon="contact" />
-        </div>
-
-        <h3>Contact Us</h3>
-        <div set:html={renderContent(blok.contactUs)} />
-      </div>
+      <ContactLink
+        href="https://www.viget.com/contact/"
+        icon="contact"
+        title="Contact Us"
+        content={blok.contactUs}
+      />
     )}
 
     {blok.hireViget && (
-      <div class="pt-[174px] relative">
-        <div class="absolute top-[-11px] left-0 right-0 flex justify-center">
-          <Icon icon="hire" />
-        </div>
-
-        <h3>Hire Viget</h3>
-        <div set:html={renderContent(blok.hireViget)} />
-      </div>
+      <ContactLink
+        href="https://www.viget.com/contact/"
+        icon="hire"
+        title="Hire Viget"
+        content={blok.hireViget}
+      />
     )}
 
     {blok.joinViget && (
-      <div class="pt-[174px] relative">
-        <div class="absolute top-0 left-0 right-0 flex justify-center">
-          <Icon icon="join" />
-        </div>
-
-        <h3>Join Viget</h3>
-        <div set:html={renderContent(blok.joinViget)} />
-      </div>
+      <ContactLink
+        href="https://www.viget.com/careers"
+        icon="join"
+        title="Join Viget"
+        content={blok.joinViget}
+      />
     )}
   </section>
 </div>
