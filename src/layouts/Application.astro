@@ -30,6 +30,7 @@ const navItems = [
 ];
 
 import Icon from '../storyblok/components/Icon.astro';
+import logo from '../images/svgs/logo.svg';
 import logoLarge from '../images/svgs/pointless-logo-large.svg';
 import logoLargeWhite from '../images/svgs/pointless-logo-large--white.svg';
 import iconX from '../images/svgs/x.svg';
@@ -64,51 +65,47 @@ import '../styles/global.css';
     }
   </style>
 </head>
-<body class="font-base antialiased">
-  <header class="absolute z-10 top-0 left-0 w-full flex justify-between items-center h-[160px]">
-    <h1>
-      {currentPath === "/" ? (
-        <>
-          <span class="sr-only">Pointless Corp.</span>
-          <Icon icon="logo" />
-        </>
-      ) : (
-        <>
+<body class="antialiased font-base">
+  <header class="absolute top-9 left-0 z-20 w-full px-3 px-[10px]">
+    <div class="mx-auto flex max-w-7xl items-center justify-center sm:justify-between">
+      <h1>
+        {currentPath === "/" ? (
+          <img src={logo.src} class="h-auto w-[160px]" alt="Pointless Corp." />
+        ) : (
           <a href="/">
-            <span class="sr-only">Pointless Corp.</span>
-            <Icon icon="logo" />
+            <img src={logo.src} class="h-auto w-[160px]" alt="Pointless Corp." />
           </a>
-        </>
-      )}
-    </h1>
+        )}
+      </h1>
 
-    <nav>
-      <ul class="flex gap-4 font-functionpro">
-        {navItems.map(item => (
-          <li><a class="text-white hover:underline focus:underline uppercase" href={`/#${item.href}`}>{item.text}</a></li>
-        ))}
-      </ul>
-    </nav>
+      <nav class="hidden sm:block">
+        <ul class="flex gap-4 font-functionpro">
+          {navItems.map(item => (
+            <li><a class="!text-white text-lg hover:underline focus:underline uppercase" href={`/#${item.href}`}>{item.text}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   </header>
   <main id="content">
     <slot />
   </main>
-  <footer class="flex flex-col items-center py-[50px] px-5 font-functionpro uppercase">
+  <footer class="flex flex-col items-center px-5 uppercase py-[50px] font-functionpro">
     {currentPath === "/" ? (
-      <img src={logoLarge.src} class="w-[212px] sm:w-[282px] h-auto" alt="Pointless Corp." />
+      <img src={logoLarge.src} class="h-auto w-[212px] sm:w-[282px]" alt="Pointless Corp." />
     ) : (
-      <img src={logoLargeWhite.src} class="w-[212px] sm:w-[282px] h-auto" alt="Pointless Corp." />
+      <img src={logoLargeWhite.src} class="h-auto w-[212px] sm:w-[282px]" alt="Pointless Corp." />
     )}
 
-    <p class="text-brick-dark text-xs mt-8">The innovation lab at <a class="underline text-brick-dark" href="http://viget.com">Viget</a></p>
+    <p class="mt-8 text-xs text-brick-dark">The innovation lab at <a class="underline text-brick-dark" href="http://viget.com">Viget</a></p>
 
     <p class="mt-6">
-      <a class="border border-gray-light hover:border-gray-dark focus:border-gray-dark transition duration-300 p-[13px] rounded-full inline-block" href="http://x.com/pointlesscorp">
-        <img src={iconX.src} alt="X" class="w-8 h-8" alt="X" />
+      <a class="inline-block rounded-full border transition duration-300 border-gray-light p-[13px] hover:border-gray-dark focus:border-gray-dark" href="http://x.com/pointlesscorp">
+        <img src={iconX.src} alt="X" class="h-8 w-8" alt="X" />
       </a>
     </p>
 
-    <p class="text-gray-light text-xs mt-5">&copy; {new Date().getFullYear()} Pointless Corp.</p>
+    <p class="mt-5 text-xs text-gray-light">&copy; {new Date().getFullYear()} Pointless Corp.</p>
   </footer>
 </body>
 </html>

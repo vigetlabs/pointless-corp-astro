@@ -12,8 +12,8 @@ function renderContent(content) {
 }
 ---
 
-<div class="relative h-screen pt-[160px] min-h-[480px]">
-  {blok.heroText && <p class="relative z-10 text-4xl uppercase text-white font-functionpro">{blok.heroText}</p>}
+<div class="relative h-screen px-3 pt-[160px] min-h-[480px]">
+  {blok.heroText && <p class="relative z-10 mx-auto max-w-7xl text-center uppercase text-white text-[36px] leading-[0.89em] font-functionpro sm:text-left md:text-[82px] lg:text-[96px]">{blok.heroText}</p>}
 
   {blok.featureImages && blok.featureImages.length > 0 && (
     <AstroImage
@@ -25,106 +25,137 @@ function renderContent(content) {
   )}
 </div>
 
-<div>
-  {blok.aboutText && <section id="about" class="bg-tiled-gradient" set:html={renderContent(blok.aboutText)} />}
+{blok.aboutText && (
+  <section id="about" class="bg-tiled-gradient py-[120px]">
+    <ul class="flex flex-wrap justify-center gap-20">
+      <li class="text-center uppercase font-functionpro text-mud">
+        <Icon icon="tools" />
+        <span class="mt-4 inline-block">Tools</span>
+      </li>
+      <li class="text-center uppercase font-functionpro text-mud">
+        <Icon icon="experiments" />
+        <span class="mt-4 inline-block">Experiments</span>
+      </li>
+      <li class="text-center uppercase font-functionpro text-mud">
+        <Icon icon="stunts" />
+        <span class="mt-4 inline-block">Stunts</span>
+      </li>
+    </ul>
 
-  <section id="projects">
-    <h2>Projects</h2>
-
-    {projects && (
-      <ProjectList projects={projects} />
-    )}
+    <div class="mt-12 px-3 text-center uppercase font-functionpro text-brick text-[20px] leading-[1em] md:text-[36px]">
+      <div class="mx-auto max-w-4xl about-text" set:html={renderContent(blok.aboutText)} />
+    </div>
   </section>
+)}
 
-  {blok.featureImages && blok.featureImages.length > 1 && (
-    <Image image={blok.featureImages[blok.featureImages.length - 1]} wrapperClass="w-1/2" />
+<section id="projects">
+  <h2>Projects</h2>
+
+  {projects && (
+    <ProjectList projects={projects} />
   )}
+</section>
 
-  {blok.processText && <section id="process" class="bg-tiled-gradient" set:html={renderContent(blok.processText)} />}
+{blok.featureImages && blok.featureImages.length > 1 && (
+  <Image image={blok.featureImages[blok.featureImages.length - 1]} wrapperClass="w-1/2" />
+)}
 
-  {blok.culturePhotos && blok.culturePhotos.map((image) => (
-    <Image image={image} wrapperClass="w-1/2" />
-  ))}
-
-  {blok.processPhotos && blok.processPhotos.map((image) => (
-    <Image image={image} wrapperClass="w-1/2" />
-  ))}
-
-  <section class="grid grid-cols-6">
-    {blok.generalPhotos && blok.generalPhotos.slice(0, 6).map((image) => (
-      <Image image={image} wrapperClass="col-span-3 lg:col-span-1" />
-    ))}
-  </section>
-
-  <section class="py-[60px]">
-    <h2 class="flex flex-col items-center gap-4 font-functionpro text-mud">
-      <Icon icon="faq" />
-      <abbr class="no-underline" title="Frequently Asked Questions">FAQ</abbr>
+{blok.processText && (
+  <section id="process" class="bg-tiled-gradient py-[120px]">
+    <h2 class="flex flex-col items-center gap-4 uppercase font-functionpro text-mud">
+      <Icon icon="process" />
+      Process
     </h2>
 
-    <ul class="max-w-7xl mx-auto mt-[50px]">
-      {blok.faq && blok.faq.map((item, index) => (
-        <li
-          x-data={`{ expanded: ${index === 0} }`}
-          x-id="['faq-question', 'faq-answer']"
-          class="mb-11 px-3"
-        >
-          {item.question && (
-            <h3 class="pl-10 relative">
-              <span class="absolute top-0 left-0 block h-6 w-6 rounded-full transition-colors duration-300" :class="expanded ? 'bg-red' : 'bg-green'"><i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white h-[2px]"></i><i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white transition-transform duration-300 h-[2px]" :class="expanded ? 'rotate-0' : '-rotate-90'"></i></span>
-
-              <button
-                @click="expanded = !expanded"
-                :aria-expanded="expanded"
-                :aria-controls="$id('faq-answer')"
-                :id="$id('faq-question')"
-                class="text-base uppercase font-functionpro text-green leading-6"
-              >
-                {item.question}
-              </button>
-            </h3>
-          )}
-          {item.answer && (
-            <div
-              :id="$id('faq-answer')"
-              :aria-labelledby="$id('faq-question')"
-              set:html={renderContent(item.answer)}
-              x-show="expanded"
-              x-collapse
-              class="px-10 leading-7"
-            />
-          )}
-        </li>
-      ))}
-    </ul>
+    <div class="mt-12 px-3 text-center uppercase font-functionpro text-brick text-[32px] leading-[1em] sm:text-[48px]">
+      <div class="mx-auto max-w-3xl process-text" set:html={renderContent(blok.processText)} />
+    </div>
   </section>
+)}
 
-  <section id="contact" class="md:flex bg-tiled">
-    {blok.contactUs && (
-      <ContactLink
-        href="https://www.viget.com/contact/"
-        icon="contact"
-        title="Contact Us"
-        content={blok.contactUs}
-      />
-    )}
+{blok.culturePhotos && blok.culturePhotos.map((image) => (
+  <Image image={image} wrapperClass="w-1/2" />
+))}
 
-    {blok.hireViget && (
-      <ContactLink
-        href="https://www.viget.com/contact/"
-        icon="hire"
-        title="Hire Viget"
-        content={blok.hireViget}
-      />
-    )}
+{blok.processPhotos && blok.processPhotos.map((image) => (
+  <Image image={image} wrapperClass="w-1/2" />
+))}
 
-    {blok.joinViget && (
-      <ContactLink
-        href="https://www.viget.com/careers"
-        icon="join"
-        title="Join Viget"
-        content={blok.joinViget}
-      />
-    )}
-  </section>
-</div>
+<section class="grid grid-cols-6">
+  {blok.generalPhotos && blok.generalPhotos.slice(0, 6).map((image) => (
+    <Image image={image} wrapperClass="col-span-3 lg:col-span-1" />
+  ))}
+</section>
+
+<section class="py-[60px]">
+  <h2 class="flex flex-col items-center gap-4 font-functionpro text-mud">
+    <Icon icon="faq" />
+    <abbr class="no-underline" title="Frequently Asked Questions">FAQ</abbr>
+  </h2>
+
+  <ul class="mx-auto max-w-7xl mt-[50px]">
+    {blok.faq && blok.faq.map((item, index) => (
+      <li
+        x-data={`{ expanded: ${index === 0} }`}
+        x-id="['faq-question', 'faq-answer']"
+        class="mb-11 px-3"
+      >
+        {item.question && (
+          <h3 class="relative pl-10">
+            <span class="absolute top-0 left-0 block h-6 w-6 rounded-full transition-colors duration-300" :class="expanded ? 'bg-red' : 'bg-green'"><i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white h-[2px]"></i><i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white transition-transform duration-300 h-[2px]" :class="expanded ? 'rotate-0' : '-rotate-90'"></i></span>
+
+            <button
+              @click="expanded = !expanded"
+              :aria-expanded="expanded"
+              :aria-controls="$id('faq-answer')"
+              :id="$id('faq-question')"
+              class="text-base uppercase leading-6 font-functionpro text-green"
+            >
+              {item.question}
+            </button>
+          </h3>
+        )}
+        {item.answer && (
+          <div
+            :id="$id('faq-answer')"
+            :aria-labelledby="$id('faq-question')"
+            set:html={renderContent(item.answer)}
+            x-show="expanded"
+            x-collapse
+            class="px-10 leading-7"
+          />
+        )}
+      </li>
+    ))}
+  </ul>
+</section>
+
+<section id="contact" class="bg-tiled md:flex">
+  {blok.contactUs && (
+    <ContactLink
+      href="https://www.viget.com/contact/"
+      icon="contact"
+      title="Contact Us"
+      content={blok.contactUs}
+    />
+  )}
+
+  {blok.hireViget && (
+    <ContactLink
+      href="https://www.viget.com/contact/"
+      icon="hire"
+      title="Hire Viget"
+      content={blok.hireViget}
+    />
+  )}
+
+  {blok.joinViget && (
+    <ContactLink
+      href="https://www.viget.com/careers"
+      icon="join"
+      title="Join Viget"
+      content={blok.joinViget}
+    />
+  )}
+</section>
+

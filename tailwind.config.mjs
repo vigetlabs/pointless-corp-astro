@@ -56,7 +56,7 @@ export default {
       addComponents({
         '.bg-tiled': {
           backgroundImage: `url('/src/images/patterns/bg-paper.png')`,
-          backgroundColor: 'rgba(0, 0, 0, 0.03)',
+          backgroundColor: 'rgba(0, 0, 0, 0.04)',
           backgroundBlendMode: 'overlay',
           backgroundRepeat: 'repeat',
         },
@@ -64,12 +64,27 @@ export default {
           backgroundImage: `
             linear-gradient(to right,
               rgba(0, 0, 0, 0) 50%,
-              rgba(0, 0, 0, 0.03) 50%
+              rgba(0, 0, 0, 0.04) 50%
             ),
             url('/src/images/patterns/bg-paper.png')
           `,
           backgroundRepeat: 'repeat',
-        }
+        },
+        '.about-text p + p': {
+          marginTop: '1.5em',
+        },
+        '.about-text p:nth-child(3) b:nth-child(1)': {
+          color: theme('colors.tools'),
+        },
+        '.about-text p:nth-child(3) b:nth-child(2)': {
+          color: theme('colors.experiments'),
+        },
+        '.about-text p:nth-child(3) b:nth-child(3)': {
+          color: theme('colors.stunts'),
+        },
+        '.process-text p:nth-child(1)': {
+          color: theme('colors.green.DEFAULT'),
+        },
       })
     })
   ],
