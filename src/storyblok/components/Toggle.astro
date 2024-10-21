@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  label: string;
+  type: 'tools' | 'experiments' | 'stunts';
+}
+
+const { label, type } = Astro.props;
+---
+
+<label class="flex items-center space-x-2 cursor-pointer">
+  <input
+    type="checkbox"
+    :checked={`filters.${type}`}
+    @click={`updateFilters('${type}')`}
+    class="hidden"
+  />
+  <span
+    class="w-16 h-8 inline-block rounded-full relative transition-colors duration-300"
+    :class={`filters.${type} ? 'bg-green text-green-dark' : 'bg-red text-red-dark'`}
+  >
+    <i class="rounded-full w-6 h-6 mx-1 ease-in-out bg-white absolute top-1/2 transform -translate-y-1/2 transition-all duration-300 left-0 z-10" :class={`filters.${type} ? 'translate-x-8' : 'translate-x-0'`}></i>
+    <span class="absolute right-3 top-1/2 transform -translate-y-1/2 transition-opacity duration-300 z-0" :class={`filters.${type} ? 'opacity-0' : 'opacity-100'`}><Icon icon="icon-x" /></span>
+    <span class="absolute left-3 top-1/2 transform -translate-y-1/2 transition-opacity duration-300 z-0" :class={`filters.${type} ? 'opacity-100' : 'opacity-0'`}><Icon icon="icon-check" /></span>
+  </span>
+  <span>{label}</span>
+</label>
