@@ -1,5 +1,6 @@
 ---
-import Icon from './Icon.astro';
+import iconCheck from '../../images/svgs/icon-check.svg?raw';
+import iconX from '../../images/svgs/icon-x.svg?raw';
 
 interface Props {
   label: string;
@@ -22,7 +23,7 @@ const { label, type } = Astro.props;
     :class={`filters.${type} ? 'bg-green text-green-dark' : 'bg-red text-red-dark'`}
   >
     <i class="absolute top-1/2 left-0 z-10 mx-1 h-6 w-6 -translate-y-1/2 transform rounded-full bg-white transition-all duration-300 ease-in-out" :class={`filters.${type} ? 'translate-x-8' : 'translate-x-0'`}></i>
-    <span class="absolute top-1/2 right-3 z-0 -translate-y-1/2 transform transition-opacity duration-300" :class={`filters.${type} ? 'opacity-0' : 'opacity-100'`}><Icon icon="icon-x" /></span>
-    <span class="absolute top-1/2 left-3 z-0 -translate-y-1/2 transform transition-opacity duration-300" :class={`filters.${type} ? 'opacity-100' : 'opacity-0'`}><Icon icon="icon-check" /></span>
+    <span class="absolute top-1/2 right-3 z-0 -translate-y-1/2 transform transition-opacity duration-300" :class={`filters.${type} ? 'opacity-0' : 'opacity-100'`}><Fragment set:html={iconX} /></span>
+    <span class="absolute top-1/2 left-3 z-0 -translate-y-1/2 transform transition-opacity duration-300" :class={`filters.${type} ? 'opacity-100' : 'opacity-0'`}><Fragment set:html={iconCheck} /></span>
   </span>
 </label>

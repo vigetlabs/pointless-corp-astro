@@ -1,5 +1,12 @@
 ---
-import Icon from './components/Icon.astro';
+import iconTools from '../images/svgs/tools.svg?raw';
+import iconExperiments from '../images/svgs/experiments.svg?raw';
+import iconStunts from '../images/svgs/stunts.svg?raw';
+import iconProcess from '../images/svgs/process.svg?raw';
+import iconFaq from '../images/svgs/faq.svg?raw';
+import iconContact from '../images/svgs/contact.svg?raw';
+import iconHire from '../images/svgs/hire.svg?raw';
+import iconJoin from '../images/svgs/join.svg?raw';
 import { Image as AstroImage } from 'astro:assets';
 import { renderRichText } from '@storyblok/astro';
 import Image from './components/Image.astro';
@@ -29,15 +36,15 @@ function renderContent(content) {
   <section id="about" class="bg-tiled-gradient py-[120px]">
     <ul class="flex flex-wrap justify-center gap-20">
       <li class="text-center uppercase font-functionpro text-mud">
-        <Icon icon="tools" />
+        <Fragment set:html={iconTools} />
         <span class="mt-4 inline-block">Tools</span>
       </li>
       <li class="text-center uppercase font-functionpro text-mud">
-        <Icon icon="experiments" />
+        <Fragment set:html={iconExperiments} />
         <span class="mt-4 inline-block">Experiments</span>
       </li>
       <li class="text-center uppercase font-functionpro text-mud">
-        <Icon icon="stunts" />
+        <Fragment set:html={iconStunts} />
         <span class="mt-4 inline-block">Stunts</span>
       </li>
     </ul>
@@ -63,7 +70,7 @@ function renderContent(content) {
 {blok.processText && (
   <section id="process" class="bg-tiled-gradient py-[120px]">
     <h2 class="flex flex-col items-center gap-4 uppercase font-functionpro text-mud">
-      <Icon icon="process" />
+      <Fragment set:html={iconProcess} />
       Process
     </h2>
 
@@ -89,7 +96,7 @@ function renderContent(content) {
 
 <section class="py-[60px]">
   <h2 class="flex flex-col items-center gap-4 font-functionpro text-mud">
-    <Icon icon="faq" />
+    <Fragment set:html={iconFaq} />
     <abbr class="no-underline" title="Frequently Asked Questions">FAQ</abbr>
   </h2>
 
@@ -134,27 +141,30 @@ function renderContent(content) {
   {blok.contactUs && (
     <ContactLink
       href="https://www.viget.com/contact/"
-      icon="contact"
+      icon={iconContact}
       title="Contact Us"
       content={blok.contactUs}
+      topPosition="64px"
     />
   )}
 
   {blok.hireViget && (
     <ContactLink
       href="https://www.viget.com/contact/"
-      icon="hire"
+      icon={iconHire}
       title="Hire Viget"
       content={blok.hireViget}
+      topPosition="89px"
     />
   )}
 
   {blok.joinViget && (
     <ContactLink
       href="https://www.viget.com/careers"
-      icon="join"
+      icon={iconJoin}
       title="Join Viget"
       content={blok.joinViget}
+      topPosition="100px"
     />
   )}
 </section>
