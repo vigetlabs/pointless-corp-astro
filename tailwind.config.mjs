@@ -33,6 +33,7 @@ export default {
       tools: '#d0585d',
     },
     screens: {
+      xs: '520px',
       sm: '640px',
       md: '720px',
       lg: '1000px',

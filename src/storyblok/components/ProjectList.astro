@@ -8,6 +8,7 @@ const { projects } = Astro.props;
 ---
 
 <div
+  class="px-3"
   x-data="{
     showMore: $persist(false),
     filters: $persist({
@@ -46,16 +47,16 @@ const { projects } = Astro.props;
     }
   })"
 >
-  <div class="flex justify-between text-sm uppercase font-functionpro">
-    <div class="flex gap-4">
-      <span class="">Filter:</span>
+  <div class="hidden sm:flex flex-col lg:flex-row justify-center items-center text-sm uppercase font-functionpro mt-10">
+    <div class="flex gap-2 items-center lg:mr-7">
+      <span class="text-brick-light">Filter:</span>
       <Toggle label="Tools" type="tools" />
       <Toggle label="Experiments" type="experiments" />
       <Toggle label="Stunts" type="stunts" />
     </div>
 
-    <div class="flex gap-2">
-      <span class="">Show:</span>
+    <div class="flex gap-5 items-center mt-5 lg:mt-0 lg:pl-7 lg:border-l lg:border-[#f3e6cf]">
+      <span class="text-brick-light">Show:</span>
 
       <ToggleButton
         label="Top 12"
@@ -70,40 +71,42 @@ const { projects } = Astro.props;
     </div>
   </div>
 
-  <ul class="grid grid-cols-3 gap-5">
-    {projects.map((project, index) => {
-      const { content } = project;
-      const backgroundColor = content.backgroundColor?.color || '#000';
-      const textColor = content.textColor?.color || '#fff';
+  <div class="max-w-7xl mx-auto p-8 bg-brick rounded-xl mt-5">
+    <ul class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
+      {projects.map((project, index) => {
+        const { content } = project;
+        const backgroundColor = content.backgroundColor?.color || '#000';
+        const textColor = content.textColor?.color || '#fff';
 
-      return (
-        <li
-          class="project-item"
-          data-type={content.type}
-          style={`
-            --projectBackgroundColor: ${backgroundColor};
-            --projectTextColor: ${textColor};
-          `}
-          x-show={`isVisible(${index}, '${content.type}')`}
-        >
-          <a href={`/${project.slug}`}>
-            {content.icon && <Image image={content.icon} />}
+        return (
+          <li
+            class="project-item rounded"
+            data-type={content.type}
+            style={`
+              --projectBackgroundColor: ${backgroundColor};
+              --projectTextColor: ${textColor};
+            `}
+            x-show={`isVisible(${index}, '${content.type}')`}
+          >
+            <a href={`/${project.slug}`}>
+              {content.icon && <Image image={content.icon} />}
 
-            <h3>{project.name}</h3>
+              <h3>{project.name}</h3>
 
-            {content.tagline && <p>{content.tagline}</p>}
+              {content.tagline && <p>{content.tagline}</p>}
 
-            <span class="block w-[120px] h-[120px]">
-              <Icon icon={`stamp-${content.type}`} />
-            </span>
-          </a>
-        </li>
-      );
-    })}
-  </ul>
+              <span class="block w-[120px] h-[120px]">
+                <Icon icon={`stamp-${content.type}`} />
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
 
-  <button @click="showMore = true" x-show="!showMore">Load More</button>
-</div>
+  <button class="flex items-center mx-auto mt-11 text-xs uppercase font-functionpro text-red-dark border-red-dark border-[5px] rounded-full w-[130px] h-[130px] px-7 hover:bg-red-dark hover:text-white transition-colors duration-300" @click="showMore = true" x-show="!showMore"><span class="inline-block">View More Projects</span></button>
+  </div>
 
 <style>
   .project-item {
