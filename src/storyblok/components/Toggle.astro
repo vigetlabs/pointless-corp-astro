@@ -9,13 +9,14 @@ interface Props {
 const { label, type } = Astro.props;
 ---
 
-<label class="flex cursor-pointer items-center space-x-2">
+<label class="flex cursor-pointer items-center space-x-3">
   <input
     type="checkbox"
     :checked={`filters.${type}`}
     @click={`updateFilters('${type}')`}
     class="hidden"
   />
+  <span class="text-mud-light">{label}</span>
   <span
     class="relative inline-block h-8 w-16 rounded-full transition-colors duration-300"
     :class={`filters.${type} ? 'bg-green text-green-dark' : 'bg-red text-red-dark'`}
@@ -24,5 +25,4 @@ const { label, type } = Astro.props;
     <span class="absolute top-1/2 right-3 z-0 -translate-y-1/2 transform transition-opacity duration-300" :class={`filters.${type} ? 'opacity-0' : 'opacity-100'`}><Icon icon="icon-x" /></span>
     <span class="absolute top-1/2 left-3 z-0 -translate-y-1/2 transform transition-opacity duration-300" :class={`filters.${type} ? 'opacity-100' : 'opacity-0'`}><Icon icon="icon-check" /></span>
   </span>
-  <span>{label}</span>
 </label>
