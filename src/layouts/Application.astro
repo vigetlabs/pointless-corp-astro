@@ -17,17 +17,34 @@ const finalColors = {
   linkColor: themeColors?.linkColor ?? defaultColors.linkColor,
 };
 
-// Add this line to get the current path
+// Get the current path
 const currentPath = Astro.url.pathname;
+
+// Navigation items
+const navItems = [
+  { href: 'about', text: 'About' },
+  { href: 'projects', text: 'Projects' },
+  { href: 'process', text: 'Process' },
+  { href: 'faq', text: 'FAQ' },
+  { href: 'contact', text: 'Contact' },
+];
+
+import Icon from '../storyblok/components/Icon.astro';
+import logoLarge from '../images/svgs/pointless-logo-large.svg';
+import logoLargeWhite from '../images/svgs/pointless-logo-large--white.svg';
+import iconX from '../images/svgs/x.svg';
+import '../styles/global.css';
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="/favicon.png">
+
   <title>{title}</title>
+
   <style define:vars={finalColors}>
     :root {
       --backgroundColor: {finalColors.backgroundColor};
@@ -36,38 +53,62 @@ const currentPath = Astro.url.pathname;
       --linkColor: {finalColors.linkColor};
     }
 
-    body {
+    body,
+    footer {
       background-color: var(--backgroundColor);
       color: var(--textColor);
     }
 
-    a {
+    body a {
       color: var(--linkColor);
     }
   </style>
 </head>
-<body>
-  <header>
-    {currentPath === "/" ? (
-      <h1>Pointless Corp.</h1>
-    ) : (
-      <h1><a href="/">Pointless Corp.</a></h1>
-    )}
+<body class="font-base antialiased">
+  <header class="absolute z-10 top-0 left-0 w-full flex justify-between items-center h-[160px]">
+    <h1>
+      {currentPath === "/" ? (
+        <>
+          <span class="sr-only">Pointless Corp.</span>
+          <Icon icon="logo" />
+        </>
+      ) : (
+        <>
+          <a href="/">
+            <span class="sr-only">Pointless Corp.</span>
+            <Icon icon="logo" />
+          </a>
+        </>
+      )}
+    </h1>
 
     <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <ul class="flex gap-4 font-functionpro">
+        {navItems.map(item => (
+          <li><a class="text-white hover:underline focus:underline uppercase" href={`/#${item.href}`}>{item.text}</a></li>
+        ))}
       </ul>
     </nav>
   </header>
-  <main>
+  <main id="content">
     <slot />
   </main>
-  <footer>
+  <footer class="flex flex-col items-center space-y-6 py-12 px-5 font-functionpro uppercase">
+    {currentPath === "/" ? (
+      <img src={logoLarge.src} class="w-[280px] h-auto" alt="Pointless Corp." />
+    ) : (
+      <img src={logoLargeWhite.src} class="w-[280px] h-auto" alt="Pointless Corp." />
+    )}
+
+    <p class="text-brick-dark text-xs">The innovation lab at <a class="underline text-brick-dark" href="http://viget.com">Viget</a></p>
+
+    <p>
+      <a class="border border-gray-light hover:border-gray-dark focus:border-gray-dark transition duration-300 p-[13px] rounded-full inline-block" href="http://x.com/pointlesscorp">
+        <img src={iconX.src} alt="X" class="w-8 h-8" alt="X" />
+      </a>
+    </p>
+
+    <p class="text-gray-light text-xs">&copy; {new Date().getFullYear()} Pointless Corp.</p>
   </footer>
 </body>
 </html>

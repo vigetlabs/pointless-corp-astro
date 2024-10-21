@@ -1,11 +1,20 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+import plugin from 'tailwindcss/plugin'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     colors: {
+      white: '#fff',
+      gray: {
+        dark: '#373939',
+        light: '#d2cfc8',
+      },
       brick: {
         light: '#5f5250',
         DEFAULT: '#482723',
+        dark: '#47170d',
       },
       green: {
         DEFAULT: '#94b991',
@@ -35,8 +44,33 @@ export default {
         '3xl': '740px',
         '4xl': '960px',
         '7xl': '1220px',
-      }
+      },
+      fontFamily: {
+        base: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+        functionpro: ['FunctionPro', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addComponents, theme }) {
+      addComponents({
+        '.bg-tiled': {
+          backgroundImage: `url('/src/images/patterns/bg-paper.png')`,
+          backgroundColor: 'rgba(0, 0, 0, 0.03)',
+          backgroundBlendMode: 'overlay',
+          backgroundRepeat: 'repeat',
+        },
+        '.bg-tiled-gradient': {
+          backgroundImage: `
+            linear-gradient(to right,
+              rgba(0, 0, 0, 0) 50%,
+              rgba(0, 0, 0, 0.03) 50%
+            ),
+            url('/src/images/patterns/bg-paper.png')
+          `,
+          backgroundRepeat: 'repeat',
+        }
+      })
+    })
+  ],
 }

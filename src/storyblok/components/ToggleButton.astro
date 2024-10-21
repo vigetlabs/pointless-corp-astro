@@ -1,0 +1,21 @@
+---
+const { label, isActive, onClick } = Astro.props;
+---
+
+<button class="flex uppercase" @click={onClick}>
+  <span
+    class="rounded-full h-6 w-6 inline-block border border-gray-light relative transition duration-300"
+    :class={`{ 'border-green': ${isActive}, 'border-gray-light': !${isActive} }`}
+  >
+    <i
+      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full transition duration-300 z-10"
+      :class={`{ 'bg-white': ${isActive}, 'bg-gray-light': !${isActive} }`}
+    ></i>
+    <i
+      class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full transition-all duration-300 bg-green z-0"
+      :class={`{ 'w-6 h-6': ${isActive}, 'w-3 h-3': !${isActive} }`}
+    ></i>
+  </span>
+  {label}
+</button>
+

@@ -1,5 +1,9 @@
 ---
+import Icon from './Icon.astro';
 import Image from './Image.astro';
+import ToggleButton from './ToggleButton.astro';
+import Toggle from './Toggle.astro';
+
 const { projects } = Astro.props;
 ---
 
@@ -42,35 +46,27 @@ const { projects } = Astro.props;
     }
   })"
 >
-  <div>
-    <div class="flex gap-2 mb-4">
-      Show
-      <button class="flex" @click="showMore = false">
-        <span
-          class="rounded-full h-6 w-6 inline-block"
-          :class="{ 'bg-green': !showMore, 'bg-red': showMore }"
-        ></span>
-        Top 12
-      </button>
-      <button class="flex" @click="showMore = true">
-        <span
-          class="rounded-full h-6 w-6 inline-block"
-          :class="{ 'bg-green': showMore, 'bg-red': !showMore }"
-        ></span>
-        All
-      </button>
+  <div class="flex justify-between font-functionpro text-sm uppercase">
+    <div class="flex gap-4">
+      <span class="">Filter:</span>
+      <Toggle label="Tools" type="tools" />
+      <Toggle label="Experiments" type="experiments" />
+      <Toggle label="Stunts" type="stunts" />
     </div>
 
-    <div class="flex gap-4 mb-4">
-      <label>
-        <input type="checkbox" :checked="filters.tools" @click="updateFilters('tools')"> Tools
-      </label>
-      <label>
-        <input type="checkbox" :checked="filters.experiments" @click="updateFilters('experiments')"> Experiments
-      </label>
-      <label>
-        <input type="checkbox" :checked="filters.stunts" @click="updateFilters('stunts')"> Stunts
-      </label>
+    <div class="flex gap-2">
+      <span class="">Show:</span>
+
+      <ToggleButton
+        label="Top 12"
+        isActive="!showMore"
+        onClick="showMore = false"
+      />
+      <ToggleButton
+        label="All"
+        isActive="showMore"
+        onClick="showMore = true"
+      />
     </div>
   </div>
 
@@ -92,8 +88,14 @@ const { projects } = Astro.props;
         >
           <a href={`/${project.slug}`}>
             {content.icon && <Image image={content.icon} />}
+
             <h3>{project.name}</h3>
+
             {content.tagline && <p>{content.tagline}</p>}
+
+            <span class="block w-[120px] h-[120px]">
+              <Icon icon={`stamp-${content.type}`} />
+            </span>
           </a>
         </li>
       );
