@@ -93,6 +93,14 @@ export default {
         '.caption-peek:hover figcaption': {
           transform: 'translateY(0)',
         },
+        '.faq-text a': {
+          color: theme('colors.red.dark'),
+          textDecoration: 'underline',
+          fontWeight: 'bold',
+        },
+        '.faq-text a:hover': {
+          textDecoration: 'none',
+        },
       })
     })
   ],

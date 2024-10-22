@@ -6,7 +6,7 @@ const defaultColors = {
   backgroundColor: '#fff',
   accentColor: '#000',
   textColor: '#333',
-  linkColor: '#00f',
+  linkColor: '',
 };
 
 // Merge provided colors with defaults, using nullish coalescing to handle undefined themeColors
@@ -96,7 +96,7 @@ import '../styles/global.css';
       <img src={logoLargeWhite.src} class="h-auto w-[212px] sm:w-[282px]" alt="Pointless Corp." />
     )}
 
-    <p class="mt-8 text-xs text-brick-dark">The innovation lab at <a class="underline text-brick-dark" href="http://viget.com">Viget</a></p>
+    <p class="mt-8 text-xs text-brick-dark">The innovation lab at <a class="underline text-brick-dark hover:no-underline focus:no-underline" href="http://viget.com">Viget</a></p>
 
     <p class="mt-6">
       <a class="inline-block rounded-full border transition duration-300 border-gray-light p-[13px] hover:border-gray-dark focus:border-gray-dark" href="http://x.com/pointlesscorp">
