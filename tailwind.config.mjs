@@ -8,6 +8,7 @@ export default {
     colors: {
       white: '#fff',
       gray: {
+        darker: '#22201f',
         dark: '#373939',
         light: '#d2cfc8',
       },
@@ -85,6 +86,12 @@ export default {
         },
         '.process-text p:nth-child(1)': {
           color: theme('colors.green.DEFAULT'),
+        },
+        '.caption-peek figcaption': {
+          transform: 'translateY(100%)',
+        },
+        '.caption-peek:hover figcaption': {
+          transform: 'translateY(0)',
         },
       })
     })
