@@ -56,7 +56,7 @@ function renderContent(content) {
 )}
 
 <section id="projects" class="py-[60px]">
-  <h2 class="text-center uppercase font-functionpro text-brick-light text-4xl">Projects</h2>
+  <h2 class="text-center text-4xl uppercase font-functionpro text-brick-light">Projects</h2>
 
   {projects && (
     <ProjectList projects={projects} />
@@ -64,7 +64,12 @@ function renderContent(content) {
 </section>
 
 {blok.featureImages && blok.featureImages.length > 1 && (
-  <Image image={blok.featureImages[blok.featureImages.length - 1]} wrapperClass="w-1/2" />
+  <Image
+    image={blok.featureImages[blok.featureImages.length - 1]}
+    className="w-full"
+    wrapperClass="w-full relative"
+    captionClass="absolute bottom-10 left-[8%] right-[8%] text-white text-xs uppercase font-functionpro"
+  />
 )}
 
 {blok.processText && (
@@ -80,17 +85,27 @@ function renderContent(content) {
   </section>
 )}
 
-{blok.culturePhotos && blok.culturePhotos.map((image) => (
-  <Image image={image} wrapperClass="w-1/2" />
-))}
+<div class="grid grid-cols-1 lg:grid-cols-2">
+  {blok.culturePhotos && (
+    <div class="relative col-span-1 grid grid-cols-2 lg:grid-cols-1">
+      {blok.culturePhotos.slice(0, 4).map((image) => (
+        <Image image={image} wrapperClass="caption-peek overflow-hidden relative lg:absolute lg:inset-0" className="w-full" captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out" />
+      ))}
+    </div>
+  )}
 
-{blok.processPhotos && blok.processPhotos.map((image) => (
-  <Image image={image} wrapperClass="w-1/2" />
-))}
+  {blok.processPhotos && (
+    <div class="col-span-1 grid grid-cols-2">
+      {blok.processPhotos.slice(0, 4).map((image) => (
+        <Image image={image} wrapperClass="caption-peek overflow-hidden relative col-span-1 row-span-1" className="w-full" captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out" />
+      ))}
+    </div>
+  )}
+</div>
 
 <section class="grid grid-cols-6">
   {blok.generalPhotos && blok.generalPhotos.slice(0, 6).map((image) => (
-    <Image image={image} wrapperClass="col-span-3 lg:col-span-1" />
+    <Image image={image} wrapperClass="col-span-3 lg:col-span-1" captionClass="hidden" />
   ))}
 </section>
 
