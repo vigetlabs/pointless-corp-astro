@@ -2,10 +2,24 @@
 import { Image } from 'astro:assets';
 const { blok } = Astro.props;
 
+import circle from '../../../src/images/svgs/circle.svg?raw';
+
 // Ensure we have a valid image URL
 const imageUrl = blok.image?.filename || ''
 ---
 
 {imageUrl && (
-  <Image src={imageUrl} alt={blok.alt || ''} inferSize={true} />
+  <div class="image-blok max-w-7xl mx-auto my-10 relative">
+    <Image src={imageUrl} alt={blok.alt || ''} class="w-full h-auto relative z-10" inferSize={true} />
+
+    <div class="h-full w-full max-w-4xl top-0 z-0 absolute left-1/2 transform -translate-x-1/2 text-center">
+      <Fragment set:html={circle} />
+    </div>
+  </div>
 )}
+
+<style>
+  .image-blok {
+    color: var(--accentColor);
+  }
+</style>
