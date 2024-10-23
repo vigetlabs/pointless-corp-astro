@@ -85,11 +85,51 @@ function renderContent(content) {
   </section>
 )}
 
-<div class="grid grid-cols-1 lg:grid-cols-2">
+<div class="grid grid-cols-1 lg:grid-cols-2"
+  x-data="{
+    currentIndex: 0,
+    isHovering: false,
+    intervalId: null,
+
+    rotate() {
+      if (!this.isHovering) {
+        this.currentIndex = (this.currentIndex + 1) % 4;
+      }
+    },
+
+    startRotation() {
+      this.intervalId = setInterval(() => this.rotate(), 5000);
+    },
+
+    stopRotation() {
+      clearInterval(this.intervalId);
+    }
+  }"
+  x-init="startRotation()"
+>
   {blok.culturePhotos && (
-    <div class="relative col-span-1 grid grid-cols-2 lg:grid-cols-1">
-      {blok.culturePhotos.slice(0, 4).map((image) => (
-        <Image image={image} wrapperClass="caption-peek overflow-hidden relative lg:absolute lg:inset-0" className="w-full" captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out" />
+    <div class="relative col-span-1 grid grid-cols-2 lg:grid-cols-1"
+      @mouseenter="isHovering = true; stopRotation()"
+      @mouseleave="isHovering = false; startRotation()"
+    >
+      {blok.culturePhotos.slice(0, 4).map((image, index) => (
+        <div
+          class="relative lg:absolute lg:inset-0"
+          x-show={`currentIndex === ${index}`}
+          x-transition:enter="transition ease-in-out duration-700"
+          x-transition:enter-start="opacity-0"
+          x-transition:enter-end="opacity-100"
+          x-transition:leave="transition ease-in-out duration-700"
+          x-transition:leave-start="opacity-100"
+          x-transition:leave-end="opacity-0"
+        >
+          <Image
+            image={image}
+            wrapperClass="caption-peek relative overflow-hidden"
+            className="w-full"
+            captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out"
+          />
+        </div>
       ))}
     </div>
   )}
