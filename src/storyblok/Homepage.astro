@@ -90,22 +90,36 @@ function renderContent(content) {
     currentIndex: 0,
     isHovering: false,
     intervalId: null,
+    prefersReducedMotion: false,
 
     rotate() {
-      if (!this.isHovering) {
+      if (!this.isHovering && !this.prefersReducedMotion) {
         this.currentIndex = (this.currentIndex + 1) % 4;
       }
     },
 
     startRotation() {
-      this.intervalId = setInterval(() => this.rotate(), 5000);
+      if (!this.prefersReducedMotion) {
+        this.intervalId = setInterval(() => this.rotate(), 5000);
+      }
     },
 
     stopRotation() {
       clearInterval(this.intervalId);
+    },
+
+    checkReducedMotion() {
+      this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     }
   }"
-  x-init="startRotation()"
+  x-init="checkReducedMotion(); startRotation();
+    $watch('prefersReducedMotion', value => {
+      if (value) {
+        stopRotation();
+      } else {
+        startRotation();
+      }
+    })"
 >
   {blok.culturePhotos && (
     <div class="relative col-span-1 grid grid-cols-2 lg:grid-cols-1"
