@@ -101,6 +101,12 @@ export default {
         '.faq-text a:hover': {
           textDecoration: 'none',
         },
+        '.contact-link b': {
+          textDecoration: 'underline',
+        },
+        '.contact-link:hover b': {
+          textDecoration: 'none',
+        },
       })
     })
   ],
