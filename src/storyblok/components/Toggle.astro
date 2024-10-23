@@ -19,7 +19,7 @@ const { label, type } = Astro.props;
   />
   <span class="text-mud-light">{label}</span>
   <span
-    class="relative inline-block h-8 w-16 rounded-full peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 peer-focus:ring-offset-2 transition-colors duration-300 toggle-switch"
+    class="relative inline-block h-8 w-16 rounded-full peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500 peer-focus-visible:ring-offset-2 transition-colors duration-300"
     :class={`filters.${type} ? 'bg-green text-green-dark' : 'bg-red text-red-dark'`}
   >
     <i class="absolute top-1/2 left-0 z-10 mx-1 h-6 w-6 -translate-y-1/2 transform rounded-full bg-white transition-all duration-300 ease-in-out" :class={`filters.${type} ? 'translate-x-8' : 'translate-x-0'`}></i>
