@@ -20,10 +20,8 @@ function renderContent(content) {
 }
 ---
 
-<article class="project">
-
-  <!-- Project Title -->
-  <h1>{name}</h1>
+<article class="project pt-20 px-5">
+  <h1 class="sr-only">{name}</h1>
 
   <!-- Project Logo or Fallback Image -->
   {blok.logo?.filename ? (
@@ -31,51 +29,71 @@ function renderContent(content) {
       src={blok.logo.filename}
       inferSize={true}
       alt=""
+      class="mb-5 mx-auto max-w-full block"
     />
   ) : (
     <Image
       src={fallback}
       inferSize={true}
       alt=""
+      class="mb-5 mx-auto max-w-full block"
     />
   )}
 
   <!-- Project Details -->
-  <ul>
+  <ul class="metatable table border-collapse mx-auto text-center uppercase font-functionpro">
     {blok.url && (
-      <li>
-        <a href={blok.url}>
-          {blok.url.replace(/^(https?:\/\/)?(www\.)?/i, '').split('/')[0]}
-        </a>
+      <li class="table-cell border">
+        <span class="metatable-label block border-b px-3 text-[10px] py-[2px]">Visit</span>
+        <span class="metatable-value block px-5 py-[2px]">
+          <a href={blok.url}>
+            {(() => {
+              const parts = blok.url.replace(/^(https?:\/\/)?(www\.)?/i, '').split('/');
+              return parts[0] + (parts[1] ? '/' + parts[1] : '');
+            })()}
+          </a>
+        </span>
       </li>
     )}
     {blok.xHandle && (
-      <li>
-        <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">@{blok.xHandle}</a>
+      <li class="table-cell border">
+        <span class="metatable-label block border-b px-3 text-[10px] py-[2px]">Follow</span>
+        <span class="metatable-value block px-5 py-[2px]">
+          <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">@{blok.xHandle}</a>
+        </span>
       </li>
     )}
     {blok.type && (
-      <li>
-        {blok.type}
+      <li class="table-cell border">
+        <span class="metatable-label block border-b px-3 text-[10px] py-[2px]">Type</span>
+        <span class="metatable-value block px-5 py-[2px]">
+          {blok.type}
+        </span>
       </li>
     )}
     {blok.launchDate && (
-      <li>
-        {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
+      <li class="table-cell border">
+        <span class="metatable-label block border-b px-3 text-[10px] py-[2px]">Launched</span>
+        <span class="metatable-value block px-5 py-[2px]">
+          {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
+        </span>
       </li>
     )}
-    <li>
-      {blok.retiredDate ? 'archived' : 'active'}
+    <li class="table-cell border">
+      <span class="metatable-label block border-b px-3 text-[10px] py-[2px]">Status</span>
+      <span class="metatable-value block px-5 py-[2px]">
+        {blok.retiredDate ? 'archived' : 'active'}
+      </span>
     </li>
   </ul>
 
   <!-- Project Description -->
-  {blok.description && <section set:html={renderContent(blok.description)} />}
+  {blok.description && <section class="project-description max-w-3xl my-[60px] mx-auto text-center text-[24px] leading-[1.6em]" set:html={renderContent(blok.description)} />}
 
   <!-- Example Blocks -->
   {blok.examples && blok.examples.length > 0 && (
     <>
-      <h2>Examples</h2>
+      <h2 class="sr-only">Examples</h2>
 
       {blok.examples.map((nestedBlok) => (
         <StoryblokComponent blok={nestedBlok} />
@@ -86,7 +104,7 @@ function renderContent(content) {
   <!-- Project Process Images -->
   {blok.process && blok.process.length > 0 && (
     <>
-      <h2>Process</h2>
+      <h2 class="sr-only">Process</h2>
 
       <ul>
         {blok.process.map((image) => (
@@ -143,5 +161,14 @@ function renderContent(content) {
   .project a {
     color: var(--linkColor);
     text-decoration: underline;
+  }
+
+  .metatable li,
+  .metatable-label {
+    border-color: var(--accentColor);
+  }
+
+  .metatable-value {
+    color: var(--linkColor);
   }
 </style>
