@@ -149,8 +149,13 @@ const { projects } = Astro.props;
     </ul>
   </div>
 
-  <button class="mx-auto mt-11 flex items-center rounded-full px-7 text-xs uppercase transition-colors duration-300 font-functionpro text-red-dark border-red-dark border-[5px] w-[130px] h-[130px] hover:bg-red-dark hover:text-white" @click="showMore = true" x-show="!showMore"><span class="inline-block">View More Projects</span></button>
-  </div>
+  <button
+    class="mx-auto mt-11 flex items-center rounded-full px-7 text-xs uppercase transition-colors duration-300 font-functionpro text-red-dark border-red-dark border-[5px] w-[130px] h-[130px] hover:bg-red-dark hover:text-white"
+    @click="showMore = true"
+    x-show="!showMore">
+      <span class="inline-block">View More Projects</span>
+  </button>
+</div>
 
 <style>
   .project-item {
