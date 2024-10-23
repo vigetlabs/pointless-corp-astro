@@ -91,11 +91,15 @@ const { projects } = Astro.props;
 
       <ToggleButton
         label="Top 12"
+        name="showAmount"
+        value="top12"
         isActive="!showMore"
         onClick="showMore = false"
       />
       <ToggleButton
         label="All"
+        name="showAmount"
+        value="all"
         isActive="showMore"
         onClick="showMore = true"
       />

@@ -1,10 +1,18 @@
 ---
-const { label, isActive, onClick } = Astro.props;
+const { label, name, value, isActive, onClick } = Astro.props;
 ---
 
-<button class="flex items-center uppercase group space-x-2 focus:outline-none" @click={onClick}>
+<label class="flex items-center uppercase group space-x-2 cursor-pointer">
+  <input
+    type="radio"
+    name={name}
+    value={value}
+    checked={isActive}
+    @click={onClick}
+    class="sr-only peer"
+  />
   <span
-    class="relative inline-block h-6 w-6 rounded-full border group-focus-visible:outline-none group-focus-visible:ring-2 group-focus-visible:ring-blue-500 group-focus-visible:ring-offset-2 toggle-switch border-gray-light"
+    class="relative inline-block h-6 w-6 rounded-full border peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500 peer-focus-visible:ring-offset-2"
     :class={`{ 'border-green': ${isActive}, 'border-gray-light': !${isActive} }`}
   >
     <i
@@ -17,4 +25,4 @@ const { label, isActive, onClick } = Astro.props;
     ></i>
   </span>
   <span class="text-mud-light">{label}</span>
-</button>
+</label>
