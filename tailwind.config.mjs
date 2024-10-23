@@ -107,6 +107,9 @@ export default {
         '.contact-link:hover b': {
           textDecoration: 'none',
         },
+        '.project-item:hover .stamp-icon': {
+          transform: 'rotate3d(0, 1, 0, 360deg)',
+        },
       })
     })
   ],

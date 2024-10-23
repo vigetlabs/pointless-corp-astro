@@ -19,6 +19,21 @@ function getIconStamp(type) {
   }
 }
 
+function getContrastColor(hexColor) {
+  // Remove the hash at the start if it's there
+  hexColor = hexColor.replace(/^#/, '');
+
+  // Parse the color to RGB
+  const r = parseInt(hexColor.substring(0, 2), 16);
+  const g = parseInt(hexColor.substring(2, 4), 16);
+  const b = parseInt(hexColor.substring(4, 6), 16);
+
+  // Calculate the perceptive luminance (aka luma) - human eye favors green color
+  const luma = ((0.299 * r) + (0.587 * g) + (0.114 * b)) / 255;
+
+  // Return black for bright colors, white for dark colors
+  return luma > 0.5 ? '#000' : '#FFF';
+}
 
 const { projects } = Astro.props;
 ---
@@ -63,8 +78,8 @@ const { projects } = Astro.props;
     }
   })"
 >
-  <div class="hidden sm:flex flex-col lg:flex-row justify-center items-center text-sm uppercase font-functionpro mt-10">
-    <div class="flex gap-2 items-center lg:mr-7">
+  <div class="mt-10 hidden flex-col items-center justify-center text-sm uppercase font-functionpro sm:flex lg:flex-row">
+    <div class="flex items-center gap-2 lg:mr-7">
       <span class="text-brick-light">Filter:</span>
       <Toggle label="Tools" type="tools" />
       <Toggle label="Experiments" type="experiments" />
@@ -87,31 +102,34 @@ const { projects } = Astro.props;
     </div>
   </div>
 
-  <div class="max-w-7xl mx-auto p-8 bg-brick rounded-xl mt-5">
-    <ul class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
+  <div class="mx-auto mt-5 max-w-7xl rounded-xl p-8 bg-brick">
+    <ul class="grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
       {projects.map((project, index) => {
         const { content } = project;
         const backgroundColor = content.backgroundColor?.color || '#000';
-        const textColor = content.textColor?.color || '#fff';
+        const textColor = getContrastColor(backgroundColor);
+        const stampColor = content.linkColor?.color || '#FFF';
 
         return (
           <li
-            class="project-item rounded"
+            class="relative overflow-hidden rounded pb-20 project-item"
             data-type={content.type}
             style={`
               --projectBackgroundColor: ${backgroundColor};
               --projectTextColor: ${textColor};
+              --projectStampColor: ${stampColor};
             `}
             x-show={`isVisible(${index}, '${content.type}')`}
           >
-            <a href={`/${project.slug}`}>
-              {content.icon && <Image image={content.icon} />}
+            <a href={`/${project.slug}`} class="block text-center">
+              {content.icon && <Image image={content.icon} className="h-auto w-full" captionClass="hidden" />}
 
-              <h3>{project.name}</h3>
+              <div class="-mt-12 px-3">
+                <h3 class="text-xl uppercase font-functionpro">{project.name}</h3>
+                {content.tagline && <p class="text-xs">{content.tagline}</p>}
+              </div>
 
-              {content.tagline && <p>{content.tagline}</p>}
-
-              <span class="block w-[120px] h-[120px]">
+              <span class="pointer-events-none absolute -bottom-14 left-1/2 block transition-transform duration-300 ease-linear stamp-icon w-[120px] h-[120px] ml-[-60px]">
                 <Fragment set:html={getIconStamp(content.type)} />
               </span>
             </a>
@@ -121,7 +139,7 @@ const { projects } = Astro.props;
     </ul>
   </div>
 
-  <button class="flex items-center mx-auto mt-11 text-xs uppercase font-functionpro text-red-dark border-red-dark border-[5px] rounded-full w-[130px] h-[130px] px-7 hover:bg-red-dark hover:text-white transition-colors duration-300" @click="showMore = true" x-show="!showMore"><span class="inline-block">View More Projects</span></button>
+  <button class="mx-auto mt-11 flex items-center rounded-full px-7 text-xs uppercase transition-colors duration-300 font-functionpro text-red-dark border-red-dark border-[5px] w-[130px] h-[130px] hover:bg-red-dark hover:text-white" @click="showMore = true" x-show="!showMore"><span class="inline-block">View More Projects</span></button>
   </div>
 
 <style>
@@ -130,13 +148,7 @@ const { projects } = Astro.props;
     color: var(--projectTextColor);
   }
 
-  .project-item a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .project-item h3,
-  .project-item p {
-    color: inherit;
+  .project-item .stamp-icon {
+    color: var(--projectStampColor);
   }
 </style>
