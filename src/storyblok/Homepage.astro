@@ -91,15 +91,16 @@ function renderContent(content) {
     isHovering: false,
     intervalId: null,
     prefersReducedMotion: false,
+    isLargeScreen: window.matchMedia('(min-width: 1000px)').matches,
 
     rotate() {
-      if (!this.isHovering && !this.prefersReducedMotion) {
+      if (this.isLargeScreen && !this.isHovering && !this.prefersReducedMotion) {
         this.currentIndex = (this.currentIndex + 1) % 4;
       }
     },
 
     startRotation() {
-      if (!this.prefersReducedMotion) {
+      if (this.isLargeScreen && !this.prefersReducedMotion) {
         this.intervalId = setInterval(() => this.rotate(), 5000);
       }
     },
@@ -110,16 +111,36 @@ function renderContent(content) {
 
     checkReducedMotion() {
       this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    },
+
+    setupMediaQueries() {
+      const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const largeScreenQuery = window.matchMedia('(min-width: 1000px)');
+
+      reducedMotionQuery.addEventListener('change', (e) => {
+        this.prefersReducedMotion = e.matches;
+        if (this.prefersReducedMotion) {
+          this.stopRotation();
+        } else {
+          this.startRotation();
+        }
+      });
+
+      largeScreenQuery.addEventListener('change', (e) => {
+        this.isLargeScreen = e.matches;
+        if (this.isLargeScreen) {
+          this.startRotation();
+        } else {
+          this.stopRotation();
+        }
+      });
     }
   }"
-  x-init="checkReducedMotion(); startRotation();
-    $watch('prefersReducedMotion', value => {
-      if (value) {
-        stopRotation();
-      } else {
-        startRotation();
-      }
-    })"
+  x-init="
+    checkReducedMotion();
+    setupMediaQueries();
+    startRotation();
+  "
 >
   {blok.culturePhotos && (
     <div class="relative col-span-1 grid grid-cols-2 lg:grid-cols-1"
@@ -129,7 +150,7 @@ function renderContent(content) {
       {blok.culturePhotos.slice(0, 4).map((image, index) => (
         <div
           class="relative lg:absolute lg:inset-0"
-          x-show={`currentIndex === ${index}`}
+          x-show={`!isLargeScreen || currentIndex === ${index}`}
           x-transition:enter="transition ease-in-out duration-700"
           x-transition:enter-start="opacity-0"
           x-transition:enter-end="opacity-100"
@@ -238,3 +259,10 @@ function renderContent(content) {
   )}
 </section>
 
+<style>
+  @media (prefers-reduced-motion: reduce) {
+    [x-transition] {
+      transition: none !important;
+    }
+  }
+</style>
