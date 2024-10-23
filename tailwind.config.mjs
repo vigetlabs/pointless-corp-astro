@@ -57,9 +57,9 @@ export default {
     plugin(function ({ addComponents, theme }) {
       addComponents({
         '.bg-tiled': {
-          backgroundImage: `url('/src/images/patterns/bg-paper.png')`,
           backgroundColor: 'rgba(0, 0, 0, 0.04)',
           backgroundBlendMode: 'overlay',
+          backgroundImage: `url('/src/images/patterns/bg-paper.png')`,
           backgroundRepeat: 'repeat',
         },
         '.bg-tiled-gradient': {
@@ -95,8 +95,8 @@ export default {
         },
         '.faq-text a': {
           color: theme('colors.red.dark'),
-          textDecoration: 'underline',
           fontWeight: 'bold',
+          textDecoration: 'underline',
         },
         '.faq-text a:hover': {
           textDecoration: 'none',
@@ -109,6 +109,14 @@ export default {
         },
         '.project-item:hover .stamp-icon': {
           transform: 'rotate3d(0, 1, 0, 360deg)',
+        },
+        '.project-item-link::before': {
+          bottom: 0,
+          content: '""',
+          left: 0,
+          position: 'absolute',
+          right: 0,
+          top: 0,
         },
       })
     })

@@ -112,7 +112,7 @@ const { projects } = Astro.props;
 
         return (
           <li
-            class="relative overflow-hidden rounded pb-20 project-item"
+            class="relative block overflow-hidden rounded pb-20 text-center project-item"
             data-type={content.type}
             style={`
               --projectBackgroundColor: ${backgroundColor};
@@ -120,19 +120,25 @@ const { projects } = Astro.props;
               --projectStampColor: ${stampColor};
             `}
             x-show={`isVisible(${index}, '${content.type}')`}
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 scale-75"
+            x-transition:enter-end="opacity-100 scale-100"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 scale-100"
+            x-transition:leave-end="opacity-0 scale-75"
           >
-            <a href={`/${project.slug}`} class="block text-center">
-              {content.icon && <Image image={content.icon} className="h-auto w-full" captionClass="hidden" />}
+            {content.icon && <Image image={content.icon} className="h-auto w-full" captionClass="hidden" />}
 
-              <div class="-mt-12 px-3">
-                <h3 class="text-xl uppercase font-functionpro">{project.name}</h3>
-                {content.tagline && <p class="text-xs">{content.tagline}</p>}
-              </div>
+            <div class="-mt-11 px-3">
+              <h3 class="mb-2 text-xl uppercase leading-5 font-functionpro">
+                <a class="project-item-link" href={`/${project.slug}`}>{project.name}</a>
+              </h3>
+              {content.tagline && <p class="text-xs leading-5">{content.tagline}</p>}
+            </div>
 
-              <span class="pointer-events-none absolute -bottom-14 left-1/2 block transition-transform duration-300 ease-linear stamp-icon w-[120px] h-[120px] ml-[-60px]">
-                <Fragment set:html={getIconStamp(content.type)} />
-              </span>
-            </a>
+            <span class="pointer-events-none absolute -bottom-14 left-1/2 block transition-transform duration-300 ease-linear stamp-icon w-[120px] h-[120px] ml-[-60px]">
+              <Fragment set:html={getIconStamp(content.type)} />
+            </span>
           </li>
         );
       })}
