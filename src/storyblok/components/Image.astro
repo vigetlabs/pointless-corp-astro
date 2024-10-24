@@ -10,15 +10,19 @@ interface ImageProps {
   class?: string;
   wrapperClass?: string;
   captionClass?: string;
+  widths?: number[];
+  sizes?: string;
 }
 
-const { image, class: className, wrapperClass, captionClass } = Astro.props as ImageProps;
+const { image, class: className, wrapperClass, captionClass, widths, sizes } = Astro.props as ImageProps;
 ---
 
 <figure class={wrapperClass}>
   <AstroImage
     src={image.filename}
     alt={image.alt || ''}
+    widths={widths}
+    sizes={sizes}
     inferSize={true}
     class={`block w-full ${className || ''}`}
   />
