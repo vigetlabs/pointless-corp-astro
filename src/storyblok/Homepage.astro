@@ -14,7 +14,12 @@ import ProjectList from './components/ProjectList.astro';
 import ContactLink from './components/ContactLink.astro';
 const { blok, projects } = Astro.props;
 
-function renderContent(content) {
+type ImageType = {
+  filename: string;
+  alt?: string;
+};
+
+function renderContent(content: any) {
   return content ? renderRichText(content) : '';
 }
 ---
@@ -158,7 +163,7 @@ function renderContent(content) {
       @mouseenter="isHovering = true; stopRotation()"
       @mouseleave="isHovering = false; !prefersReducedMotion && isLargeScreen && startRotation()"
     >
-      {blok.culturePhotos.slice(0, 4).map((image, index) => (
+      {blok.culturePhotos.slice(0, 4).map((image: { filename: string; title?: string }, index: number) => (
         <div
           class="relative lg:absolute lg:inset-0"
           x-show={`!isLargeScreen || currentIndex === ${index}`}
@@ -184,7 +189,7 @@ function renderContent(content) {
 
   {blok.processPhotos && (
     <div class="col-span-1 grid grid-cols-2">
-      {blok.processPhotos.slice(0, 4).map((image) => (
+      {blok.processPhotos.slice(0, 4).map((image: ImageType) => (
         <Image
           image={image}
           widths={[320, 480, 640, 768, 1024, 1366]}
@@ -217,7 +222,7 @@ function renderContent(content) {
   </h2>
 
   <ul class="mx-auto max-w-7xl mt-[50px]">
-    {blok.faq && blok.faq.map((item, index) => (
+    {blok.faq && blok.faq.map((item: { question: string; answer: string }, index: number) => (
       <li
         x-data={`{ expanded: ${index === 0} }`}
         x-id="['faq-question', 'faq-answer']"
