@@ -10,7 +10,7 @@ let currentImage: number;
 let processNavButtons: NodeListOf<Element>;
 let processLength: number;
 
-function renderContent(content) {
+function renderContent(content: any) {
   return content ? renderRichText(content) : '';
 }
 ---
@@ -83,7 +83,7 @@ function renderContent(content) {
     <>
       <h2 class="sr-only">Examples</h2>
 
-      {blok.examples.map((nestedBlok) => (
+      {blok.examples.map((nestedBlok: any) => (
         <StoryblokComponent blok={nestedBlok} />
       ))}
     </>
@@ -102,7 +102,7 @@ function renderContent(content) {
 
       <div class="relative" role="region" aria-label="Project Process Images">
         <ul class="relative overflow-hidden">
-          {blok.process.map((image, index) => (
+          {blok.process.map((image: { filename: string; alt?: string }, index: number) => (
             <li
               x-show={`currentImage === ${index}`}
               class="transition-opacity duration-300 ease-in-out process-image"
@@ -129,7 +129,7 @@ function renderContent(content) {
 
         {blok.process.length > 1 && (
           <div class="absolute bottom-5 left-1/2 mt-4 flex -translate-x-1/2 justify-center rounded-full slide-nav px-[2px]" role="tablist" aria-label="Image navigation">
-            {blok.process.map((_, index) => (
+            {blok.process.map((_: any, index: number) => (
               <button
                 class="relative process-nav-button w-[26px] h-[26px]"
                 @click={`() => currentImage = ${index}`}
@@ -137,7 +137,7 @@ function renderContent(content) {
                 role="tab"
                 aria-controls={`image-${index}`}
                 :tabindex={`currentImage === ${index} ? 0 : -1`}
-                @keydown={(event) => {
+                @keydown={(event: KeyboardEvent) => {
                   if (event.key === 'ArrowRight') {
                     currentImage = (currentImage + 1) % processLength;
                   } else if (event.key === 'ArrowLeft') {
@@ -188,7 +188,7 @@ function renderContent(content) {
     <h2 class="mb-3 text-center text-4xl uppercase font-functionpro">More Pointless Projects</h2>
 
     <ul class="text-center text-lg uppercase font-functionpro xs:columns-2 md:columns-3">
-      {projects.map((project) => (
+      {projects.map((project: { slug: string; name: string }) => (
         <li class="py-2">
           <a href={`/${project.slug}`} class="!no-underline hover:!underline">{project.name}</a>
         </li>
