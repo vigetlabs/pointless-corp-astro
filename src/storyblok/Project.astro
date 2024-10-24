@@ -5,16 +5,6 @@ import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 
 const { blok, name, projects } = Astro.props;
 
-import experiments from '../../src/images/svgs/experiments.svg';
-import stunts from '../../src/images/svgs/stunts.svg';
-import tools from '../../src/images/svgs/tools.svg';
-
-const fallback = {
-  experiments,
-  stunts,
-  tools
-}[blok.type.toLowerCase()] || experiments;
-
 function renderContent(content) {
   return content ? renderRichText(content) : '';
 }
@@ -23,17 +13,10 @@ function renderContent(content) {
 <article class="project pt-20 px-5">
   <h1 class="sr-only">{name}</h1>
 
-  <!-- Project Logo or Fallback Image -->
-  {blok.logo?.filename ? (
+  <!-- Project Logo -->
+  {blok.logo?.filename && (
     <Image
       src={blok.logo.filename}
-      inferSize={true}
-      alt=""
-      class="mb-5 mx-auto max-w-full block"
-    />
-  ) : (
-    <Image
-      src={fallback}
       inferSize={true}
       alt=""
       class="mb-5 mx-auto max-w-full block"
