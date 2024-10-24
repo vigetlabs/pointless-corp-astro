@@ -86,7 +86,13 @@ function renderContent(content) {
 
   <!-- Project Process Images -->
   {blok.process && blok.process.length > 0 && (
-    <section class="mx-auto my-10 max-w-7xl" x-data="{ currentImage: 0 }">
+    <section
+    class="mx-auto my-10 max-w-7xl"
+    x-data="{
+      currentImage: 0,
+      processNavButtons: $root.querySelectorAll('.process-nav-button'),
+      processLength: $root.querySelectorAll('.process-image').length
+    }">
       <h2 class="sr-only">Process</h2>
 
       <div class="relative" role="region" aria-label="Project Process Images">
@@ -94,7 +100,7 @@ function renderContent(content) {
           {blok.process.map((image, index) => (
             <li
               x-show={`currentImage === ${index}`}
-              class="transition-opacity duration-300 ease-in-out"
+              class="process-image transition-opacity duration-300 ease-in-out"
               x-transition:enter="opacity-0 absolute top-0 left-0 w-full h-auto"
               x-transition:enter-start="opacity-0 absolute top-0 left-0 w-full h-auto"
               x-transition:enter-end="opacity-100"
@@ -117,11 +123,21 @@ function renderContent(content) {
         <div class="slide-nav px-[2px] rounded-full absolute bottom-5 left-1/2 -translate-x-1/2 flex justify-center mt-4" role="tablist" aria-label="Image navigation">
           {blok.process.map((_, index) => (
             <button
-              class="w-[26px] h-[26px] relative"
+              class="process-nav-button w-[26px] h-[26px] relative"
               @click={`currentImage = ${index}`}
               role="tab"
               aria-selected={`currentImage === ${index}`}
               aria-controls={`image-${index}`}
+              :tabindex={`currentImage === ${index} ? 0 : -1`}
+              @keydown={(event) => {
+                if (event.key === 'ArrowRight') {
+                  currentImage = (currentImage + 1) % processLength;
+                } else if (event.key === 'ArrowLeft') {
+                  currentImage = (currentImage - 1 + processLength) % processLength;
+                }
+
+                processNavButtons[currentImage].focus();
+              }}
             >
               <span class="sr-only">Slide {index + 1}</span>
               <span
