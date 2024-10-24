@@ -89,22 +89,24 @@ function renderContent(content) {
     <section class="mx-auto my-10 max-w-7xl" x-data="{ currentImage: 0 }">
       <h2 class="sr-only">Process</h2>
 
-      <div class="relative">
+      <div class="relative" role="region" aria-label="Project Process Images">
         <ul class="overflow-hidden relative">
           {blok.process.map((image, index) => (
             <li
               x-show={`currentImage === ${index}`}
-              class="transition-opacity duration-500 ease-in-out"
+              class="transition-opacity duration-300 ease-in-out"
               x-transition:enter="opacity-0 absolute top-0 left-0 w-full h-auto"
               x-transition:enter-start="opacity-0 absolute top-0 left-0 w-full h-auto"
               x-transition:enter-end="opacity-100"
               x-transition:leave="opacity-100"
               x-transition:leave-start="opacity-100"
               x-transition:leave-end="opacity-0 absolute top-0 left-0 w-full h-auto"
+              role="tabpanel"
+              aria-hidden={`currentImage !== ${index}`}
             >
               <Image
                 src={image.filename}
-                alt={image.alt || ''}
+                alt={image.alt || 'Process image'}
                 class="w-full h-auto"
                 inferSize={true}
               />
@@ -112,13 +114,20 @@ function renderContent(content) {
           ))}
         </ul>
 
-        <div class="flex justify-center mt-4 space-x-2">
+        <div class="slide-nav px-[2px] rounded-full absolute bottom-5 left-1/2 -translate-x-1/2 flex justify-center mt-4" role="tablist" aria-label="Image navigation">
           {blok.process.map((_, index) => (
             <button
-              class="w-3 h-3 rounded-full"
+              class="w-[26px] h-[26px] relative"
               @click={`currentImage = ${index}`}
+              role="tab"
+              aria-selected={`currentImage === ${index}`}
+              aria-controls={`image-${index}`}
             >
-              {index + 1}
+              <span class="sr-only">Slide {index + 1}</span>
+              <span
+                class="block rounded-full border absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                :class={`currentImage === ${index} ? 'bg-transparent border-white w-3 h-3' : 'bg-white border-none w-2 h-2'`}
+              ></span>
             </button>
           ))}
         </div>
@@ -181,5 +190,9 @@ function renderContent(content) {
 
   .metatable-value {
     color: var(--linkColor);
+  }
+
+  .slide-nav {
+    background-color: var(--backgroundColor);
   }
 </style>
