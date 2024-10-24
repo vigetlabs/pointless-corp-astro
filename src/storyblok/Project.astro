@@ -86,17 +86,44 @@ function renderContent(content) {
 
   <!-- Project Process Images -->
   {blok.process && blok.process.length > 0 && (
-    <>
+    <section class="mx-auto my-10 max-w-7xl" x-data="{ currentImage: 0 }">
       <h2 class="sr-only">Process</h2>
 
-      <ul>
-        {blok.process.map((image) => (
-          <li>
-            <Image src={image.filename} alt={image.alt || ''} inferSize={true} />
-          </li>
-        ))}
-      </ul>
-    </>
+      <div class="relative">
+        <ul class="overflow-hidden relative">
+          {blok.process.map((image, index) => (
+            <li
+              x-show={`currentImage === ${index}`}
+              class="transition-opacity duration-500 ease-in-out"
+              x-transition:enter="opacity-0 absolute top-0 left-0 w-full h-auto"
+              x-transition:enter-start="opacity-0 absolute top-0 left-0 w-full h-auto"
+              x-transition:enter-end="opacity-100"
+              x-transition:leave="opacity-100"
+              x-transition:leave-start="opacity-100"
+              x-transition:leave-end="opacity-0 absolute top-0 left-0 w-full h-auto"
+            >
+              <Image
+                src={image.filename}
+                alt={image.alt || ''}
+                class="w-full h-auto"
+                inferSize={true}
+              />
+            </li>
+          ))}
+        </ul>
+
+        <div class="flex justify-center mt-4 space-x-2">
+          {blok.process.map((_, index) => (
+            <button
+              class="w-3 h-3 rounded-full"
+              @click={`currentImage = ${index}`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
   )}
 
   <!-- Related Content -->
