@@ -113,7 +113,7 @@ function renderContent(content) {
               x-transition:leave-start="opacity-100"
               x-transition:leave-end="opacity-0 absolute top-0 left-0 w-full h-auto"
               role="tabpanel"
-              aria-hidden={`currentImage !== ${index}` as any}
+              :aria-hidden={`currentImage !== ${index}` as any}
             >
               <Image
                 src={image.filename}
