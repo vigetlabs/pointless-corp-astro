@@ -118,37 +118,39 @@ function renderContent(content) {
 
   <!-- Related Content -->
   {blok.relatedContent && (
-    <>
-      <h2>More about {name}</h2>
+    <section class="mt-10 mb-[50px] max-w-7xl mx-auto">
+      <h2 class="text-center font-functionpro uppercase text-4xl mb-3">More about {name}</h2>
 
-      <ul>
+      <ul class="text-center uppercase font-functionpro">
         {blok.relatedContent.map((related) => (
-          <li>
+          <li class="text-lg leading-4 py-4">
             {(() => {
               const content = (
                 <>
-                  {related.title && <p>{related.title}</p>}
-                  {related.sourceName && <p>{related.sourceName}</p>}
+                  {related.title && <span class="group-hover:underline">{related.title}</span>}
+                  {related.sourceName && <><br><span class="text-white text-xs">via {related.sourceName}</span></>}
                 </>
               );
-              return related.url ? <a href={related.url}>{content}</a> : content;
+              return related.url ? <a href={related.url} class="group !no-underline">{content}</a> : content;
             })()}
           </li>
         ))}
       </ul>
-    </>
+    </section>
   )}
 
   <!-- More Projects -->
-  <h2>More Pointless Projects</h2>
+  <section class="my-10 max-w-7xl mx-auto">
+    <h2 class="text-center font-functionpro uppercase text-4xl mb-3">More Pointless Projects</h2>
 
-  <ul>
-    {projects.map((project) => (
-      <li>
-        <a href={`/${project.slug}`}>{project.name}</a>
-      </li>
-    ))}
-  </ul>
+    <ul class="xs:columns-2 md:columns-3 text-center uppercase font-functionpro text-lg">
+      {projects.map((project) => (
+        <li class="py-2">
+          <a href={`/${project.slug}`} class="!no-underline hover:!underline">{project.name}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
 </article>
 
 <style>
