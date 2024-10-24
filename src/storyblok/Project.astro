@@ -5,6 +5,11 @@ import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 
 const { blok, name, projects } = Astro.props;
 
+// Declare variables to satisfy TypeScript
+let currentImage: number;
+let processNavButtons: NodeListOf<Element>;
+let processLength: number;
+
 function renderContent(content) {
   return content ? renderRichText(content) : '';
 }
