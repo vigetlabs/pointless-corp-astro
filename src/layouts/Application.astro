@@ -1,6 +1,10 @@
 ---
 const { title, themeColors } = Astro.props;
 
+// Get the current path
+const currentPath = Astro.url.pathname;
+const isHomePage = currentPath === "/";
+
 // Default colors
 const defaultColors = {
   backgroundColor: '#fff',
@@ -15,10 +19,12 @@ const finalColors = {
   accentColor: themeColors?.accentColor ?? defaultColors.accentColor,
   textColor: themeColors?.textColor ?? defaultColors.textColor,
   linkColor: themeColors?.linkColor ?? defaultColors.linkColor,
+  footerTextColor: isHomePage ? '#47170d' : '#fff',
+  footerLinkColor: isHomePage ? '#47170d' : '#fff',
+  footerCopyrightColor: isHomePage ? '#d2cfc8' : '#fff',
+  footerSocialBorderColor: isHomePage ? '#d2cfc8' : '#fff',
+  footerSocialBorderHoverColor: isHomePage ? '#373939' : (themeColors?.linkColor ?? defaultColors.linkColor),
 };
-
-// Get the current path
-const currentPath = Astro.url.pathname;
 
 // Navigation items
 const navItems = [
@@ -32,7 +38,7 @@ const navItems = [
 import logo from '../images/svgs/logo.svg';
 import logoLarge from '../images/svgs/pointless-logo-large.svg';
 import logoLargeWhite from '../images/svgs/pointless-logo-large--white.svg';
-import iconX from '../images/svgs/x.svg';
+import iconX from '../images/svgs/x.svg?raw';
 import '../styles/global.css';
 ---
 
@@ -51,6 +57,11 @@ import '../styles/global.css';
       --accentColor: {finalColors.accentColor};
       --textColor: {finalColors.textColor};
       --linkColor: {finalColors.linkColor};
+      --footerTextColor: {finalColors.footerTextColor};
+      --footerLinkColor: {finalColors.footerLinkColor};
+      --footerCopyrightColor: {finalColors.footerCopyrightColor};
+      --footerSocialBorderColor: {finalColors.footerSocialBorderColor};
+      --footerSocialBorderHoverColor: {finalColors.footerSocialBorderHoverColor};
     }
 
     body,
@@ -61,6 +72,27 @@ import '../styles/global.css';
 
     body a {
       color: var(--linkColor);
+    }
+
+    footer {
+      color: var(--footerTextColor);
+    }
+
+    footer a {
+      color: var(--footerLinkColor);
+    }
+
+    .footer-copyright {
+      color: var(--footerCopyrightColor);
+    }
+
+    .footer-social {
+      border-color: var(--footerSocialBorderColor);
+    }
+
+    .footer-social:hover,
+    .footer-social:focus {
+      border-color: var(--footerSocialBorderHoverColor);
     }
   </style>
 </head>
@@ -96,15 +128,15 @@ import '../styles/global.css';
       <img src={logoLargeWhite.src} class="h-auto w-[212px] sm:w-[282px]" alt="Pointless Corp." />
     )}
 
-    <p class="mt-8 text-xs text-brick-dark">The innovation lab at <a class="underline text-brick-dark hover:no-underline focus:no-underline" href="http://viget.com">Viget</a></p>
+    <p class="mt-8 text-xs">The innovation lab at <a class="underline hover:no-underline focus:no-underline" href="http://viget.com">Viget</a></p>
 
     <p class="mt-6">
-      <a class="inline-block rounded-full border transition duration-300 border-gray-light p-[13px] hover:border-gray-dark focus:border-gray-dark" href="http://x.com/pointlesscorp">
-        <img src={iconX.src} alt="X" class="h-8 w-8" alt="X" />
+      <a class="footer-social inline-block rounded-full border transition duration-300 border-gray-light p-[13px] hover:border-gray-dark focus:border-gray-dark" href="http://x.com/pointlesscorp">
+        <Fragment set:html={iconX} />
       </a>
     </p>
 
-    <p class="mt-5 text-xs text-gray-light">&copy; {new Date().getFullYear()} Pointless Corp.</p>
+    <p class="footer-copyright mt-5 text-xs">&copy; {new Date().getFullYear()} Pointless Corp.</p>
   </footer>
 </body>
 </html>
