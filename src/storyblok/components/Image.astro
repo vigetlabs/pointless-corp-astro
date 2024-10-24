@@ -14,14 +14,17 @@ interface ImageProps {
   sizes?: string;
 }
 
-const { image, class: className, wrapperClass, captionClass, widths, sizes } = Astro.props as ImageProps;
+const { image, class: className, wrapperClass, captionClass, widths = [320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048], sizes } = Astro.props as ImageProps;
+
+// Generate srcset based on widths
+const srcset = widths.map(width => `${image.filename}/m/${width}x0 ${width}w`).join(', ');
 ---
 
 <figure class={wrapperClass}>
   <AstroImage
     src={image.filename}
     alt={image.alt || ''}
-    widths={widths}
+    srcset={srcset}
     sizes={sizes}
     inferSize={true}
     class={`block w-full ${className || ''}`}
