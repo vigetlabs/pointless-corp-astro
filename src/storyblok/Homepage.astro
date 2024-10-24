@@ -14,7 +14,12 @@ import ProjectList from './components/ProjectList.astro';
 import ContactLink from './components/ContactLink.astro';
 const { blok, projects } = Astro.props;
 
-function renderContent(content) {
+type ImageType = {
+  filename: string;
+  alt?: string;
+};
+
+function renderContent(content: any) {
   return content ? renderRichText(content) : '';
 }
 ---
@@ -23,12 +28,19 @@ function renderContent(content) {
   {blok.heroText && <p class="relative z-10 mx-auto max-w-7xl text-center uppercase text-white text-[36px] leading-[0.89em] font-functionpro sm:text-left md:text-[82px] lg:text-[96px]">{blok.heroText}</p>}
 
   {blok.featureImages && blok.featureImages.length > 0 && (
-    <AstroImage
-      src={blok.featureImages[0].filename}
-      alt={blok.featureImages[0].title || ''}
-      inferSize={true}
-      class="absolute top-0 left-0 z-0 h-full w-full object-cover"
-    />
+    (() => {
+      const imageFilename = blok.featureImages[0].filename;
+      return (
+        <AstroImage
+          src={imageFilename}
+          alt={blok.featureImages[0].title || ''}
+          inferSize={true}
+          srcset={`${imageFilename}/m/320x0 320w, ${imageFilename}/m/480x0 480w, ${imageFilename}/m/640x0 640w, ${imageFilename}/m/768x0 768w, ${imageFilename}/m/1024x0 1024w, ${imageFilename}/m/1366x0 1366w, ${imageFilename}/m/1536x0 1536w, ${imageFilename}/m/1920x0 1920w, ${imageFilename}/m/2048x0 2048w`}
+          sizes={`100vw`}
+          class="absolute top-0 left-0 z-0 h-full w-full object-cover"
+        />
+      );
+    })()
   )}
 </div>
 
@@ -66,6 +78,8 @@ function renderContent(content) {
 {blok.featureImages && blok.featureImages.length > 1 && (
   <Image
     image={blok.featureImages[blok.featureImages.length - 1]}
+    widths={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]}
+    sizes={`100vw`}
     className="w-full"
     wrapperClass="w-full relative"
     captionClass="absolute bottom-10 left-10 right-10 text-white text-xs uppercase font-functionpro"
@@ -149,7 +163,7 @@ function renderContent(content) {
       @mouseenter="isHovering = true; stopRotation()"
       @mouseleave="isHovering = false; !prefersReducedMotion && isLargeScreen && startRotation()"
     >
-      {blok.culturePhotos.slice(0, 4).map((image, index) => (
+      {blok.culturePhotos.slice(0, 4).map((image: { filename: string; title?: string }, index: number) => (
         <div
           class="relative lg:absolute lg:inset-0"
           x-show={`!isLargeScreen || currentIndex === ${index}`}
@@ -164,6 +178,8 @@ function renderContent(content) {
             image={image}
             wrapperClass="caption-peek relative overflow-hidden"
             className="w-full"
+            widths={[320, 480, 640, 768, 1024, 1366, 1536, 1920]}
+            sizes={`50vw`}
             captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out"
           />
         </div>
@@ -173,8 +189,15 @@ function renderContent(content) {
 
   {blok.processPhotos && (
     <div class="col-span-1 grid grid-cols-2">
-      {blok.processPhotos.slice(0, 4).map((image) => (
-        <Image image={image} wrapperClass="caption-peek overflow-hidden relative col-span-1 row-span-1" className="w-full" captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out" />
+      {blok.processPhotos.slice(0, 4).map((image: ImageType) => (
+        <Image
+          image={image}
+          widths={[320, 480, 640, 768, 1024, 1366]}
+          sizes={`(min-width: 1000px) 25vw, 50vw`}
+          wrapperClass="caption-peek overflow-hidden relative col-span-1 row-span-1"
+          className="w-full"
+          captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out"
+        />
       ))}
     </div>
   )}
@@ -182,7 +205,13 @@ function renderContent(content) {
 
 <section class="grid grid-cols-6">
   {blok.generalPhotos && blok.generalPhotos.slice(0, 6).map((image) => (
-    <Image image={image} wrapperClass="col-span-3 lg:col-span-1" captionClass="hidden" />
+    <Image
+      image={image}
+      widths={[320, 480, 640, 768, 1024, 1366]}
+      sizes={`(min-width: 1000px) calc(100vw / 6), 50vw`}
+      wrapperClass="col-span-3 lg:col-span-1"
+      captionClass="hidden"
+    />
   ))}
 </section>
 
@@ -193,7 +222,7 @@ function renderContent(content) {
   </h2>
 
   <ul class="mx-auto max-w-7xl mt-[50px]">
-    {blok.faq && blok.faq.map((item, index) => (
+    {blok.faq && blok.faq.map((item: { question: string; answer: string }, index: number) => (
       <li
         x-data={`{ expanded: ${index === 0} }`}
         x-id="['faq-question', 'faq-answer']"
@@ -227,7 +256,7 @@ function renderContent(content) {
             set:html={renderContent(item.answer)}
             x-show="expanded"
             x-collapse
-            class="faq-text px-10 leading-7"
+            class="px-10 leading-7 faq-text"
           />
         )}
       </li>
@@ -236,6 +265,8 @@ function renderContent(content) {
 </section>
 
 <section id="contact" class="bg-tiled md:flex">
+  <h2 class="sr-only">Contact</h2>
+
   {blok.contactUs && (
     <ContactLink
       href="https://www.viget.com/contact/"

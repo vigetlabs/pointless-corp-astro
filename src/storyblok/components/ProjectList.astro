@@ -131,12 +131,19 @@ const { projects } = Astro.props;
             x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-75"
           >
-            {content.icon && <Image image={content.icon} className="h-auto w-full" captionClass="hidden" />}
+            {content.icon && (
+              <Image
+                image={content.icon}
+                inferSize={true}
+                className="h-auto w-full"
+                captionClass="hidden"
+              />
+            )}
 
             <div class="-mt-11 px-3">
-              <h3 class="mb-2 text-xl uppercase leading-5 font-functionpro">
+              <p class="mb-2 text-xl uppercase leading-5 font-functionpro">
                 <a class="project-item-link" href={`/${project.slug}`}>{project.name}</a>
-              </h3>
+              </p>
               {content.tagline && <p class="text-xs leading-5">{content.tagline}</p>}
             </div>
 
@@ -149,16 +156,10 @@ const { projects } = Astro.props;
     </ul>
   </div>
 
-  <button class="mx-auto mt-11 flex items-center rounded-full px-7 text-xs uppercase transition-colors duration-300 font-functionpro text-red-dark border-red-dark border-[5px] w-[130px] h-[130px] hover:bg-red-dark hover:text-white" @click="showMore = true" x-show="!showMore"><span class="inline-block">View More Projects</span></button>
-  </div>
-
-<style>
-  .project-item {
-    background-color: var(--projectBackgroundColor);
-    color: var(--projectTextColor);
-  }
-
-  .project-item .stamp-icon {
-    color: var(--projectStampColor);
-  }
-</style>
+  <button
+    class="mx-auto mt-11 flex items-center rounded-full px-7 text-xs uppercase transition-colors duration-300 font-functionpro text-red-dark border-red-dark border-[5px] w-[130px] h-[130px] hover:bg-red-dark hover:text-white"
+    @click="showMore = true"
+    x-show="!showMore">
+      <span class="inline-block">View More Projects</span>
+  </button>
+</div>

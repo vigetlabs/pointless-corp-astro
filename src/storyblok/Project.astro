@@ -5,79 +5,85 @@ import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
 
 const { blok, name, projects } = Astro.props;
 
-import experiments from '../../src/images/svgs/experiments.svg';
-import stunts from '../../src/images/svgs/stunts.svg';
-import tools from '../../src/images/svgs/tools.svg';
+// Declare variables to satisfy TypeScript
+let currentImage: number;
+let processNavButtons: NodeListOf<Element>;
+let processLength: number;
 
-const fallback = {
-  experiments,
-  stunts,
-  tools
-}[blok.type.toLowerCase()] || experiments;
-
-function renderContent(content) {
+function renderContent(content: any) {
   return content ? renderRichText(content) : '';
 }
 ---
 
-<article class="project">
+<article class="px-5 pt-20 project">
+  <h1 class="sr-only">{name}</h1>
 
-  <!-- Project Title -->
-  <h1>{name}</h1>
-
-  <!-- Project Logo or Fallback Image -->
-  {blok.logo?.filename ? (
+  <!-- Project Logo -->
+  {blok.logo?.filename && (
     <Image
       src={blok.logo.filename}
       inferSize={true}
       alt=""
-    />
-  ) : (
-    <Image
-      src={fallback}
-      inferSize={true}
-      alt=""
+      class="mx-auto mb-5 block max-w-full"
     />
   )}
 
   <!-- Project Details -->
-  <ul>
+  <ul class="mx-auto table border-collapse text-center uppercase metatable font-functionpro">
     {blok.url && (
-      <li>
-        <a href={blok.url}>
-          {blok.url.replace(/^(https?:\/\/)?(www\.)?/i, '').split('/')[0]}
-        </a>
+      <li class="table-cell border">
+        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Visit</span>
+        <span class="block px-5 metatable-value py-[2px]">
+          <a href={blok.url}>
+            {(() => {
+              const parts = blok.url.replace(/^(https?:\/\/)?(www\.)?/i, '').split('/');
+              return parts[0] + (parts[1] ? '/' + parts[1] : '');
+            })()}
+          </a>
+        </span>
       </li>
     )}
     {blok.xHandle && (
-      <li>
-        <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">@{blok.xHandle}</a>
+      <li class="table-cell border">
+        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Follow</span>
+        <span class="block px-5 metatable-value py-[2px]">
+          <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">@{blok.xHandle}</a>
+        </span>
       </li>
     )}
     {blok.type && (
-      <li>
-        {blok.type}
+      <li class="table-cell border">
+        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Type</span>
+        <span class="block px-5 metatable-value py-[2px]">
+          {blok.type}
+        </span>
       </li>
     )}
     {blok.launchDate && (
-      <li>
-        {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
+      <li class="table-cell border">
+        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Launched</span>
+        <span class="block px-5 metatable-value py-[2px]">
+          {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
+        </span>
       </li>
     )}
-    <li>
-      {blok.retiredDate ? 'archived' : 'active'}
+    <li class="table-cell border">
+      <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Status</span>
+      <span class="block px-5 metatable-value py-[2px]">
+        {blok.retiredDate ? 'archived' : 'active'}
+      </span>
     </li>
   </ul>
 
   <!-- Project Description -->
-  {blok.description && <section set:html={renderContent(blok.description)} />}
+  {blok.description && <section class="mx-auto max-w-3xl text-center project-description my-[60px] text-[24px] leading-[1.6em]" set:html={renderContent(blok.description)} />}
 
   <!-- Example Blocks -->
   {blok.examples && blok.examples.length > 0 && (
     <>
-      <h2>Examples</h2>
+      <h2 class="sr-only">Examples</h2>
 
-      {blok.examples.map((nestedBlok) => (
+      {blok.examples.map((nestedBlok: any) => (
         <StoryblokComponent blok={nestedBlok} />
       ))}
     </>
@@ -85,63 +91,108 @@ function renderContent(content) {
 
   <!-- Project Process Images -->
   {blok.process && blok.process.length > 0 && (
-    <>
-      <h2>Process</h2>
+    <section
+    class="mx-auto my-10 max-w-7xl"
+    x-data="{
+      currentImage: 0,
+      processNavButtons: $root.querySelectorAll('.process-nav-button'),
+      processLength: $root.querySelectorAll('.process-image').length
+    }">
+      <h2 class="sr-only">Process</h2>
 
-      <ul>
-        {blok.process.map((image) => (
-          <li>
-            <Image src={image.filename} alt={image.alt || ''} inferSize={true} />
-          </li>
-        ))}
-      </ul>
-    </>
+      <div class="relative" role="region" aria-label="Project Process Images">
+        <ul class="relative overflow-hidden">
+          {blok.process.map((image: { filename: string; alt?: string }, index: number) => (
+            <li
+              x-show={`currentImage === ${index}`}
+              class="transition-opacity duration-300 ease-in-out process-image"
+              x-transition:enter="opacity-0 absolute top-0 left-0 w-full h-auto"
+              x-transition:enter-start="opacity-0 absolute top-0 left-0 w-full h-auto"
+              x-transition:enter-end="opacity-100"
+              x-transition:leave="opacity-100"
+              x-transition:leave-start="opacity-100"
+              x-transition:leave-end="opacity-0 absolute top-0 left-0 w-full h-auto"
+              role="tabpanel"
+              :aria-hidden={`currentImage !== ${index}` as any}
+            >
+              <Image
+                src={image.filename}
+                alt={image.alt || 'Process image'}
+                class="h-auto w-full object-cover aspect-[3/2]"
+                srcset={`${image.filename}/m/320x0 320w, ${image.filename}/m/480x0 480w, ${image.filename}/m/640x0 640w, ${image.filename}/m/768x0 768w, ${image.filename}/m/1024x0 1024w, ${image.filename}/m/1366x0 1366w, ${image.filename}/m/1536x0 1536w, ${image.filename}/m/1920x0 1920w, ${image.filename}/m/2048x0 2048w`}
+                sizes={`100vw`}
+                inferSize={true}
+              />
+            </li>
+          ))}
+        </ul>
+
+        {blok.process.length > 1 && (
+          <div class="absolute bottom-5 left-1/2 mt-4 flex -translate-x-1/2 justify-center rounded-full slide-nav px-[2px]" role="tablist" aria-label="Image navigation">
+            {blok.process.map((_: any, index: number) => (
+              <button
+                class="relative process-nav-button w-[26px] h-[26px]"
+                @click={`() => currentImage = ${index}`}
+                :aria-selected={`currentImage === ${index} ? 'true' : 'false'`}
+                role="tab"
+                aria-controls={`image-${index}`}
+                :tabindex={`currentImage === ${index} ? 0 : -1`}
+                @keydown={(event: KeyboardEvent) => {
+                  if (event.key === 'ArrowRight') {
+                    currentImage = (currentImage + 1) % processLength;
+                  } else if (event.key === 'ArrowLeft') {
+                    currentImage = (currentImage - 1 + processLength) % processLength;
+                  }
+
+                  (processNavButtons[currentImage] as HTMLElement).focus();
+                }}
+              >
+                <span class="sr-only">Slide {index + 1}</span>
+                <span
+                  class="absolute top-1/2 left-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full border transition-all duration-300 ease-in-out"
+                  :class={`currentImage === ${index} ? 'selected w-3 h-3' : ' w-2 h-2'`}
+                ></span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    </section>
   )}
 
   <!-- Related Content -->
-  {blok.relatedContent && (
-    <>
-      <h2>More about {name}</h2>
+  {blok.relatedContent && blok.relatedContent.length > 0 && (
+    <section class="mx-auto mt-14 mb-10 max-w-7xl">
+      <h2 class="mb-3 text-center text-4xl uppercase font-functionpro">More about {name}</h2>
 
-      <ul>
+      <ul class="text-center uppercase font-functionpro">
         {blok.relatedContent.map((related) => (
-          <li>
+          <li class="py-4 text-lg leading-4">
             {(() => {
               const content = (
                 <>
-                  {related.title && <p>{related.title}</p>}
-                  {related.sourceName && <p>{related.sourceName}</p>}
+                  {related.title && <span class="group-hover:underline">{related.title}</span>}
+                  {related.sourceName && <><br><span class="text-xs text-white">via {related.sourceName}</span></>}
                 </>
               );
-              return related.url ? <a href={related.url}>{content}</a> : content;
+              return related.url ? <a href={related.url} class="group !no-underline">{content}</a> : content;
             })()}
           </li>
         ))}
       </ul>
-    </>
+    </section>
   )}
 
   <!-- More Projects -->
-  <h2>More Pointless Projects</h2>
+  <section class="mx-auto mt-14 mb-10 max-w-7xl">
+    <h2 class="mb-3 text-center text-4xl uppercase font-functionpro">More Pointless Projects</h2>
 
-  <ul>
-    {projects.map((project) => (
-      <li>
-        <a href={`/${project.slug}`}>{project.name}</a>
-      </li>
-    ))}
-  </ul>
+    <ul class="text-center text-lg uppercase font-functionpro xs:columns-2 md:columns-3">
+      {projects.map((project: { slug: string; name: string }) => (
+        <li class="py-2">
+          <a href={`/${project.slug}`} class="!no-underline hover:!underline">{project.name}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
 </article>
-
-<style>
-  /* Project Styles */
-  .project {
-    background-color: var(--backgroundColor);
-    color: var(--textColor);
-  }
-
-  .project a {
-    color: var(--linkColor);
-    text-decoration: underline;
-  }
-</style>

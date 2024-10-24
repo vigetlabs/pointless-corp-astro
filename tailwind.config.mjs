@@ -54,7 +54,7 @@ export default {
     },
   },
   plugins: [
-    plugin(function ({ addComponents, theme }) {
+    plugin(function ({addComponents, theme}) {
       addComponents({
         '.bg-tiled': {
           backgroundColor: 'rgba(0, 0, 0, 0.04)',
@@ -73,7 +73,7 @@ export default {
           backgroundRepeat: 'repeat',
         },
         '.about-text p + p': {
-          marginTop: '1.5em',
+          marginTop: theme('spacing.6'),
         },
         '.about-text p:nth-child(3) b:nth-child(1)': {
           color: theme('colors.tools'),
@@ -95,7 +95,7 @@ export default {
         },
         '.faq-text a': {
           color: theme('colors.red.dark'),
-          fontWeight: 'bold',
+          fontWeight: theme('fontWeight.bold'),
           textDecoration: 'underline',
         },
         '.faq-text a:hover': {
@@ -107,6 +107,13 @@ export default {
         '.contact-link:hover b': {
           textDecoration: 'none',
         },
+        '.project-item': {
+          backgroundColor: 'var(--projectBackgroundColor)',
+          color: 'var(--projectTextColor)',
+        },
+        '.project-item .stamp-icon': {
+          color: 'var(--projectStampColor)',
+        },
         '.project-item:hover .stamp-icon': {
           transform: 'rotate3d(0, 1, 0, 360deg)',
         },
@@ -117,6 +124,60 @@ export default {
           position: 'absolute',
           right: 0,
           top: 0,
+        },
+        '.project': {
+          backgroundColor: 'var(--backgroundColor)',
+          color: 'var(--textColor)',
+        },
+        '.project a': {
+          color: 'var(--linkColor)',
+          textDecoration: 'underline',
+        },
+        '.metatable li, .metatable-label': {
+          borderColor: 'var(--accentColor)',
+        },
+        '.metatable-value': {
+          color: 'var(--linkColor)',
+        },
+        '.slide-nav': {
+          backgroundColor: 'var(--backgroundColor)',
+        },
+        '.process-nav-button span': {
+          backgroundColor: 'var(--linkColor)',
+          borderColor: 'transparent',
+        },
+        '.process-nav-button span.selected': {
+          backgroundColor: 'transparent',
+          borderColor: 'var(--linkColor)',
+        },
+        '.project-description a': {
+          color: 'var(--linkColor)',
+          fontWeight: theme('fontWeight.bold'),
+          textDecoration: 'underline',
+        },
+        '.project-description p + p': {
+          marginTop: theme('spacing.6'),
+        },
+        '.image-blok': {
+          color: 'var(--accentColor)',
+        },
+        '.image-blok svg': {
+          height: '100%',
+          left: 0,
+          position: 'absolute',
+          top: 0,
+          width: '100%',
+        },
+        '.footer-social svg': {
+          height: theme('spacing.8'),
+          width: theme('spacing.8'),
+        },
+        '.text-blok p + p': {
+          marginTop: theme('spacing.6'),
+        },
+        '.text-blok a': {
+          fontWeight: theme('fontWeight.bold'),
+          textDecoration: 'underline',
         },
       })
     })
