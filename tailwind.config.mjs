@@ -54,7 +54,7 @@ export default {
     },
   },
   plugins: [
-    plugin(function ({ addComponents, theme }) {
+    plugin(function ({addComponents, theme}) {
       addComponents({
         '.bg-tiled': {
           backgroundColor: 'rgba(0, 0, 0, 0.04)',
@@ -131,6 +131,13 @@ export default {
         '.footer-social svg': {
           height: '32px',
           width: '32px',
+        },
+        '.text-blok p + p': {
+          marginTop: '1.5em',
+        },
+        '.text-blok a': {
+          fontWeight: 'bold',
+          textDecoration: 'underline',
         },
       })
     })

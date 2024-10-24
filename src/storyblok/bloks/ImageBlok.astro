@@ -9,10 +9,10 @@ const imageUrl = blok.image?.filename || ''
 ---
 
 {imageUrl && (
-  <div class="image-blok max-w-7xl mx-auto my-10 relative">
-    <Image src={imageUrl} alt={blok.alt || ''} class="w-full h-auto relative z-10" inferSize={true} />
+  <div class="relative mx-auto my-10 max-w-7xl image-blok">
+    <Image src={imageUrl} alt={blok.alt || ''} class="relative z-10 mx-auto block h-auto max-w-full" inferSize={true} />
 
-    <div class="h-full w-full max-w-4xl top-0 z-0 absolute left-1/2 transform -translate-x-1/2 text-center">
+    <div class="absolute top-0 left-1/2 z-0 h-full w-full max-w-4xl -translate-x-1/2 transform text-center">
       <Fragment set:html={circle} />
     </div>
   </div>
