@@ -107,6 +107,13 @@ export default {
         '.contact-link:hover b': {
           textDecoration: 'none',
         },
+        '.project-item': {
+          backgroundColor: 'var(--projectBackgroundColor)',
+          color: 'var(--projectTextColor)',
+        },
+        '.project-item .stamp-icon': {
+          color: 'var(--projectStampColor)',
+        },
         '.project-item:hover .stamp-icon': {
           transform: 'rotate3d(0, 1, 0, 360deg)',
         },
@@ -118,8 +125,41 @@ export default {
           right: 0,
           top: 0,
         },
+        '.project': {
+          backgroundColor: 'var(--backgroundColor)',
+          color: 'var(--textColor)',
+        },
+        '.project a': {
+          color: 'var(--linkColor)',
+          textDecoration: 'underline',
+        },
+        '.metatable li, .metatable-label': {
+          borderColor: 'var(--accentColor)',
+        },
+        '.metatable-value': {
+          color: 'var(--linkColor)',
+        },
+        '.slide-nav': {
+          backgroundColor: 'var(--backgroundColor)',
+        },
+        '.process-nav-button span': {
+          backgroundColor: 'var(--linkColor)',
+          borderColor: 'transparent',
+        },
+        '.process-nav-button span.selected': {
+          backgroundColor: 'transparent',
+          borderColor: 'var(--linkColor)',
+        },
+        '.project-description a': {
+          color: 'var(--linkColor)',
+          fontWeight: 'bold',
+          textDecoration: 'underline',
+        },
         '.project-description p + p': {
           marginTop: '1.5em',
+        },
+        '.image-blok': {
+          color: 'var(--accentColor)',
         },
         '.image-blok svg': {
           height: '100%',
