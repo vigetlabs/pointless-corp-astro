@@ -127,7 +127,15 @@ const { projects } = Astro.props;
             x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-75"
           >
-            {content.icon && <Image image={content.icon} className="h-auto w-full" captionClass="hidden" />}
+            {content.icon && (
+              <Image
+                image={content.icon}
+                densities={[1.5, 2]}
+                inferSize={true}
+                className="h-auto w-full"
+                captionClass="hidden"
+              />
+            )}
 
             <div class="-mt-11 px-3">
               <p class="mb-2 text-xl uppercase leading-5 font-functionpro">

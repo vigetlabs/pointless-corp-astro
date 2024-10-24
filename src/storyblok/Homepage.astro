@@ -27,6 +27,8 @@ function renderContent(content) {
       src={blok.featureImages[0].filename}
       alt={blok.featureImages[0].title || ''}
       inferSize={true}
+      widths={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]}
+      sizes={`100vw`}
       class="absolute top-0 left-0 z-0 h-full w-full object-cover"
     />
   )}
@@ -66,6 +68,8 @@ function renderContent(content) {
 {blok.featureImages && blok.featureImages.length > 1 && (
   <Image
     image={blok.featureImages[blok.featureImages.length - 1]}
+    widths={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]}
+    sizes={`100vw`}
     className="w-full"
     wrapperClass="w-full relative"
     captionClass="absolute bottom-10 left-10 right-10 text-white text-xs uppercase font-functionpro"
@@ -164,6 +168,8 @@ function renderContent(content) {
             image={image}
             wrapperClass="caption-peek relative overflow-hidden"
             className="w-full"
+            widths={[320, 480, 640, 768, 1024, 1366, 1536, 1920]}
+            sizes={`50vw`}
             captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out"
           />
         </div>
@@ -174,7 +180,14 @@ function renderContent(content) {
   {blok.processPhotos && (
     <div class="col-span-1 grid grid-cols-2">
       {blok.processPhotos.slice(0, 4).map((image) => (
-        <Image image={image} wrapperClass="caption-peek overflow-hidden relative col-span-1 row-span-1" className="w-full" captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out" />
+        <Image
+          image={image}
+          widths={[320, 480, 640, 768, 1024, 1366]}
+          sizes={`(min-width: 1000px) 25vw, 50vw`}
+          wrapperClass="caption-peek overflow-hidden relative col-span-1 row-span-1"
+          className="w-full"
+          captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out"
+        />
       ))}
     </div>
   )}
@@ -182,7 +195,13 @@ function renderContent(content) {
 
 <section class="grid grid-cols-6">
   {blok.generalPhotos && blok.generalPhotos.slice(0, 6).map((image) => (
-    <Image image={image} wrapperClass="col-span-3 lg:col-span-1" captionClass="hidden" />
+    <Image
+      image={image}
+      widths={[320, 480, 640, 768, 1024, 1366]}
+      sizes={`(min-width: 1000px) calc(100vw / 6), 50vw`}
+      wrapperClass="col-span-3 lg:col-span-1"
+      captionClass="hidden"
+    />
   ))}
 </section>
 
