@@ -119,6 +119,8 @@ function renderContent(content) {
                 src={image.filename}
                 alt={image.alt || 'Process image'}
                 class="h-auto w-full object-cover aspect-[3/2]"
+                widths={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]}
+                sizes={`100vw`}
                 inferSize={true}
               />
             </li>
