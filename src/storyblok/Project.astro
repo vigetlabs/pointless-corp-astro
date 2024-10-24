@@ -113,7 +113,7 @@ function renderContent(content) {
               x-transition:leave-start="opacity-100"
               x-transition:leave-end="opacity-0 absolute top-0 left-0 w-full h-auto"
               role="tabpanel"
-              aria-hidden={`currentImage !== ${index}`}
+              aria-hidden={`currentImage !== ${index}` as any}
             >
               <Image
                 src={image.filename}
@@ -130,9 +130,9 @@ function renderContent(content) {
             {blok.process.map((_, index) => (
               <button
                 class="relative process-nav-button w-[26px] h-[26px]"
-                @click={`currentImage = ${index}`}
+                @click={`() => currentImage = ${index}`}
+                :aria-selected={`currentImage === ${index} ? 'true' : 'false'`}
                 role="tab"
-                aria-selected={`currentImage === ${index}`}
                 aria-controls={`image-${index}`}
                 :tabindex={`currentImage === ${index} ? 0 : -1`}
                 @keydown={(event) => {
@@ -142,7 +142,7 @@ function renderContent(content) {
                     currentImage = (currentImage - 1 + processLength) % processLength;
                   }
 
-                  processNavButtons[currentImage].focus();
+                  (processNavButtons[currentImage] as HTMLElement).focus();
                 }}
               >
                 <span class="sr-only">Slide {index + 1}</span>
