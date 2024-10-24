@@ -23,14 +23,19 @@ function renderContent(content) {
   {blok.heroText && <p class="relative z-10 mx-auto max-w-7xl text-center uppercase text-white text-[36px] leading-[0.89em] font-functionpro sm:text-left md:text-[82px] lg:text-[96px]">{blok.heroText}</p>}
 
   {blok.featureImages && blok.featureImages.length > 0 && (
-    <AstroImage
-      src={blok.featureImages[0].filename}
-      alt={blok.featureImages[0].title || ''}
-      inferSize={true}
-      srcset={`${blok.featureImages[0].filename}/m/320x0 320w, ${blok.featureImages[0].filename}/m/480x0 480w, ${blok.featureImages[0].filename}/m/640x0 640w, ${blok.featureImages[0].filename}/m/768x0 768w, ${blok.featureImages[0].filename}/m/1024x0 1024w, ${blok.featureImages[0].filename}/m/1366x0 1366w, ${blok.featureImages[0].filename}/m/1536x0 1536w, ${blok.featureImages[0].filename}/m/1920x0 1920w, ${blok.featureImages[0].filename}/m/2048x0 2048w`}
-      sizes={`100vw`}
-      class="absolute top-0 left-0 z-0 h-full w-full object-cover"
-    />
+    (() => {
+      const imageFilename = blok.featureImages[0].filename;
+      return (
+        <AstroImage
+          src={imageFilename}
+          alt={blok.featureImages[0].title || ''}
+          inferSize={true}
+          srcset={`${imageFilename}/m/320x0 320w, ${imageFilename}/m/480x0 480w, ${imageFilename}/m/640x0 640w, ${imageFilename}/m/768x0 768w, ${imageFilename}/m/1024x0 1024w, ${imageFilename}/m/1366x0 1366w, ${imageFilename}/m/1536x0 1536w, ${imageFilename}/m/1920x0 1920w, ${imageFilename}/m/2048x0 2048w`}
+          sizes={`100vw`}
+          class="absolute top-0 left-0 z-0 h-full w-full object-cover"
+        />
+      );
+    })()
   )}
 </div>
 
