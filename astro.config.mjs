@@ -1,4 +1,6 @@
 import { defineConfig } from 'astro/config';
+import { AstroStoryblokImageService } from 'astro-storyblok-image-service';
+
 import storyblok from '@storyblok/astro';
 import { loadEnv } from 'vite';
 
@@ -9,6 +11,9 @@ const env = loadEnv("", process.cwd(), 'STORYBLOK');
 
 // https://astro.build/config
 export default defineConfig({
+  image: {
+    service: AstroStoryblokImageService,
+  },
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
