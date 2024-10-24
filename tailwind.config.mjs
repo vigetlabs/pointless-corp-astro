@@ -128,6 +128,10 @@ export default {
           top: 0,
           width: '100%',
         },
+        '.footer-social svg': {
+          height: '32px',
+          width: '32px',
+        },
       })
     })
   ],
