@@ -2,12 +2,12 @@
 const { blok } = Astro.props;
 ---
 
-<figure>
+<figure class="mx-auto my-10 max-w-2xl">
   {blok.embed && (
     <div set:html={blok.embed} />
   )}
 
   {blok.caption && (
-    <figcaption>{blok.caption}</figcaption>
+    <figcaption class="mt-3 text-center text-xs uppercase font-functionpro">{blok.caption}</figcaption>
   )}
 </figure>

@@ -10,7 +10,7 @@ function renderContent(content) {
 }
 ---
 
-<article class="project pt-20 px-5">
+<article class="px-5 pt-20 project">
   <h1 class="sr-only">{name}</h1>
 
   <!-- Project Logo -->
@@ -19,16 +19,16 @@ function renderContent(content) {
       src={blok.logo.filename}
       inferSize={true}
       alt=""
-      class="mb-5 mx-auto max-w-full block"
+      class="mx-auto mb-5 block max-w-full"
     />
   )}
 
   <!-- Project Details -->
-  <ul class="metatable table border-collapse mx-auto text-center uppercase font-functionpro">
+  <ul class="mx-auto table border-collapse text-center uppercase metatable font-functionpro">
     {blok.url && (
       <li class="table-cell border">
-        <span class="metatable-label block border-b px-3 text-[10px] py-[2px]">Visit</span>
-        <span class="metatable-value block px-5 py-[2px]">
+        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Visit</span>
+        <span class="block px-5 metatable-value py-[2px]">
           <a href={blok.url}>
             {(() => {
               const parts = blok.url.replace(/^(https?:\/\/)?(www\.)?/i, '').split('/');
@@ -40,38 +40,38 @@ function renderContent(content) {
     )}
     {blok.xHandle && (
       <li class="table-cell border">
-        <span class="metatable-label block border-b px-3 text-[10px] py-[2px]">Follow</span>
-        <span class="metatable-value block px-5 py-[2px]">
+        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Follow</span>
+        <span class="block px-5 metatable-value py-[2px]">
           <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">@{blok.xHandle}</a>
         </span>
       </li>
     )}
     {blok.type && (
       <li class="table-cell border">
-        <span class="metatable-label block border-b px-3 text-[10px] py-[2px]">Type</span>
-        <span class="metatable-value block px-5 py-[2px]">
+        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Type</span>
+        <span class="block px-5 metatable-value py-[2px]">
           {blok.type}
         </span>
       </li>
     )}
     {blok.launchDate && (
       <li class="table-cell border">
-        <span class="metatable-label block border-b px-3 text-[10px] py-[2px]">Launched</span>
-        <span class="metatable-value block px-5 py-[2px]">
+        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Launched</span>
+        <span class="block px-5 metatable-value py-[2px]">
           {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
         </span>
       </li>
     )}
     <li class="table-cell border">
-      <span class="metatable-label block border-b px-3 text-[10px] py-[2px]">Status</span>
-      <span class="metatable-value block px-5 py-[2px]">
+      <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Status</span>
+      <span class="block px-5 metatable-value py-[2px]">
         {blok.retiredDate ? 'archived' : 'active'}
       </span>
     </li>
   </ul>
 
   <!-- Project Description -->
-  {blok.description && <section class="project-description max-w-3xl my-[60px] mx-auto text-center text-[24px] leading-[1.6em]" set:html={renderContent(blok.description)} />}
+  {blok.description && <section class="mx-auto max-w-3xl text-center project-description my-[60px] text-[24px] leading-[1.6em]" set:html={renderContent(blok.description)} />}
 
   <!-- Example Blocks -->
   {blok.examples && blok.examples.length > 0 && (
@@ -100,18 +100,18 @@ function renderContent(content) {
   )}
 
   <!-- Related Content -->
-  {blok.relatedContent && (
-    <section class="mt-10 mb-[50px] max-w-7xl mx-auto">
-      <h2 class="text-center font-functionpro uppercase text-4xl mb-3">More about {name}</h2>
+  {blok.relatedContent && blok.relatedContent.length > 0 && (
+    <section class="mx-auto mt-14 mb-10 max-w-7xl">
+      <h2 class="mb-3 text-center text-4xl uppercase font-functionpro">More about {name}</h2>
 
       <ul class="text-center uppercase font-functionpro">
         {blok.relatedContent.map((related) => (
-          <li class="text-lg leading-4 py-4">
+          <li class="py-4 text-lg leading-4">
             {(() => {
               const content = (
                 <>
                   {related.title && <span class="group-hover:underline">{related.title}</span>}
-                  {related.sourceName && <><br><span class="text-white text-xs">via {related.sourceName}</span></>}
+                  {related.sourceName && <><br><span class="text-xs text-white">via {related.sourceName}</span></>}
                 </>
               );
               return related.url ? <a href={related.url} class="group !no-underline">{content}</a> : content;
@@ -123,10 +123,10 @@ function renderContent(content) {
   )}
 
   <!-- More Projects -->
-  <section class="my-10 max-w-7xl mx-auto">
-    <h2 class="text-center font-functionpro uppercase text-4xl mb-3">More Pointless Projects</h2>
+  <section class="mx-auto mt-14 mb-10 max-w-7xl">
+    <h2 class="mb-3 text-center text-4xl uppercase font-functionpro">More Pointless Projects</h2>
 
-    <ul class="xs:columns-2 md:columns-3 text-center uppercase font-functionpro text-lg">
+    <ul class="text-center text-lg uppercase font-functionpro xs:columns-2 md:columns-3">
       {projects.map((project) => (
         <li class="py-2">
           <a href={`/${project.slug}`} class="!no-underline hover:!underline">{project.name}</a>
@@ -137,7 +137,6 @@ function renderContent(content) {
 </article>
 
 <style>
-  /* Project Styles */
   .project {
     background-color: var(--backgroundColor);
     color: var(--textColor);
