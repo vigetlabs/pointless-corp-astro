@@ -73,7 +73,7 @@ export default {
           backgroundRepeat: 'repeat',
         },
         '.about-text p + p': {
-          marginTop: '1.5em',
+          marginTop: theme('spacing.6'),
         },
         '.about-text p:nth-child(3) b:nth-child(1)': {
           color: theme('colors.tools'),
@@ -95,7 +95,7 @@ export default {
         },
         '.faq-text a': {
           color: theme('colors.red.dark'),
-          fontWeight: 'bold',
+          fontWeight: theme('fontWeight.bold'),
           textDecoration: 'underline',
         },
         '.faq-text a:hover': {
@@ -152,11 +152,11 @@ export default {
         },
         '.project-description a': {
           color: 'var(--linkColor)',
-          fontWeight: 'bold',
+          fontWeight: theme('fontWeight.bold'),
           textDecoration: 'underline',
         },
         '.project-description p + p': {
-          marginTop: '1.5em',
+          marginTop: theme('spacing.6'),
         },
         '.image-blok': {
           color: 'var(--accentColor)',
@@ -169,14 +169,14 @@ export default {
           width: '100%',
         },
         '.footer-social svg': {
-          height: '32px',
-          width: '32px',
+          height: theme('spacing.8'),
+          width: theme('spacing.8'),
         },
         '.text-blok p + p': {
-          marginTop: '1.5em',
+          marginTop: theme('spacing.6'),
         },
         '.text-blok a': {
-          fontWeight: 'bold',
+          fontWeight: theme('fontWeight.bold'),
           textDecoration: 'underline',
         },
       })
