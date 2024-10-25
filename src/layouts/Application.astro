@@ -60,7 +60,7 @@ import '../styles/global.css';
 })()}
 
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth focus:scroll-auto">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,7 +109,8 @@ import '../styles/global.css';
       --footerSocialBorderHoverColor: {finalColors.footerSocialBorderHoverColor};
     }
 
-    body, footer {
+    body,
+    footer {
       background-color: var(--backgroundColor);
       color: var(--textColor);
     }
@@ -134,7 +135,8 @@ import '../styles/global.css';
       border-color: var(--footerSocialBorderColor);
     }
 
-    .footer-social:hover, .footer-social:focus {
+    .footer-social:hover,
+    .footer-social:focus {
       border-color: var(--footerSocialBorderHoverColor);
       color: var(--footerSocialBorderHoverColor);
     }
