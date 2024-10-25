@@ -57,24 +57,30 @@ import '../styles/global.css';
   <link rel="dns-prefetch" href="//a-us.storyblok.com/">
   <link rel="preload" as="font" href={`${rootUrl}fonts/FunctionPro-Bold-webfont.woff`} type="font/woff" crossorigin="anonymous">
 
+  <!-- title -->
   <title>{title}</title>
-
-  <meta itemprop="description" content={description}>
-  <meta itemprop="image" content={metaImageUrl}>
-
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@pointlesscorp">
+  <meta property="og:title" content={title}>
   <meta name="twitter:title" content={title}>
+
+  <!-- url -->
+  <link rel="canonical" href={Astro.url}>
+  <meta property="og:url" content={Astro.url}>
+  <meta name="twitter:url" content={Astro.url}>
+
+  <!-- description -->
+  <meta name="description" content={description}>
+  <meta property="og:description" content={description}>
   <meta name="twitter:description" content={description}>
-  <meta name="twitter:creator" content="@pointlesscorp">
+
+  <!-- image -->
+  <meta property="og:image" content={metaImageUrl}>
   <meta name="twitter:image" content={metaImageUrl}>
 
-  <meta property="og:title" content={title}>
+  <!-- additional meta -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@pointlesscorp">
+  <meta name="twitter:creator" content="@pointlesscorp">
   <meta property="og:type" content="website">
-  <meta property="og:url" content={Astro.url}>
-  <meta property="og:image" content={metaImageUrl}>
-  <meta property="og:description" content={description}>
-  <meta property="og:site_name" content={Astro.url}>
 
   <style define:vars={finalColors}>
     :root {
