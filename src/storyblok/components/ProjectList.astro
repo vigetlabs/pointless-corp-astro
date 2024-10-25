@@ -44,7 +44,6 @@ const { projects } = Astro.props;
       experiments: true,
       stunts: true
     }),
-    projects: JSON.parse(JSON.stringify(projects)),
     isVisible(index, type) {
       return (index < 12 || this.showMore) && this.filters[type];
     },
