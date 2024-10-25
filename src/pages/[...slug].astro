@@ -43,8 +43,10 @@ const themeColors = {
   textColor: story.content.textColor?.color,
   linkColor: story.content.linkColor?.color,
 };
+
+const description = story.content.description.content[0].content[0].text;
 ---
 
-<Application title={`${story.name} - Pointlesscorp`} themeColors={themeColors}>
+<Application title={`${story.name} - Pointlesscorp`} themeColors={themeColors} description={description} metaImage={story.content.logo.filename}>
   <StoryblokComponent blok={story.content} name={story.name} projects={projectData.stories} />
 </Application>
