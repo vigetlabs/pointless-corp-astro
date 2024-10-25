@@ -49,7 +49,7 @@ import '../styles/global.css';
   rootUrl = import.meta.env.NETLIFY
     ? import.meta.env.CONTEXT === 'production'
       ? 'https://pointlesscorp.com/'
-      : `https://${import.meta.env.NETLIFY_SITE_NAME}.netlify.app/`
+      : `${import.meta.env.DEPLOY_PRIME_URL}/`
     : new URL(Astro.url.origin).toString();
 
   // Set the meta image URL based on the environment
