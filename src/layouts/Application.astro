@@ -1,12 +1,12 @@
 ---
-const { title, themeColors, description, metaImage } = Astro.props;
+const { title, themeColors, description, metaImage, slug } = Astro.props;
 
 // Get the current path
 const currentPath = Astro.url.pathname;
 const isHomePage = currentPath === "/";
 let rootUrl = '';
 let metaImageUrl = '';
-
+let contentUrl = '';
 // Default colors
 const defaultColors = {
   backgroundColor: '#fff',
@@ -54,6 +54,7 @@ import '../styles/global.css';
 
   // Set the meta image URL based on the environment
   metaImageUrl = metaImage ? `${metaImage}` : `${rootUrl}og.png`;
+  contentUrl = slug === '/' ? `${rootUrl}` : `${rootUrl}${slug}`;
 
   return null;
 })()}
@@ -72,7 +73,7 @@ import '../styles/global.css';
   <!-- HTML Meta Tags -->
   <title>{title}</title>
   <meta name="description" content={description} />
-  <link rel="canonical" href={Astro.url} />
+  <link rel="canonical" href={contentUrl} />
 
   <!-- Google / Search Engine Tags -->
   <meta itemprop="name" content={title} />
@@ -80,7 +81,7 @@ import '../styles/global.css';
   <meta itemprop="image" content={metaImageUrl} />
 
   <!-- Facebook Meta Tags -->
-  <meta property="og:url" content={Astro.url} />
+  <meta property="og:url" content={contentUrl} />
   <meta property="og:type" content="website" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
@@ -91,7 +92,7 @@ import '../styles/global.css';
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={metaImageUrl} />
-  <meta name="twitter:url" content={Astro.url} />
+  <meta name="twitter:url" content={contentUrl} />
   <meta name="twitter:site" content="@pointlesscorp" />
   <meta name="twitter:creator" content="@pointlesscorp" />
 
