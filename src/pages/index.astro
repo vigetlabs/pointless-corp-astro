@@ -25,8 +25,14 @@ const { data: projectData } = await storyblokApi.get('cdn/stories', {
 
 const projects = projectData.stories;
 const story = homeData.story;
+
+// Extract text from the aboutText content
+const aboutTextString = story.content.aboutText.content
+  .map(paragraph => paragraph.content
+  .map(item => item.text)
+  .join(''));
 ---
 
-<Application title="Pointless Corp - The Innovation Lab at Viget">
+<Application title="Pointless Corp - The Innovation Lab at Viget" description={aboutTextString}>
   <StoryblokComponent blok={story.content} projects={projects} />
 </Application>
