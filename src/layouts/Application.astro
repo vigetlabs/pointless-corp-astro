@@ -44,12 +44,15 @@ import iconX from '../images/svgs/x.svg?raw';
 import '../styles/global.css';
 ---
 {(() => {
+  // meta imports don't work in Astro frontmatter, so we set the root URL and meta image URL here
+  // Set the root URL based on the environment
   rootUrl = import.meta.env.NETLIFY
-    ? import.meta.env.PROD
+    ? import.meta.env.CONTEXT === 'production'
       ? 'https://pointlesscorp.com/'
       : `https://${import.meta.env.NETLIFY_SITE_NAME}.netlify.app/`
     : new URL(Astro.url.origin).toString();
 
+  // Set the meta image URL based on the environment
   metaImageUrl = metaImage ? `${metaImage}` : `${rootUrl}og.png`;
 
   return null;
