@@ -57,30 +57,31 @@ import '../styles/global.css';
   <link rel="dns-prefetch" href="//a-us.storyblok.com/">
   <link rel="preload" as="font" href={`${rootUrl}fonts/FunctionPro-Bold-webfont.woff`} type="font/woff" crossorigin="anonymous">
 
-  <!-- title -->
+  <!-- HTML Meta Tags -->
   <title>{title}</title>
-  <meta property="og:title" content={title}>
-  <meta name="twitter:title" content={title}>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={Astro.url} />
 
-  <!-- url -->
-  <link rel="canonical" href={Astro.url}>
-  <meta property="og:url" content={Astro.url}>
-  <meta name="twitter:url" content={Astro.url}>
+  <!-- Google / Search Engine Tags -->
+  <meta itemprop="name" content={title} />
+  <meta itemprop="description" content={description} />
+  <meta itemprop="image" content={metaImageUrl} />
 
-  <!-- description -->
-  <meta name="description" content={description}>
-  <meta property="og:description" content={description}>
-  <meta name="twitter:description" content={description}>
+  <!-- Facebook Meta Tags -->
+  <meta property="og:url" content={Astro.url} />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={metaImageUrl} />
 
-  <!-- image -->
-  <meta property="og:image" content={metaImageUrl}>
-  <meta name="twitter:image" content={metaImageUrl}>
-
-  <!-- additional meta -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="@pointlesscorp">
-  <meta name="twitter:creator" content="@pointlesscorp">
-  <meta property="og:type" content="website">
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={metaImageUrl} />
+  <meta name="twitter:url" content={Astro.url} />
+  <meta name="twitter:site" content="@pointlesscorp" />
+  <meta name="twitter:creator" content="@pointlesscorp" />
 
   <style define:vars={finalColors}>
     :root {
