@@ -7,16 +7,13 @@ import ToggleButton from './ToggleButton.astro';
 import Toggle from './Toggle.astro';
 
 function getIconStamp(type) {
-  switch (type) {
-    case 'tools':
-      return iconStampTools;
-    case 'experiments':
-      return iconStampExperiments;
-    case 'stunts':
-      return iconStampStunts;
-    default:
-      return '';
-  }
+  const iconStamps = {
+    tools: iconStampTools,
+    experiments: iconStampExperiments,
+    stunts: iconStampStunts
+  };
+
+  return iconStamps[type] ?? '';
 }
 
 function getContrastColor(hexColor) {
