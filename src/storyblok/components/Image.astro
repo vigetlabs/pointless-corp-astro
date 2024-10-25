@@ -17,12 +17,12 @@ interface ImageProps {
 const { image, class: className, wrapperClass, captionClass, widths = [320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048], sizes } = Astro.props as ImageProps;
 
 // Generate srcset based on widths
-const srcset = widths.map(width => `${image.filename}/m/${width}x0 ${width}w`).join(', ');
+const srcset = widths.map(width => `${image.filename}/m/${width}x0/filters:format(avif) ${width}w`).join(', ');
 ---
 
 <figure class={wrapperClass}>
   <AstroImage
-    src={image.filename}
+    src={`${image.filename}/m/filters:format(avif)`}
     alt={image.alt || ''}
     srcset={srcset}
     sizes={sizes}

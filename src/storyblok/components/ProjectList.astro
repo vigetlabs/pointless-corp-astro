@@ -2,7 +2,7 @@
 import iconStampTools from '../../images/svgs/stamp-tools.svg?raw';
 import iconStampExperiments from '../../images/svgs/stamp-experiments.svg?raw';
 import iconStampStunts from '../../images/svgs/stamp-stunts.svg?raw';
-import Image from './Image.astro';
+import { Image as AstroImage } from 'astro:assets';
 import ToggleButton from './ToggleButton.astro';
 import Toggle from './Toggle.astro';
 
@@ -132,12 +132,20 @@ const { projects } = Astro.props;
             x-transition:leave-end="opacity-0 scale-75"
           >
             {content.icon && (
-              <Image
-                image={content.icon}
-                inferSize={true}
-                className="h-auto w-full"
-                captionClass="hidden"
-              />
+              content.icon.filename.endsWith('.svg') ? (
+                <img
+                  src={content.icon.filename}
+                  alt=""
+                  class="h-auto w-full"
+                />
+              ) : (
+                <AstroImage
+                  src={content.icon.filename}
+                  alt=""
+                  class="h-auto w-full"
+                  inferSize={true}
+                />
+              )
             )}
 
             <div class="-mt-11 px-3">

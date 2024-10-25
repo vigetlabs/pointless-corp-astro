@@ -32,10 +32,12 @@ function renderContent(content: any) {
       const imageFilename = blok.featureImages[0].filename;
       return (
         <AstroImage
-          src={imageFilename}
+          src={`${imageFilename}/m/filters:format(avif)`}
           alt={blok.featureImages[0].title || ''}
           inferSize={true}
-          srcset={`${imageFilename}/m/320x0 320w, ${imageFilename}/m/480x0 480w, ${imageFilename}/m/640x0 640w, ${imageFilename}/m/768x0 768w, ${imageFilename}/m/1024x0 1024w, ${imageFilename}/m/1366x0 1366w, ${imageFilename}/m/1536x0 1536w, ${imageFilename}/m/1920x0 1920w, ${imageFilename}/m/2048x0 2048w`}
+          srcset={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]
+            .map(size => `${imageFilename}/m/${size}x0/filters:format(avif) ${size}w`)
+            .join(', ')}
           sizes={`100vw`}
           class="absolute top-0 left-0 z-0 h-full w-full object-cover"
         />
