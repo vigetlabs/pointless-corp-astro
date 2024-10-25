@@ -4,10 +4,8 @@ const { title, themeColors, description, metaImage } = Astro.props;
 // Get the current path
 const currentPath = Astro.url.pathname;
 const isHomePage = currentPath === "/";
-const rootUrl = new URL(Astro.url.origin).toString();
-
-const metaImageUrl = metaImage ? `${metaImage}` : `${rootUrl}og.png`;
-
+let rootUrl = '';
+let metaImageUrl = '';
 
 // Default colors
 const defaultColors = {
@@ -45,6 +43,17 @@ import logoLargeWhite from '../images/svgs/pointless-logo-large--white.svg';
 import iconX from '../images/svgs/x.svg?raw';
 import '../styles/global.css';
 ---
+{(() => {
+  rootUrl = import.meta.env.NETLIFY
+    ? import.meta.env.PROD
+      ? 'https://pointlesscorp.com/'
+      : `https://${import.meta.env.NETLIFY_SITE_NAME}.netlify.app/`
+    : new URL(Astro.url.origin).toString();
+
+  metaImageUrl = metaImage ? `${metaImage}` : `${rootUrl}og.png`;
+
+  return null;
+})()}
 
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
