@@ -140,7 +140,7 @@ const { projects } = Astro.props;
                 />
               ) : (
                 <AstroImage
-                  src={content.icon.filename}
+                  src={`${content.icon.filename}/m/filters:format(avif)`}
                   alt=""
                   class="h-auto w-full"
                   inferSize={true}
