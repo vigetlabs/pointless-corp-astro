@@ -129,6 +129,10 @@ export default {
         '.contact-link:hover b': {
           textDecoration: 'none',
         },
+        '.project-list': {
+          backgroundImage: `url('/src/images/patterns/bg-waves.png')`,
+          backgroundRepeat: 'repeat',
+        },
         '.project-item': {
           backgroundColor: 'var(--projectBackgroundColor)',
           color: 'var(--projectTextColor)',
