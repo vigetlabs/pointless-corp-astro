@@ -56,6 +56,28 @@ export default {
   plugins: [
     plugin(function ({addComponents, theme}) {
       addComponents({
+        'body, footer': {
+          backgroundColor: 'var(--backgroundColor)',
+          color: 'var(--textColor)',
+        },
+        'body a': {
+          color: 'var(--linkColor)',
+        },
+        'footer': {
+          color: 'var(--footerTextColor)',
+        },
+        'footer a': {
+          color: 'var(--footerLinkColor)',
+        },
+        '.footer-copyright': {
+          color: 'var(--footerCopyrightColor)',
+        },
+        '.footer-social': {
+          borderColor: 'var(--footerSocialBorderColor)',
+        },
+        '.footer-social:hover, .footer-social:focus': {
+          borderColor: 'var(--footerSocialBorderHoverColor) !important',
+        },
         '.bg-tiled': {
           backgroundColor: 'rgba(0, 0, 0, 0.04)',
           backgroundBlendMode: 'overlay',
