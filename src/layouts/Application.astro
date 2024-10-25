@@ -108,6 +108,36 @@ import '../styles/global.css';
       --footerSocialBorderColor: {finalColors.footerSocialBorderColor};
       --footerSocialBorderHoverColor: {finalColors.footerSocialBorderHoverColor};
     }
+
+    body, footer {
+      background-color: var(--backgroundColor);
+      color: var(--textColor);
+    }
+
+    body a {
+      color: var(--linkColor);
+    }
+
+    footer {
+      color: var(--footerTextColor);
+    }
+
+    footer a {
+      color: var(--footerLinkColor);
+    }
+
+    .footer-copyright {
+      color: var(--footerCopyrightColor);
+    }
+
+    .footer-social {
+      border-color: var(--footerSocialBorderColor);
+    }
+
+    .footer-social:hover, .footer-social:focus {
+      border-color: var(--footerSocialBorderHoverColor);
+      color: var(--footerSocialBorderHoverColor);
+    }
   </style>
 </head>
 <body class="antialiased font-base">
