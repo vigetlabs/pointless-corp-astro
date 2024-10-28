@@ -28,7 +28,7 @@ const story = homeData.story;
 
 // Extract text from the aboutText content
 const aboutTextString = story.content.aboutText.content
-  .map(paragraph => paragraph.content
+  .flatMap((paragraph: { content: { text: string }[] }) => paragraph.content
   .map(item => item.text)
   .join(''));
 ---
