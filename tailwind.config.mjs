@@ -72,9 +72,6 @@ export default {
           `,
           backgroundRepeat: 'repeat',
         },
-        '.about-text p + p': {
-          marginTop: theme('spacing.6'),
-        },
         '.about-text p:nth-child(3) b:nth-child(1)': {
           color: theme('colors.tools'),
         },
@@ -159,9 +156,6 @@ export default {
           fontWeight: theme('fontWeight.bold'),
           textDecoration: 'underline',
         },
-        '.project-description p + p': {
-          marginTop: theme('spacing.6'),
-        },
         '.image-blok': {
           color: 'var(--accentColor)',
         },
@@ -175,9 +169,6 @@ export default {
         '.footer-social svg': {
           height: theme('spacing.8'),
           width: theme('spacing.8'),
-        },
-        '.text-blok p + p': {
-          marginTop: theme('spacing.6'),
         },
         '.text-blok a': {
           fontWeight: theme('fontWeight.bold'),

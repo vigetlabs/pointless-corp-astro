@@ -5,5 +5,5 @@ const { blok } = Astro.props;
 ---
 
 {blok.text && (
-  <div class="mx-auto my-10 max-w-3xl text-blok" set:html={renderRichText(blok.text)} />
+  <div class="max-w-3xl mx-auto my-10 space-y-9 text-blok" set:html={renderRichText(blok.text)} />
 )}

@@ -62,13 +62,13 @@ import '../styles/global.css';
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth focus:scroll-auto">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
 
   <link rel="preconnect" href="//a-us.storyblok.com/">
-  <link rel="dns-prefetch" href="//a-us.storyblok.com/">
-  <link rel="preload" as="font" href={`${rootUrl}fonts/FunctionPro-Bold-webfont.woff`} type="font/woff" crossorigin="anonymous">
+  <link rel="dns-prefetch" href="//a-us.storyblok.com/" />
+  <link rel="preload" as="font" href={`${rootUrl}fonts/FunctionPro-Bold-webfont.woff`} type="font/woff" crossorigin="anonymous" />
 
   <!-- HTML Meta Tags -->
   <title>{title}</title>
@@ -151,17 +151,16 @@ import '../styles/global.css';
   '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-N3P6MM');</script>
 
-  <header class="absolute top-9 left-0 z-20 w-full px-3">
-    <div class="mx-auto flex max-w-7xl items-center justify-center sm:justify-between">
-      {currentPath === "/" ? (
-        <h1>
-          <img src={logo.src} class="h-auto w-[160px]" alt="Pointless Corp." />
-        </h1>
-      ) : (
-        <a href="/">
-          <img src={logo.src} class="h-auto w-[160px]" alt="Pointless Corp." />
-        </a>
-      )}
+  <header class="absolute left-0 z-20 w-full px-3 top-9">
+    <div class="flex items-center justify-center mx-auto max-w-7xl sm:justify-between">
+      {(() => {
+        const logoImg = <img src={logo.src} class="h-auto w-[160px]" alt="Pointless Corp." />;
+        return currentPath === "/" ? (
+          <h1>{logoImg}</h1>
+        ) : (
+          <a href="/">{logoImg}</a>
+        );
+      })()}
 
       <nav class="hidden sm:block">
         <ul class="flex gap-4 font-functionpro">
@@ -176,13 +175,13 @@ import '../styles/global.css';
     <slot />
   </main>
   <footer class="flex flex-col items-center px-5 uppercase py-[50px] font-functionpro">
-    {currentPath === "/" ? (
-      <img src={logoLarge.src} class="h-auto w-[212px] sm:w-[282px]" alt="Pointless Corp." />
-    ) : (
-      <img src={logoLargeWhite.src} class="h-auto w-[212px] sm:w-[282px]" alt="Pointless Corp." />
-    )}
+    <img
+      src={currentPath === "/" ? logoLarge.src : logoLargeWhite.src}
+      class="h-auto w-[212px] sm:w-[282px]"
+      alt="Pointless Corp."
+    />
 
-    <p class="mt-8 text-xs">The innovation lab at <a class="underline hover:no-underline focus:no-underline" href="http://viget.com">Viget</a></p>
+    <p class="mt-8 text-xs">The innovation lab at <a class="underline hover:no-underline focus:no-underline" href="https://www.viget.com/">Viget</a></p>
 
     <p class="mt-6">
       <a class="footer-social inline-block rounded-full border transition duration-300 border-gray-light p-[13px] hover:border-gray-dark focus:border-gray-dark" aria-label="Pointless Corp. on X" href="http://x.com/pointlesscorp">
@@ -190,7 +189,7 @@ import '../styles/global.css';
       </a>
     </p>
 
-    <p class="footer-copyright mt-5 text-xs">&copy; {new Date().getFullYear()} Pointless Corp.</p>
+    <p class="mt-5 text-xs footer-copyright">&copy; {new Date().getFullYear()} Pointless Corp.</p>
   </footer>
 </body>
 </html>
