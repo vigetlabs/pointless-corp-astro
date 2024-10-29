@@ -13,7 +13,7 @@ const imageUrl = blok.image?.filename || ''
     <Image
       src={`${imageUrl}/m/filters:format(avif)`}
       alt={blok.alt || ''}
-      class="relative z-10 mx-auto block h-auto max-w-full"
+      class="relative z-10 block h-auto max-w-full mx-auto"
       srcset={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]
         .map(size => `${imageUrl}/m/${size}x0/filters:format(avif) ${size}w`)
         .join(', ')}
@@ -21,7 +21,7 @@ const imageUrl = blok.image?.filename || ''
       inferSize={true}
     />
 
-    <div class="absolute top-0 left-1/2 z-0 h-full w-full max-w-4xl -translate-x-1/2 transform text-center">
+    <div class="absolute top-0 z-0 w-full h-full max-w-4xl text-center transform -translate-x-1/2 left-1/2">
       <Fragment set:html={circle} />
     </div>
   </div>
