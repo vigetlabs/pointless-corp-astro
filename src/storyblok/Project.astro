@@ -24,12 +24,12 @@ function renderContent(content: any) {
       src={blok.logo.filename}
       inferSize={true}
       alt=""
-      class="mx-auto mb-5 block max-w-full"
+      class="block max-w-full mx-auto mb-5"
     />
   )}
 
   <!-- Project Details -->
-  <ul class="mx-auto table border-collapse text-center uppercase metatable font-functionpro">
+  <ul class="table mx-auto text-center uppercase border-collapse metatable font-functionpro">
     {blok.url && (
       <li class="table-cell border">
         <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Visit</span>
@@ -76,7 +76,7 @@ function renderContent(content: any) {
   </ul>
 
   <!-- Project Description -->
-  {blok.description && <section class="mx-auto max-w-3xl text-center project-description my-[60px] text-[24px] leading-[1.6em]" set:html={renderContent(blok.description)} />}
+  {blok.description && <section class="mx-auto max-w-3xl text-center project-description my-[60px] text-[24px] leading-[1.6em] space-y-9" set:html={renderContent(blok.description)} />}
 
   <!-- Example Blocks -->
   {blok.examples && blok.examples.length > 0 && (
@@ -151,7 +151,7 @@ function renderContent(content: any) {
               >
                 <span class="sr-only">Slide {index + 1}</span>
                 <span
-                  class="absolute top-1/2 left-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full border transition-all duration-300 ease-in-out"
+                  class="absolute block transition-all duration-300 ease-in-out -translate-x-1/2 -translate-y-1/2 border rounded-full top-1/2 left-1/2"
                   :class={`currentImage === ${index} ? 'selected w-3 h-3' : ' w-2 h-2'`}
                 ></span>
               </button>
@@ -164,8 +164,8 @@ function renderContent(content: any) {
 
   <!-- Related Content -->
   {blok.relatedContent && blok.relatedContent.length > 0 && (
-    <section class="mx-auto mt-14 mb-10 max-w-7xl">
-      <h2 class="mb-3 text-center text-4xl uppercase font-functionpro">More about {name}</h2>
+    <section class="mx-auto mb-10 mt-14 max-w-7xl">
+      <h2 class="mb-3 text-4xl text-center uppercase font-functionpro">More about {name}</h2>
 
       <ul class="text-center uppercase font-functionpro">
         {blok.relatedContent.map((related) => (
@@ -187,9 +187,9 @@ function renderContent(content: any) {
 
   <!-- More Projects -->
   <section class="mx-auto mt-14 max-w-7xl">
-    <h2 class="mb-3 text-center text-4xl uppercase font-functionpro">More Pointless Projects</h2>
+    <h2 class="mb-3 text-4xl text-center uppercase font-functionpro">More Pointless Projects</h2>
 
-    <ul class="text-center text-lg uppercase font-functionpro xs:columns-2 md:columns-3">
+    <ul class="text-lg text-center uppercase font-functionpro xs:columns-2 md:columns-3">
       {projects.map((project: { slug: string; name: string }) => (
         <li class="py-2">
           <a href={`/${project.slug}`} class="!no-underline hover:!underline">{project.name}</a>
