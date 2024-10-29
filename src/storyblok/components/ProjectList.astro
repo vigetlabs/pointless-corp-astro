@@ -74,7 +74,7 @@ const { projects } = Astro.props;
     }
   })"
 >
-  <div class="mt-10 hidden flex-col items-center justify-center text-sm uppercase font-functionpro sm:flex lg:flex-row">
+  <div class="flex-col items-center justify-center hidden mt-10 text-sm uppercase font-functionpro sm:flex lg:flex-row">
     <div class="flex items-center gap-2 lg:mr-7">
       <span class="text-brick-light">Filter:</span>
       <Toggle label="Tools" type="tools" />
@@ -102,7 +102,7 @@ const { projects } = Astro.props;
     </div>
   </div>
 
-  <div class="project-list mx-auto mt-5 max-w-7xl rounded-xl p-8 bg-brick">
+  <div class="p-8 mx-auto mt-5 project-list max-w-7xl rounded-xl bg-brick">
     <ul class="grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
       {projects.map((project, index) => {
         const { content } = project;
@@ -112,7 +112,7 @@ const { projects } = Astro.props;
 
         return (
           <li
-            class="relative block overflow-hidden rounded pb-20 text-center project-item"
+            class="relative block pb-20 overflow-hidden text-center rounded project-item"
             data-type={content.type}
             style={`
               --projectBackgroundColor: ${backgroundColor};
@@ -132,20 +132,20 @@ const { projects } = Astro.props;
                 <img
                   src={content.icon.filename}
                   alt=""
-                  class="h-auto w-full"
+                  class="w-full h-auto"
                 />
               ) : (
                 <AstroImage
                   src={`${content.icon.filename}/m/filters:format(avif)`}
                   alt=""
-                  class="h-auto w-full"
+                  class="w-full h-auto"
                   inferSize={true}
                 />
               )
             )}
 
-            <div class="-mt-11 px-3">
-              <p class="mb-2 text-xl uppercase leading-5 font-functionpro">
+            <div class="px-3 -mt-11">
+              <p class="mb-2 text-xl leading-5 uppercase font-functionpro">
                 <a class="project-item-link" href={`/${project.slug}`}>{project.name}</a>
               </p>
               {content.tagline && <p class="text-xs leading-5">{content.tagline}</p>}
