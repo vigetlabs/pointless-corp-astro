@@ -44,6 +44,16 @@ const { projects } = Astro.props;
       experiments: true,
       stunts: true
     }),
+    prefetchedLinks: new Set(),
+    prefetchLink(href) {
+      if (this.prefetchedLinks.has(href)) return;
+
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = href;
+      document.head.appendChild(link);
+      this.prefetchedLinks.add(href);
+    },
     isVisible(index, type) {
       return (index < 12 || this.showMore) && this.filters[type];
     },
@@ -146,7 +156,13 @@ const { projects } = Astro.props;
 
             <div class="px-3 -mt-11">
               <p class="mb-2 text-xl leading-5 uppercase font-functionpro">
-                <a class="project-item-link" href={`/${project.slug}`}>{project.name}</a>
+                <a
+                  class="project-item-link"
+                  href={`/${project.slug}`}
+                  @mouseover={`prefetchLink('/${project.slug}')`}
+                >
+                  {project.name}
+                </a>
               </p>
               {content.tagline && <p class="text-xs leading-5">{content.tagline}</p>}
             </div>
