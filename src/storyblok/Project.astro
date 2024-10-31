@@ -15,7 +15,21 @@ function renderContent(content: any) {
 }
 ---
 
-<article class="px-5 pt-20 pb-10 project">
+<article
+  class="px-5 pt-20 pb-10 project"
+  x-data="{
+    prefetchedLinks: new Set(),
+    prefetchLink(href) {
+      if (this.prefetchedLinks.has(href)) return;
+
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = href;
+      document.head.appendChild(link);
+      this.prefetchedLinks.add(href);
+    }
+  }"
+>
   <h1 class="sr-only">{name}</h1>
 
   <!-- Project Logo -->
@@ -192,7 +206,13 @@ function renderContent(content: any) {
     <ul class="text-lg text-center uppercase font-functionpro xs:columns-2 md:columns-3">
       {projects.map((project: { slug: string; name: string }) => (
         <li class="py-2">
-          <a href={`/${project.slug}`} class="!no-underline hover:!underline">{project.name}</a>
+          <a
+            href={`/${project.slug}`}
+            class="!no-underline hover:!underline"
+            @mouseover={`prefetchLink('/${project.slug}')`}
+          >
+            {project.name}
+          </a>
         </li>
       ))}
     </ul>
