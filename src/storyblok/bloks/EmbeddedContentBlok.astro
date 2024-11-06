@@ -1,9 +1,8 @@
 ---
-import { storyblokEditable } from '@storyblok/astro';
 const { blok } = Astro.props;
 ---
 
-<figure class="max-w-2xl mx-auto my-10" {...storyblokEditable(blok)}>
+<figure class="max-w-2xl mx-auto my-10">
   {blok.embed && (
     <div set:html={blok.embed} />
   )}

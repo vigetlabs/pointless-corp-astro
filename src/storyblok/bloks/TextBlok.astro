@@ -1,10 +1,9 @@
 ---
-import { storyblokEditable } from '@storyblok/astro';
 import { renderRichText } from '@storyblok/astro';
 
 const { blok } = Astro.props;
 ---
 
 {blok.text && (
-  <div class="max-w-3xl mx-auto my-10 space-y-9 text-blok" set:html={renderRichText(blok.text)} {...storyblokEditable(blok)} />
+  <div class="max-w-3xl mx-auto my-10 space-y-9 text-blok" set:html={renderRichText(blok.text)} />
 )}
