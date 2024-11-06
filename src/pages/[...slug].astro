@@ -22,7 +22,7 @@ const storyblokApi = useStoryblokApi();
 const { data: { story } } = await storyblokApi.get(`cdn/stories/${slug}`, {
   version: 'published',
   resolve_assets: 1,
-});
+}, {}, Astro);
 
 const { data: projectData } = await storyblokApi.get('cdn/stories', {
   version: 'published',

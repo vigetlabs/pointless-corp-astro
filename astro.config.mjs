@@ -12,6 +12,7 @@ export default defineConfig({
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
+      livePreview: true,
       components: {
         homepage: 'storyblok/Homepage',
         project: 'storyblok/Project',
