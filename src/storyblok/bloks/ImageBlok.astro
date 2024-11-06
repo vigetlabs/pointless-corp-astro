@@ -1,4 +1,5 @@
 ---
+import { storyblokEditable } from '@storyblok/astro';
 import { Image } from 'astro:assets';
 const { blok } = Astro.props;
 
@@ -9,7 +10,7 @@ const imageUrl = blok.image?.filename || ''
 ---
 
 {imageUrl && (
-  <div class="relative mx-auto my-10 max-w-7xl image-blok">
+  <div class="relative mx-auto my-10 max-w-7xl image-blok" {...storyblokEditable(blok)}>
     <Image
       src={`${imageUrl}/m/filters:format(avif)`}
       alt={blok.alt || ''}

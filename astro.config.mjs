@@ -23,6 +23,7 @@ export default defineConfig({
       apiOptions: {
         region: 'us',
       },
+      bridge: true,
     }),
     alpinejs({
       entrypoint: '/src/alpine.js'
