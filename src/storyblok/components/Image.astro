@@ -22,12 +22,15 @@ const srcset = widths.map(width => `${image.filename}/m/${width}x0/filters:forma
 
 <figure class={wrapperClass}>
   <AstroImage
+    x-data="{ shown: false }"
+    x-intersect.threshold.25="shown = true"
     src={`${image.filename}/m/filters:format(avif)`}
     alt={image.alt || ''}
     srcset={srcset}
     sizes={sizes}
     inferSize={true}
-    class={`block w-full ${className || ''}`}
+    class={`block w-full transition-opacity duration-500 opacity-0 ${className || ''}`}
+    :class="shown ? 'opacity-100' : 'opacity-0'"
   />
   {image.title && <figcaption class={captionClass}>{image.title}</figcaption>}
 </figure>

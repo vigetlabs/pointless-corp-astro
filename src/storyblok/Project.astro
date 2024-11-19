@@ -35,10 +35,13 @@ function renderContent(content: any) {
   <!-- Project Logo -->
   {blok.logo?.filename && (
     <Image
+      x-data="{ shown: false }"
+      x-intersect.threshold.25="shown = true"
       src={blok.logo.filename}
       inferSize={true}
       alt=""
-      class="block max-w-full mx-auto mb-5"
+      class="block max-w-full mx-auto mb-5 transition-opacity duration-500 opacity-0"
+      :class="shown ? 'opacity-100' : 'opacity-0'"
     />
   )}
 
@@ -106,12 +109,13 @@ function renderContent(content: any) {
   <!-- Project Process Images -->
   {blok.process && blok.process.length > 0 && (
     <section
-    class="mx-auto my-10 max-w-7xl"
-    x-data="{
-      currentImage: 0,
-      processNavButtons: $root.querySelectorAll('.process-nav-button'),
-      processLength: $root.querySelectorAll('.process-image').length
-    }">
+      class="mx-auto my-10 max-w-7xl"
+      x-data="{
+        currentImage: 0,
+        processNavButtons: $root.querySelectorAll('.process-nav-button'),
+        processLength: $root.querySelectorAll('.process-image').length
+      }"
+    >
       <h2 class="sr-only">Process</h2>
 
       <div class="relative" role="region" aria-label="Project Process Images">

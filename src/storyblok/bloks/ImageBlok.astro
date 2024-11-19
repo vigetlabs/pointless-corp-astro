@@ -11,9 +11,12 @@ const imageUrl = blok.image?.filename || ''
 {imageUrl && (
   <div class="relative mx-auto my-10 max-w-7xl image-blok">
     <Image
+      x-data="{ shown: false }"
+      x-intersect.threshold.25="shown = true"
       src={`${imageUrl}/m/filters:format(avif)`}
       alt={blok.alt || ''}
-      class="relative z-10 block h-auto max-w-full mx-auto"
+      class="relative z-10 block h-auto max-w-full mx-auto transition-opacity duration-500 opacity-0"
+      :class="shown ? 'opacity-100' : 'opacity-0'"
       srcset={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]
         .map(size => `${imageUrl}/m/${size}x0/filters:format(avif) ${size}w`)
         .join(', ')}

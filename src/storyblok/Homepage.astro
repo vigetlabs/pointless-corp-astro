@@ -32,6 +32,8 @@ function renderContent(content: any) {
       const imageFilename = blok.featureImages[0].filename;
       return (
         <AstroImage
+          x-data="{ shown: false }"
+          x-intersect="shown = true"
           src={`${imageFilename}/m/filters:format(avif)`}
           alt={blok.featureImages[0].title || ''}
           inferSize={true}
@@ -39,7 +41,8 @@ function renderContent(content: any) {
             .map(size => `${imageFilename}/m/${size}x0/filters:format(avif) ${size}w`)
             .join(', ')}
           sizes={`100vw`}
-          class="absolute top-0 left-0 z-0 object-cover w-full h-full"
+          class="absolute top-0 left-0 z-0 object-cover w-full h-full transition-opacity duration-500 opacity-0"
+          :class="shown ? 'opacity-100' : 'opacity-0'"
         />
       );
     })()
