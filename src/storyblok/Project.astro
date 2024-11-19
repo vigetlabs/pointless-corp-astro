@@ -191,7 +191,7 @@ function renderContent(content: any) {
             {(() => {
               const content = (
                 <>
-                  {related.title && <span class="group-hover:underline">{related.title}</span>}
+                  {related.title && <span class="underline group-hover:no-underline">{related.title}</span>}
                   {related.sourceName && <><br><span class="text-xs text-white">via {related.sourceName}</span></>}
                 </>
               );
@@ -212,7 +212,7 @@ function renderContent(content: any) {
         <li class="py-2">
           <a
             href={`/${project.slug}`}
-            class="!no-underline hover:!underline"
+            class="hover:!no-underline"
             @mouseover={`prefetchLink('/${project.slug}')`}
           >
             {project.name}
