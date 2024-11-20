@@ -2,7 +2,8 @@
 
 |Environment|URL|
 |-----|-----|
-|Production|https://pointlesscorp.netlify.app/|
+|Production (Live)|https://pointlesscorp.com/|
+|Production (Netlify)|https://pointlesscorp.netlify.app/|
 |Branch Deploys|https://[branch name]--pointlesscorp.netlify.app/|
 |Local Development|http://localhost:4321/|
 
