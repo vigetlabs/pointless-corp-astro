@@ -1,5 +1,7 @@
 # PointlessCorp.com
 
+[Storyblok](https://www.storyblok.com/) + [Astro.js](https://astro.build/) + [Netlify](https://www.netlify.com/) site for PointlessCorp.
+
 |Environment|URL|
 |-----|-----|
 |Production (Live)|https://pointlesscorp.com/|
