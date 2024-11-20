@@ -45,6 +45,13 @@ const { projects } = Astro.props;
       stunts: true
     }),
     prefetchedLinks: new Set(),
+    focusFirstNewItem() {
+      const allItems = [...document.querySelectorAll('.project-item')];
+      const firstNewItem = allItems[12]; // Items after initial 12
+      const link = firstNewItem.querySelector('.project-item-link');
+      link.focus();
+      link.scrollIntoView({ behavior: 'smooth' });
+    },
     prefetchLink(href) {
       if (this.prefetchedLinks.has(href)) return;
 
@@ -155,16 +162,16 @@ const { projects } = Astro.props;
             )}
 
             <div class="px-3 -mt-11">
-              <p class="mb-2 text-xl leading-5 uppercase font-functionpro">
-                <a
-                  class="project-item-link"
-                  href={`/${project.slug}`}
-                  @mouseover={`prefetchLink('/${project.slug}')`}
-                >
+              <a
+                class="block project-item-link"
+                href={`/${project.slug}`}
+                @mouseover={`prefetchLink('/${project.slug}')`}
+              >
+                <p class="mb-2 text-xl leading-5 uppercase font-functionpro">
                   {project.name}
-                </a>
-              </p>
-              {content.tagline && <p class="text-xs leading-5">{content.tagline}</p>}
+                </p>
+                {content.tagline && <p class="text-xs leading-5">{content.tagline}</p>}
+              </a>
             </div>
 
             <span class="pointer-events-none absolute -bottom-14 left-1/2 block transition-transform duration-300 ease-linear stamp-icon w-[120px] h-[120px] ml-[-60px]">
@@ -178,7 +185,7 @@ const { projects } = Astro.props;
 
   <button
     class="mx-auto mt-11 flex items-center rounded-full px-7 text-xs uppercase transition-colors duration-300 font-functionpro text-red-dark border-red-dark border-[5px] w-[130px] h-[130px] hover:bg-red-dark hover:text-white"
-    @click="showMore = true"
+    @click="showMore = true; $nextTick(() => focusFirstNewItem())"
     x-show="!showMore">
       <span class="inline-block">View More Projects</span>
   </button>
