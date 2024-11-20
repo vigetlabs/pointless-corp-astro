@@ -1,14 +1,20 @@
-# Astro Starter Kit: Minimal
+# PointlessCorp.com
+
+|Environment|URL|
+|-----|-----|
+|Production|https://pointlesscorp.com/|
+|Branch Deploys|https://[branch name]--pointlesscorp.netlify.app/|
+|Local Development|http://localhost:4321/|
+
+## Storyblok CMS
+
+Storyblok is used for the CMS. Credentials are in 1Password under **[VGT] Storyblok**. _Edits in Storyblok only trigger production builds._ To refresh content in a branch or PR build, a build of that environment must be manually triggered.
+
+## Setup
 
 ```sh
-npm create astro@latest -- --template minimal
+nvm use && npm install
 ```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
 ## 🚀 Project Structure
 
@@ -18,20 +24,23 @@ Inside of your Astro project, you'll see the following folders and files:
 /
 ├── public/
 ├── src/
+│   └── layouts/
+│       └── Application.astro
 │   └── pages/
 │       └── index.astro
+│   └── storyblok/
+│       └── bloks/
+│       └── components/
 └── package.json
 ```
 
 Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
 Any static assets, like images, can be placed in the `public/` directory.
 
 ## 🧞 Commands
 
-All commands are run from the root of the project, from a terminal:
+All commands are run from the root of the project, from a terminal. Make sure to `nvm use`!
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |
