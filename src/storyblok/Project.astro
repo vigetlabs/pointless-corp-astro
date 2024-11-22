@@ -50,7 +50,7 @@ function renderContent(content: any) {
     <ul class="table w-full mx-auto uppercase border-collapse md:w-auto md:text-center metatable font-functionpro">
       {blok.url && (
         <li class="table-row border md:table-cell">
-          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[10px] py-[2px]">Visit</span>
+          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[11px] py-[2px]">Visit</span>
           <span class="table-cell w-4/5 md:w-auto md:block px-5 metatable-value py-[2px]">
             <a href={blok.url}>
               {(() => {
@@ -63,7 +63,7 @@ function renderContent(content: any) {
       )}
       {blok.xHandle && (
         <li class="table-row border md:table-cell">
-          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[10px] py-[2px]">Follow</span>
+          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[11px] py-[2px]">Follow</span>
           <span class="table-cell w-4/5 md:w-auto md:block px-5 metatable-value py-[2px]">
             <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">@{blok.xHandle}</a>
           </span>
@@ -71,7 +71,7 @@ function renderContent(content: any) {
       )}
       {blok.type && (
         <li class="table-row border md:table-cell">
-          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[10px] py-[2px]">Type</span>
+          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[11px] py-[2px]">Type</span>
           <span class="table-cell w-4/5 md:w-auto md:block px-5 metatable-value py-[2px]">
             {blok.type}
           </span>
@@ -79,14 +79,14 @@ function renderContent(content: any) {
       )}
       {blok.launchDate && (
         <li class="table-row border md:table-cell">
-          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[10px] py-[2px]">Launched</span>
+          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[11px] py-[2px]">Launched</span>
           <span class="table-cell w-4/5 md:w-auto md:block px-5 metatable-value py-[2px]">
             {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
           </span>
         </li>
       )}
       <li class="table-row border md:table-cell">
-        <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[10px] py-[2px]">Status</span>
+        <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[11px] py-[2px]">Status</span>
         <span class="table-cell w-4/5 md:w-auto md:block px-5 metatable-value py-[2px]">
           {blok.retiredDate ? 'archived' : 'active'}
         </span>
