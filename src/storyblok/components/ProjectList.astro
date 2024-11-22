@@ -94,7 +94,7 @@ const { projects } = Astro.props;
   <div class="flex-col items-center justify-center hidden mt-10 text-sm uppercase font-functionpro sm:flex lg:flex-row">
     <fieldset class="flex items-center gap-2 lg:mr-7">
       <legend class="sr-only">Filter:</legend>
-      <span class="not-sr-only text-brick-light">Filter:</span>
+      <span class="text-brick-light" aria-hidden="true">Filter:</span>
 
       <Toggle label="Tools" type="tools" />
       <Toggle label="Experiments" type="experiments" />
@@ -103,7 +103,7 @@ const { projects } = Astro.props;
 
     <fieldset class="flex gap-5 items-center mt-5 lg:mt-0 lg:pl-7 lg:border-l lg:border-[#f3e6cf]">
       <legend class="sr-only">Show:</legend>
-      <span class="not-sr-only text-brick-light">Show:</span>
+      <span class="text-brick-light" aria-hidden="true">Show:</span>
 
       <ToggleButton
         label="Top 12"
