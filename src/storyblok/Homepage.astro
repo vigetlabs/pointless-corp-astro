@@ -25,7 +25,7 @@ function renderContent(content: any) {
 ---
 
 <div class="relative h-screen px-3 pt-[160px] min-h-[480px]">
-  {blok.heroText && <p class="relative z-10 mx-auto max-w-7xl text-center uppercase text-white text-[36px] leading-[0.89em] font-functionpro sm:text-left md:text-[82px] lg:text-[96px]">{blok.heroText}</p>}
+  {blok.heroText && <p class="relative z-10 mx-auto max-w-7xl text-left uppercase text-white text-[36px] leading-[0.89em] font-functionpro md:text-[82px] lg:text-[96px]">{blok.heroText}</p>}
 
   {blok.featureImages && blok.featureImages.length > 0 && (
     (() => {
@@ -237,7 +237,7 @@ function renderContent(content: any) {
           <h3 class="relative pl-10">
             <span
               class="absolute top-0 left-0 block w-6 h-6 transition-colors duration-300 rounded-full"
-              :class="expanded ? 'bg-red' : 'bg-green'"
+              :class="expanded ? 'bg-red' : 'bg-green-dark'"
             >
               <i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white h-[2px]"></i>
               <i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white transition-transform duration-300 h-[2px]" :class="expanded ? 'rotate-0' : '-rotate-90'"></i>
@@ -248,7 +248,7 @@ function renderContent(content: any) {
               :aria-expanded="expanded"
               :aria-controls="$id('faq-answer')"
               :id="$id('faq-question')"
-              class="text-base leading-6 uppercase font-functionpro text-green"
+              class="text-base leading-6 uppercase font-functionpro text-green-dark"
             >
               {item.question}
             </button>

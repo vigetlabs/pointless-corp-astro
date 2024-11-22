@@ -19,11 +19,11 @@ export default {
       },
       green: {
         DEFAULT: '#94b991',
-        dark: '#6d9055',
+        dark: '#607D4A',
       },
       mud: {
         light: '#a27974',
-        DEFAULT: '#a37a74',
+        DEFAULT: '#936b62',
       },
       red: {
         DEFAULT: '#dc6569',

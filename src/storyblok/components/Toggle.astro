@@ -17,7 +17,7 @@ const { label, type } = Astro.props;
     @click={`updateFilters('${type}')`}
     class="sr-only peer"
   />
-  <span class="text-mud-light">{label}</span>
+  <span class="text-mud">{label}</span>
   <span
     class="relative inline-block w-16 h-8 transition-colors duration-300 rounded-full peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500 peer-focus-visible:ring-offset-2"
     :class={`filters.${type} ? 'bg-green text-green-dark' : 'bg-red text-red-dark'`}
