@@ -41,10 +41,12 @@ const navItems = [
   { href: 'contact', text: 'Contact' },
 ];
 
+// Get the environment variables
 const frontNetlify = import.meta.env.NETLIFY;
 const frontContext = import.meta.env.CONTEXT;
 const deployPrimeUrl = import.meta.env.DEPLOY_PRIME_URL;
 
+// Set the root URL based on the environment
 const rootUrl = frontNetlify === true
   ? frontContext === 'production'
     ? 'https://pointlesscorp.com/'
@@ -140,18 +142,6 @@ const contentUrl = slug === '/' ? `${rootUrl}` : `${rootUrl}${slug}`;
   </style>
 </head>
 <body class="antialiased font-base scroll-smooth">
-  {import.meta.env.PUBLIC_NETLIFY ? 'NETLIFY' : 'NOT NETLIFY'}<br>
-  {import.meta.env.PUBLIC_CONTEXT}<br>
-  {import.meta.env.DEPLOY_PRIME_URL}<br>
-
-  {frontNetlify ? 'NETLIFY' : 'NOT NETLIFY'}<br>
-  {frontContext}<br>
-  {deployPrimeUrl}<br>
-
-  {rootUrl}<br>
-  {metaImageUrl}<br>
-  {contentUrl}
-
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N3P6MM"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
