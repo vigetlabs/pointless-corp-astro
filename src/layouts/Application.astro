@@ -47,8 +47,8 @@ const rootUrl = import.meta.env.PUBLIC_NETLIFY === true
     : `${import.meta.env.DEPLOY_PRIME_URL}/`
   : new URL(Astro.url.origin).toString();
 
-const frontNetlify = import.meta.env.PUBLIC_NETLIFY;
-const frontContext = import.meta.env.PUBLIC_CONTEXT;
+const frontNetlify = import.meta.env.NETLIFY;
+const frontContext = import.meta.env.CONTEXT;
 const deployPrimeUrl = import.meta.env.DEPLOY_PRIME_URL;
 
 // Set the meta image URL based on the environment
