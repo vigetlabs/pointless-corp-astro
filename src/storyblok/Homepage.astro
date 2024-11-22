@@ -24,16 +24,19 @@ function renderContent(content: any) {
 }
 ---
 
-<div class="relative h-screen px-3 pt-[160px] min-h-[480px]">
-  {blok.heroText && <p class="relative z-10 mx-auto max-w-7xl text-left uppercase text-white text-[36px] leading-[0.89em] font-functionpro md:text-[82px] lg:text-[96px]">{blok.heroText}</p>}
+<div
+  x-data="{ shown: false }"
+  x-intersect="shown = true"
+  class="relative h-screen px-3 pt-[160px] min-h-[480px]"
+>
+  {blok.heroText && <p class="relative mx-auto max-w-7xl text-left uppercase text-white text-[36px] leading-[0.89em] font-functionpro md:text-[82px] lg:text-[96px] z-20">{blok.heroText}</p>}
 
   {blok.featureImages && blok.featureImages.length > 0 && (
     (() => {
       const imageFilename = blok.featureImages[0].filename;
+
       return (
         <AstroImage
-          x-data="{ shown: false }"
-          x-intersect="shown = true"
           src={`${imageFilename}/m/filters:format(avif)`}
           alt={blok.featureImages[0].title || ''}
           inferSize={true}
@@ -47,6 +50,12 @@ function renderContent(content: any) {
       );
     })()
   )}
+
+  <div
+    x-intersect="shown = true"
+    class="absolute top-0 left-0 w-full h-[240px] bg-gradient-to-b from-black/40 to-black/0 z-10 transition-opacity duration-500 opacity-0"
+    :class="shown ? 'opacity-100' : 'opacity-0'"
+  ></div>
 </div>
 
 {blok.aboutText && (
