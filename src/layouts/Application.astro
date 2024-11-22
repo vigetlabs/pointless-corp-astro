@@ -41,15 +41,15 @@ const navItems = [
   { href: 'contact', text: 'Contact' },
 ];
 
-const rootUrl = import.meta.env.PUBLIC_NETLIFY === true
-  ? import.meta.env.PUBLIC_CONTEXT === 'production'
-    ? 'https://pointlesscorp.com/'
-    : `${import.meta.env.DEPLOY_PRIME_URL}/`
-  : new URL(Astro.url.origin).toString();
-
 const frontNetlify = import.meta.env.NETLIFY;
 const frontContext = import.meta.env.CONTEXT;
 const deployPrimeUrl = import.meta.env.DEPLOY_PRIME_URL;
+
+const rootUrl = frontNetlify === true
+  ? frontContext === 'production'
+    ? 'https://pointlesscorp.com/'
+    : `${deployPrimeUrl}/`
+  : new URL(Astro.url.origin).toString();
 
 // Set the meta image URL based on the environment
 const metaImageUrl = metaImage ? `${metaImage}` : `${rootUrl}og.png`;
