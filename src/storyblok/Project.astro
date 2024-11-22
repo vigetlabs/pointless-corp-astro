@@ -46,51 +46,53 @@ function renderContent(content: any) {
   )}
 
   <!-- Project Details -->
-  <ul class="table mx-auto text-center uppercase border-collapse metatable font-functionpro">
-    {blok.url && (
-      <li class="table-cell border">
-        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Visit</span>
-        <span class="block px-5 metatable-value py-[2px]">
-          <a href={blok.url}>
-            {(() => {
-              const parts = blok.url.replace(/^(https?:\/\/)?(www\.)?/i, '').split('/');
-              return parts[0] + (parts[1] ? '/' + parts[1] : '');
-            })()}
-          </a>
+  <div class="w-full overflow-x-auto">
+    <ul class="table w-full mx-auto uppercase border-collapse md:w-auto md:text-center metatable font-functionpro">
+      {blok.url && (
+        <li class="table-row border md:table-cell">
+          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[10px] py-[2px]">Visit</span>
+          <span class="table-cell w-4/5 md:w-auto md:block px-5 metatable-value py-[2px]">
+            <a href={blok.url}>
+              {(() => {
+                const parts = blok.url.replace(/^(https?:\/\/)?(www\.)?/i, '').split('/');
+                return parts[0] + (parts[1] ? '/' + parts[1] : '');
+              })()}
+            </a>
+          </span>
+        </li>
+      )}
+      {blok.xHandle && (
+        <li class="table-row border md:table-cell">
+          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[10px] py-[2px]">Follow</span>
+          <span class="table-cell w-4/5 md:w-auto md:block px-5 metatable-value py-[2px]">
+            <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">@{blok.xHandle}</a>
+          </span>
+        </li>
+      )}
+      {blok.type && (
+        <li class="table-row border md:table-cell">
+          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[10px] py-[2px]">Type</span>
+          <span class="table-cell w-4/5 md:w-auto md:block px-5 metatable-value py-[2px]">
+            {blok.type}
+          </span>
+        </li>
+      )}
+      {blok.launchDate && (
+        <li class="table-row border md:table-cell">
+          <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[10px] py-[2px]">Launched</span>
+          <span class="table-cell w-4/5 md:w-auto md:block px-5 metatable-value py-[2px]">
+            {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
+          </span>
+        </li>
+      )}
+      <li class="table-row border md:table-cell">
+        <span class="table-cell w-1/5 md:w-auto md:block border-r md:border-r-0 border-b px-3 metatable-label text-[10px] py-[2px]">Status</span>
+        <span class="table-cell w-4/5 md:w-auto md:block px-5 metatable-value py-[2px]">
+          {blok.retiredDate ? 'archived' : 'active'}
         </span>
       </li>
-    )}
-    {blok.xHandle && (
-      <li class="table-cell border">
-        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Follow</span>
-        <span class="block px-5 metatable-value py-[2px]">
-          <a href={`https://x.com/${blok.xHandle}`} rel="noreferrer">@{blok.xHandle}</a>
-        </span>
-      </li>
-    )}
-    {blok.type && (
-      <li class="table-cell border">
-        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Type</span>
-        <span class="block px-5 metatable-value py-[2px]">
-          {blok.type}
-        </span>
-      </li>
-    )}
-    {blok.launchDate && (
-      <li class="table-cell border">
-        <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Launched</span>
-        <span class="block px-5 metatable-value py-[2px]">
-          {new Date(blok.launchDate).toLocaleDateString('en-US', { month: '2-digit', year: 'numeric' }).replace('/', '/')}
-        </span>
-      </li>
-    )}
-    <li class="table-cell border">
-      <span class="block border-b px-3 metatable-label text-[10px] py-[2px]">Status</span>
-      <span class="block px-5 metatable-value py-[2px]">
-        {blok.retiredDate ? 'archived' : 'active'}
-      </span>
-    </li>
-  </ul>
+    </ul>
+  </div>
 
   <!-- Project Description -->
   {blok.description && <section class="mx-auto max-w-3xl text-center project-description my-[60px] text-[24px] leading-[1.6em] space-y-9" set:html={renderContent(blok.description)} />}
