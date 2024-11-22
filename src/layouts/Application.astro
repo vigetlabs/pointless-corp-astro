@@ -1,5 +1,5 @@
 ---
-import logo from '../images/svgs/logo.svg';
+import logo from '../images/svgs/logo.svg?raw';
 import logoLarge from '../images/svgs/pointless-logo-large.svg';
 import logoLargeWhite from '../images/svgs/pointless-logo-large--white.svg';
 import iconX from '../images/svgs/x.svg?raw';
@@ -10,6 +10,22 @@ const { title, themeColors, description, metaImage, slug } = Astro.props;
 // Get the current path
 const currentPath = Astro.url.pathname;
 const isHomePage = currentPath === "/";
+
+function getContrastColor(hexColor) {
+  // Remove the hash at the start if it's there
+  hexColor = hexColor.replace(/^#/, '');
+
+  // Parse the color to RGB
+  const r = parseInt(hexColor.substring(0, 2), 16);
+  const g = parseInt(hexColor.substring(2, 4), 16);
+  const b = parseInt(hexColor.substring(4, 6), 16);
+
+  // Calculate the perceptive luminance (aka luma) - human eye favors green color
+  const luma = ((0.299 * r) + (0.587 * g) + (0.114 * b)) / 255;
+
+  // Return black for bright colors, white for dark colors
+  return luma > 0.5 ? '#000' : '#FFF';
+}
 
 // Default colors
 const defaultColors = {
@@ -22,6 +38,7 @@ const defaultColors = {
 // Merge provided colors with defaults, using nullish coalescing to handle undefined themeColors
 const finalColors = {
   backgroundColor: themeColors?.backgroundColor ?? defaultColors.backgroundColor,
+  navLinkColor: getContrastColor(themeColors?.backgroundColor ?? defaultColors.backgroundColor),
   accentColor: themeColors?.accentColor ?? defaultColors.accentColor,
   textColor: themeColors?.textColor ?? defaultColors.textColor,
   linkColor: themeColors?.linkColor ?? defaultColors.linkColor,
@@ -153,18 +170,30 @@ const contentUrl = slug === '/' ? `${rootUrl}` : `${rootUrl}${slug}`;
   <header class="absolute left-0 z-20 w-full px-3 top-9">
     <div class="flex items-center justify-center mx-auto max-w-7xl sm:justify-between">
       {(() => {
-        const logoImg = <img src={logo.src} class="h-auto w-[160px]" alt="Pointless Corp." />;
+        const logoContent = (
+          <>
+            <Fragment set:html={logo} />
+            <span class="sr-only">Pointless Corp.</span>
+          </>
+        );
+
+        const logoClass = `header-logo ${finalColors.navLinkColor === '#000' ? '!text-black' : '!text-white'}`;
+
         return currentPath === "/" ? (
-          <h1>{logoImg}</h1>
+          <h1 class={logoClass}>
+            {logoContent}
+          </h1>
         ) : (
-          <a href="/">{logoImg}</a>
+          <a href="/" class={logoClass}>
+            {logoContent}
+          </a>
         );
       })()}
 
       <nav class="hidden sm:block">
         <ul class="flex gap-4 font-functionpro">
           {navItems.map(item => (
-            <li><a class="!text-white text-lg hover:underline focus:underline uppercase" href={`/#${item.href}`}>{item.text}</a></li>
+            <li><a class={`${finalColors.navLinkColor === '#000' ? '!text-black' : '!text-white'} text-lg hover:underline focus:underline uppercase`} href={`/#${item.href}`}>{item.text}</a></li>
           ))}
         </ul>
       </nav>

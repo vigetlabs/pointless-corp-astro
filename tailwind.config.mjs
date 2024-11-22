@@ -56,6 +56,10 @@ export default {
   plugins: [
     plugin(function ({addComponents, theme}) {
       addComponents({
+        '.header-logo svg': {
+          height: '34px',
+          width: '160px',
+        },
         '.bg-tiled': {
           backgroundColor: 'rgba(0, 0, 0, 0.04)',
           backgroundBlendMode: 'overlay',
