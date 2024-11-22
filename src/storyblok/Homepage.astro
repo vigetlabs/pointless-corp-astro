@@ -235,14 +235,6 @@ function renderContent(content: any) {
       >
         {item.question && (
           <h3 class="relative pl-10">
-            <span
-              class="absolute top-0 left-0 block w-6 h-6 transition-colors duration-300 rounded-full"
-              :class="expanded ? 'bg-red' : 'bg-green-dark'"
-            >
-              <i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white h-[2px]"></i>
-              <i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white transition-transform duration-300 h-[2px]" :class="expanded ? 'rotate-0' : '-rotate-90'"></i>
-            </span>
-
             <button
               @click="expanded = !expanded"
               :aria-expanded="expanded"
@@ -250,6 +242,14 @@ function renderContent(content: any) {
               :id="$id('faq-question')"
               class="text-base leading-6 text-left uppercase font-functionpro text-green-dark"
             >
+              <span
+                class="absolute top-0 left-0 block w-6 h-6 transition-colors duration-300 rounded-full"
+                :class="expanded ? 'bg-red' : 'bg-green-dark'"
+              >
+                <i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white h-[2px]"></i>
+                <i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white transition-transform duration-300 h-[2px]" :class="expanded ? 'rotate-0' : '-rotate-90'"></i>
+              </span>
+
               {item.question}
             </button>
           </h3>
