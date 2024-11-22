@@ -41,8 +41,8 @@ const navItems = [
   { href: 'contact', text: 'Contact' },
 ];
 
-const rootUrl = import.meta.env.NETLIFY === 'true'
-  ? import.meta.env.CONTEXT === 'production'
+const rootUrl = import.meta.env.PUBLIC_NETLIFY === 'true'
+  ? import.meta.env.PUBLIC_CONTEXT === 'production'
     ? 'https://pointlesscorp.com/'
     : `${import.meta.env.DEPLOY_PRIME_URL}/`
   : new URL(Astro.url.origin).toString();
@@ -51,7 +51,7 @@ const rootUrl = import.meta.env.NETLIFY === 'true'
 const metaImageUrl = metaImage ? `${metaImage}` : `${rootUrl}og.png`;
 const contentUrl = slug === '/' ? `${rootUrl}` : `${rootUrl}${slug}`;
 ---
-{import.meta.env.NETLIFY ? import.meta.env.CONTEXT : 'NETLIFY'}<br>
+{import.meta.env.PUBLIC_NETLIFY ? import.meta.env.PUBLIC_CONTEXT : 'NETLIFY'}<br>
 {rootUrl}<br>
 {metaImageUrl}<br>
 {contentUrl}
