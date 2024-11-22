@@ -41,7 +41,7 @@ const navItems = [
   { href: 'contact', text: 'Contact' },
 ];
 
-const rootUrl = import.meta.env.PUBLIC_NETLIFY === 'true'
+const rootUrl = import.meta.env.PUBLIC_NETLIFY === true
   ? import.meta.env.PUBLIC_CONTEXT === 'production'
     ? 'https://pointlesscorp.com/'
     : `${import.meta.env.DEPLOY_PRIME_URL}/`
