@@ -47,11 +47,22 @@ const rootUrl = import.meta.env.PUBLIC_NETLIFY === true
     : `${import.meta.env.DEPLOY_PRIME_URL}/`
   : new URL(Astro.url.origin).toString();
 
+const frontNetlify = import.meta.env.PUBLIC_NETLIFY;
+const frontContext = import.meta.env.PUBLIC_CONTEXT;
+const deployPrimeUrl = import.meta.env.DEPLOY_PRIME_URL;
+
 // Set the meta image URL based on the environment
 const metaImageUrl = metaImage ? `${metaImage}` : `${rootUrl}og.png`;
 const contentUrl = slug === '/' ? `${rootUrl}` : `${rootUrl}${slug}`;
 ---
-{import.meta.env.PUBLIC_NETLIFY ? import.meta.env.PUBLIC_CONTEXT : 'NETLIFY'}<br>
+{import.meta.env.PUBLIC_NETLIFY ? 'NETLIFY' : 'NOT NETLIFY'}<br>
+{import.meta.env.PUBLIC_CONTEXT}<br>
+{import.meta.env.DEPLOY_PRIME_URL}<br>
+
+{frontNetlify ? 'NETLIFY' : 'NOT NETLIFY'}<br>
+{frontContext}<br>
+{deployPrimeUrl}<br>
+
 {rootUrl}<br>
 {metaImageUrl}<br>
 {contentUrl}
