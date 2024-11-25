@@ -171,6 +171,10 @@ export default {
           top: 0,
           width: '100%',
         },
+        '.footer-logo svg': {
+          height: 'auto',
+          width: '100%',
+        },
         '.footer-social svg': {
           height: theme('spacing.8'),
           width: theme('spacing.8'),

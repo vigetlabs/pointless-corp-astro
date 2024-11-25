@@ -1,7 +1,7 @@
 ---
 import logo from '../images/svgs/logo.svg?raw';
-import logoLarge from '../images/svgs/pointless-logo-large.svg';
-import logoLargeWhite from '../images/svgs/pointless-logo-large--white.svg';
+import logoLarge from '../images/svgs/pointless-logo-large.svg?raw';
+import logoLargeMono from '../images/svgs/pointless-logo-large--mono.svg?raw';
 import iconX from '../images/svgs/x.svg?raw';
 import '../styles/global.css';
 import { getContrastColor } from '../utils/colors';
@@ -27,10 +27,10 @@ const finalColors = {
   accentColor: themeColors?.accentColor ?? defaultColors.accentColor,
   textColor: themeColors?.textColor ?? defaultColors.textColor,
   linkColor: themeColors?.linkColor ?? defaultColors.linkColor,
-  footerTextColor: isHomePage ? '#47170d' : '#fff',
-  footerLinkColor: isHomePage ? '#47170d' : '#fff',
-  footerCopyrightColor: isHomePage ? '#7C746A' : '#fff',
-  footerSocialBorderColor: isHomePage ? '#d2cfc8' : '#fff',
+  footerTextColor: isHomePage ? '#47170d' : getContrastColor(themeColors?.backgroundColor ?? defaultColors.backgroundColor),
+  footerLinkColor: isHomePage ? '#47170d' : getContrastColor(themeColors?.backgroundColor ?? defaultColors.backgroundColor),
+  footerCopyrightColor: isHomePage ? '#7C746A' : getContrastColor(themeColors?.backgroundColor ?? defaultColors.backgroundColor),
+  footerSocialBorderColor: isHomePage ? '#d2cfc8' : getContrastColor(themeColors?.backgroundColor ?? defaultColors.backgroundColor),
   footerSocialBorderHoverColor: isHomePage ? '#373939' : (themeColors?.linkColor ?? defaultColors.linkColor),
 };
 
@@ -128,6 +128,10 @@ const contentUrl = slug === '/' ? `${rootUrl}` : `${rootUrl}${slug}`;
       color: var(--footerLinkColor);
     }
 
+    .footer-logo {
+      color: var(--footerTextColor);
+    }
+
     .footer-copyright {
       color: var(--footerCopyrightColor);
     }
@@ -188,13 +192,13 @@ const contentUrl = slug === '/' ? `${rootUrl}` : `${rootUrl}${slug}`;
     <slot />
   </main>
   <footer class="flex flex-col items-center px-5 uppercase py-[50px] font-functionpro">
-    <img
-      src={currentPath === "/" ? logoLarge.src : logoLargeWhite.src}
-      class="h-auto w-[212px] sm:w-[282px]"
-      alt="Pointless Corp."
-    />
+    <span class="footer-logo inline-block w-[212px] sm:w-[282px]">
+      <Fragment
+        set:html={currentPath === "/" ? logoLarge : logoLargeMono}
+      />
+    </span>
 
-    <p class="mt-8 text-xs">The innovation lab at <a class="underline hover:no-underline focus:no-underline" href="https://www.viget.com/">Viget</a></p>
+    <p class="mt-8 text-xs"><span class="sr-only">Pointless Corp.</span> The innovation lab at <a class="underline hover:no-underline focus:no-underline" href="https://www.viget.com/">Viget</a></p>
 
     <p class="mt-6">
       <a class="footer-social inline-block rounded-full border transition duration-300 border-gray-light p-[13px] hover:border-gray-dark focus:border-gray-dark" aria-label="Pointless Corp. on X" href="http://x.com/pointlesscorp">
