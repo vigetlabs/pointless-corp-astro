@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build && cp public/_redirects dist/_redirects",
+    "build": "astro check && astro build && cp public/netlify.toml dist/netlify.toml",
     "preview": "astro preview",
     "astro": "astro"
   },
