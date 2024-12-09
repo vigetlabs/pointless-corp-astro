@@ -2,6 +2,8 @@
 
 [Storyblok](https://www.storyblok.com/) + [Astro.js](https://astro.build/) + [Netlify](https://www.netlify.com/) site for PointlessCorp.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2ff1fd15-ce0c-4dcd-8bf1-f584cfafcbef/deploy-status)](https://app.netlify.com/sites/pointlesscorp/deploys)
+
 |Environment|URL|
 |-----|-----|
 |Production (Live)|https://pointlesscorp.com/|
