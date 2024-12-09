@@ -1,5 +1,0 @@
-[[redirects]]
-  force = true
-  from = "/sidebarv2.js"
-  status = 200
-  to = "https://www.bugherd.com/sidebarv2.js"

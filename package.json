@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build && cp public/netlify.toml dist/netlify.toml",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
