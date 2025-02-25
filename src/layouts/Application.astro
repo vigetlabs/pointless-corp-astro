@@ -51,7 +51,7 @@ const deployPrimeUrl = import.meta.env.DEPLOY_PRIME_URL;
 // Set the root URL based on the environment
 const rootUrl = frontNetlify === true
   ? frontContext === 'production'
-    ? 'https://pointlesscorp.netlify.app/'
+    ? 'https://pointlesscorp.com/'
     : `${deployPrimeUrl}/`
   : new URL(Astro.url.origin).toString();
 
