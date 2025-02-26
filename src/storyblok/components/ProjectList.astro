@@ -29,22 +29,12 @@ const { projects } = Astro.props;
       experiments: true,
       stunts: true
     }),
-    prefetchedLinks: new Set(),
     focusFirstNewItem() {
       const allItems = [...document.querySelectorAll('.project-item')];
       const firstNewItem = allItems[12]; // Items after initial 12
       const link = firstNewItem.querySelector('.project-item-link');
       link.focus();
       link.scrollIntoView({ behavior: 'smooth' });
-    },
-    prefetchLink(href) {
-      if (this.prefetchedLinks.has(href)) return;
-
-      const link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.href = href;
-      document.head.appendChild(link);
-      this.prefetchedLinks.add(href);
     },
     isVisible(index, type) {
       return (index < 12 || this.showMore) && this.filters[type];
@@ -153,7 +143,7 @@ const { projects } = Astro.props;
               <a
                 class="block project-item-link"
                 href={`/${project.slug}`}
-                @mouseover={`prefetchLink('/${project.slug}')`}
+                data-astro-prefetch
               >
                 <p class="mb-2 text-xl leading-5 uppercase font-functionpro">
                   {project.name}

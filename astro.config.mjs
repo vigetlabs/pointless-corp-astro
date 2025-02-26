@@ -9,6 +9,7 @@ const env = loadEnv("", process.cwd(), 'STORYBLOK');
 
 // https://astro.build/config
 export default defineConfig({
+  prefetch: true,
   integrations: [
     storyblok({
       accessToken: env.STORYBLOK_TOKEN,
