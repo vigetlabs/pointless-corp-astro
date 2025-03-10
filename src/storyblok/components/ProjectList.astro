@@ -128,6 +128,7 @@ const { projects } = Astro.props;
                   src={content.icon.filename}
                   alt=""
                   class="w-full h-auto"
+                  loading="lazy"
                 />
               ) : (
                 <AstroImage
@@ -135,6 +136,7 @@ const { projects } = Astro.props;
                   alt=""
                   class="w-full h-auto"
                   inferSize={true}
+                  loading="lazy"
                 />
               )
             )}

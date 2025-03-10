@@ -64,7 +64,7 @@ export default {
         '.bg-tiled': {
           backgroundColor: 'rgba(0, 0, 0, 0.04)',
           backgroundBlendMode: 'overlay',
-          backgroundImage: `url('/src/images/patterns/bg-paper.png')`,
+          backgroundImage: `url('/src/images/patterns/bg-paper.webp')`,
           backgroundRepeat: 'repeat',
         },
         '.bg-tiled-gradient': {
@@ -73,7 +73,7 @@ export default {
               rgba(0, 0, 0, 0) 50%,
               rgba(0, 0, 0, 0.04) 50%
             ),
-            url('/src/images/patterns/bg-paper.png')
+            url('/src/images/patterns/bg-paper.webp')
           `,
           backgroundRepeat: 'repeat',
         },
@@ -110,7 +110,7 @@ export default {
           textDecoration: 'none',
         },
         '.project-list': {
-          backgroundImage: `url('/src/images/patterns/bg-waves.png')`,
+          backgroundImage: `url('/src/images/patterns/bg-waves.webp')`,
           backgroundRepeat: 'repeat',
         },
         '.project-item': {
