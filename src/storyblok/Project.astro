@@ -15,21 +15,7 @@ function renderContent(content: any) {
 }
 ---
 
-<article
-  class="px-5 pt-20 pb-10 project"
-  x-data="{
-    prefetchedLinks: new Set(),
-    prefetchLink(href) {
-      if (this.prefetchedLinks.has(href)) return;
-
-      const link = document.createElement('link');
-      link.rel = 'prefetch';
-      link.href = href;
-      document.head.appendChild(link);
-      this.prefetchedLinks.add(href);
-    }
-  }"
->
+<article class="px-5 pt-20 pb-10 project">
   <h1 class="sr-only">{name}</h1>
 
   <!-- Project Logo -->
@@ -215,7 +201,7 @@ function renderContent(content: any) {
           <a
             href={`/${project.slug}`}
             class="hover:!no-underline"
-            @mouseover={`prefetchLink('/${project.slug}')`}
+            data-astro-prefetch
           >
             {project.name}
           </a>
