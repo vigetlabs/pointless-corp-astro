@@ -2,6 +2,8 @@
 import Application from '../layouts/Application.astro';
 import { useStoryblokApi } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import type { HomepageStory, ProjectStory } from '../types/storyblok';
+import { richTextParagraphs } from '../utils/richText';
 
 const storyblokApi = useStoryblokApi();
 
@@ -23,14 +25,11 @@ const { data: projectData } = await storyblokApi.get('cdn/stories', {
   sort_by: 'sort_by_date:desc,name:asc'
 });
 
-const projects = projectData.stories;
-const story = homeData.story;
+const projects: ProjectStory[] = projectData.stories;
+const story: HomepageStory = homeData.story;
 
 // Extract text from the aboutText content
-const aboutTextString = story.content.aboutText.content
-  .flatMap((paragraph: { content: { text: string }[] }) => paragraph.content
-  .map(item => item.text)
-  .join(''));
+const aboutTextString = richTextParagraphs(story.content.aboutText).join(' ');
 ---
 
 <Application title="Pointless Corp - The Innovation Lab at Viget" description={aboutTextString} slug="/">

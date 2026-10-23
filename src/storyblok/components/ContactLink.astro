@@ -1,9 +1,18 @@
 ---
 import { renderRichText } from '@storyblok/astro';
+import type { RichText } from '../../types/storyblok';
+
+interface Props {
+  href: string;
+  icon: string;
+  title: string;
+  content: RichText;
+  topPosition: string;
+}
 
 const { href, icon, title, content, topPosition } = Astro.props;
 
-function renderContent(content) {
+function renderContent(content: RichText) {
   return content ? renderRichText(content) : '';
 }
 ---

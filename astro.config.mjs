@@ -31,7 +31,7 @@ export default defineConfig({
       },
     }),
     alpinejs({
-      entrypoint: '/src/alpine.js'
+      entrypoint: '/src/alpine.ts'
     }),
   ],
   vite: {

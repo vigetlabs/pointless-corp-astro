@@ -6,9 +6,14 @@ import { Image as AstroImage } from 'astro:assets';
 import ToggleButton from './ToggleButton.astro';
 import Toggle from './Toggle.astro';
 import { getContrastColor } from '../../utils/colors';
+import type { ProjectStory, ProjectType } from '../../types/storyblok';
 
-function getIconStamp(type) {
-  const iconStamps = {
+interface Props {
+  projects: ProjectStory[];
+}
+
+function getIconStamp(type: ProjectType) {
+  const iconStamps: Record<ProjectType, string> = {
     tools: iconStampTools,
     experiments: iconStampExperiments,
     stunts: iconStampStunts

@@ -1,4 +1,10 @@
 ---
+import type { VideoBlok } from '../../types/storyblok';
+
+interface Props {
+  blok: VideoBlok;
+}
+
 const { blok } = Astro.props;
 
 function getEmbedUrl(url: string): string | null {

@@ -1,12 +1,9 @@
 ---
 import { Image as AstroImage } from 'astro:assets';
+import type { Asset } from '../../types/storyblok';
 
-interface ImageProps {
-  image: {
-    filename: string;
-    alt?: string;
-    title?: string;
-  };
+interface Props {
+  image: Asset;
   class?: string;
   wrapperClass?: string;
   captionClass?: string;
@@ -14,7 +11,7 @@ interface ImageProps {
   sizes?: string;
 }
 
-const { image, class: className, wrapperClass, captionClass, widths = [320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048], sizes } = Astro.props as ImageProps;
+const { image, class: className, wrapperClass, captionClass, widths = [320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048], sizes } = Astro.props;
 
 // Generate srcset based on widths
 const srcset = widths.map(width => `${image.filename}/m/${width}x0/filters:format(avif) ${width}w`).join(', ');

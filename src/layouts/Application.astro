@@ -7,6 +7,19 @@ import iconX from '../images/svgs/x.svg?raw';
 import '../styles/global.css';
 import { getContrastColor } from '../utils/colors';
 
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  themeColors?: {
+    backgroundColor?: string;
+    accentColor?: string;
+    textColor?: string;
+    linkColor?: string;
+  };
+  metaImage?: string;
+}
+
 const { title, themeColors, description, metaImage, slug } = Astro.props;
 
 // Get the current path
@@ -50,7 +63,7 @@ const frontContext = import.meta.env.CONTEXT;
 const deployPrimeUrl = import.meta.env.DEPLOY_PRIME_URL;
 
 // Set the root URL based on the environment
-const rootUrl = String(frontNetlify) === 'true'
+const rootUrl = frontNetlify === 'true'
   ? frontContext === 'production'
     ? 'https://pointlesscorp.com/'
     : `${deployPrimeUrl}/`
@@ -153,11 +166,18 @@ const contentUrl = slug === '/' ? `${rootUrl}` : `${rootUrl}${slug}`;
 <body class="antialiased font-base scroll-smooth">
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-N3P6MM"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s) as HTMLScriptElement,dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-N3P6MM');</script>
+  <script>
+    // Google Tag Manager
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+
+    const gtmScript = document.createElement('script');
+    gtmScript.async = true;
+    gtmScript.src = '//www.googletagmanager.com/gtm.js?id=GTM-N3P6MM';
+
+    const firstScript = document.getElementsByTagName('script')[0];
+    firstScript.parentNode?.insertBefore(gtmScript, firstScript);
+  </script>
 
   <header class="absolute left-0 z-20 w-full px-3 top-9">
     <div class="flex items-center justify-center mx-auto max-w-7xl sm:justify-between">

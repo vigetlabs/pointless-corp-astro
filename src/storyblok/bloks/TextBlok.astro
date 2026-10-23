@@ -1,5 +1,10 @@
 ---
 import { renderRichText } from '@storyblok/astro';
+import type { TextBlok } from '../../types/storyblok';
+
+interface Props {
+  blok: TextBlok;
+}
 
 const { blok } = Astro.props;
 ---

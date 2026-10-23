@@ -2,15 +2,17 @@
 import { renderRichText } from '@storyblok/astro';
 import { Image } from 'astro:assets';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import type { ProjectContent, ProjectStory, RichText } from '../types/storyblok';
+
+interface Props {
+  blok: ProjectContent;
+  name: string;
+  projects: ProjectStory[];
+}
 
 const { blok, name, projects } = Astro.props;
 
-// Declare variables to satisfy TypeScript
-let currentImage: number;
-let processNavButtons: NodeListOf<Element>;
-let processLength: number;
-
-function renderContent(content: any) {
+function renderContent(content: RichText) {
   return content ? renderRichText(content) : '';
 }
 ---
@@ -88,7 +90,7 @@ function renderContent(content: any) {
     <>
       <h2 class="sr-only">Examples</h2>
 
-      {blok.examples.map((nestedBlok: any) => (
+      {blok.examples.map(nestedBlok => (
         <StoryblokComponent blok={nestedBlok} />
       ))}
     </>
@@ -108,7 +110,7 @@ function renderContent(content: any) {
 
       <div class="relative" role="region" aria-label="Project Process Images">
         <ul class="relative overflow-hidden">
-          {blok.process.map((image: { filename: string; alt?: string }, index: number) => (
+          {blok.process.map((image, index) => (
             <li
               x-show={`currentImage === ${index}`}
               class="transition-opacity duration-300 ease-in-out process-image"
@@ -119,7 +121,7 @@ function renderContent(content: any) {
               x-transition:leave-start="opacity-100"
               x-transition:leave-end="opacity-0 absolute top-0 left-0 w-full h-auto"
               role="tabpanel"
-              :aria-hidden={`currentImage !== ${index}` as any}
+              :aria-hidden={`currentImage !== ${index}`}
             >
               <Image
                 src={`${image.filename}/m/filters:format(avif)`}
@@ -137,7 +139,7 @@ function renderContent(content: any) {
 
         {blok.process.length > 1 && (
           <div class="absolute bottom-5 left-1/2 mt-4 flex -translate-x-1/2 justify-center rounded-full slide-nav px-[2px]" role="tablist" aria-label="Image navigation">
-            {blok.process.map((_: any, index: number) => (
+            {blok.process.map((_, index) => (
               <button
                 class="relative process-nav-button w-[26px] h-[26px]"
                 @click={`() => currentImage = ${index}`}
@@ -145,15 +147,15 @@ function renderContent(content: any) {
                 role="tab"
                 aria-controls={`image-${index}`}
                 :tabindex={`currentImage === ${index} ? 0 : -1`}
-                @keydown={(event: KeyboardEvent) => {
-                  if (event.key === 'ArrowRight') {
+                @keydown={`
+                  if ($event.key === 'ArrowRight') {
                     currentImage = (currentImage + 1) % processLength;
-                  } else if (event.key === 'ArrowLeft') {
+                  } else if ($event.key === 'ArrowLeft') {
                     currentImage = (currentImage - 1 + processLength) % processLength;
                   }
 
-                  (processNavButtons[currentImage] as HTMLElement).focus();
-                }}
+                  processNavButtons[currentImage].focus();
+                `}
               >
                 <span class="sr-only">Slide {index + 1}</span>
                 <span
@@ -174,7 +176,7 @@ function renderContent(content: any) {
       <h2 class="mb-3 text-4xl text-center uppercase font-functionpro">More about {name}</h2>
 
       <ul class="text-center uppercase font-functionpro">
-        {blok.relatedContent.map((related) => (
+        {blok.relatedContent.map(related => (
           <li class="py-4 text-lg leading-4">
             {(() => {
               const content = (
@@ -196,7 +198,7 @@ function renderContent(content: any) {
     <h2 class="mb-3 text-4xl text-center uppercase font-functionpro">More Pointless Projects</h2>
 
     <ul class="text-lg text-center uppercase font-functionpro xs:columns-2 md:columns-3">
-      {projects.map((project: { slug: string; name: string }) => (
+      {projects.map(project => (
         <li class="py-2">
           <a
             href={`/${project.slug}`}

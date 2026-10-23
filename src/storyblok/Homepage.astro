@@ -12,14 +12,16 @@ import { renderRichText } from '@storyblok/astro';
 import Image from './components/Image.astro';
 import ProjectList from './components/ProjectList.astro';
 import ContactLink from './components/ContactLink.astro';
+import type { HomepageContent, ProjectStory, RichText } from '../types/storyblok';
+
+interface Props {
+  blok: HomepageContent;
+  projects: ProjectStory[];
+}
+
 const { blok, projects } = Astro.props;
 
-type ImageType = {
-  filename: string;
-  alt?: string;
-};
-
-function renderContent(content: any) {
+function renderContent(content: RichText) {
   return content ? renderRichText(content) : '';
 }
 ---
@@ -94,7 +96,7 @@ function renderContent(content: any) {
     image={blok.featureImages[blok.featureImages.length - 1]}
     widths={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]}
     sizes={`100vw`}
-    className="w-full"
+    class="w-full"
     wrapperClass="w-full relative"
     captionClass="absolute bottom-10 left-10 right-10 text-white text-xs uppercase font-functionpro"
   />
@@ -177,7 +179,7 @@ function renderContent(content: any) {
       @mouseenter="isHovering = true; stopRotation()"
       @mouseleave="isHovering = false; !prefersReducedMotion && isLargeScreen && startRotation()"
     >
-      {blok.culturePhotos.slice(0, 4).map((image: { filename: string; title?: string }, index: number) => (
+      {blok.culturePhotos.slice(0, 4).map((image, index) => (
         <div
           class="relative lg:absolute lg:inset-0"
           x-show={`!isLargeScreen || currentIndex === ${index}`}
@@ -191,7 +193,7 @@ function renderContent(content: any) {
           <Image
             image={image}
             wrapperClass="caption-peek relative overflow-hidden"
-            className="w-full"
+            class="w-full"
             widths={[320, 480, 640, 768, 1024, 1366, 1536, 1920]}
             sizes={`50vw`}
             captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out"
@@ -203,13 +205,13 @@ function renderContent(content: any) {
 
   {blok.processPhotos && (
     <div class="grid grid-cols-2 col-span-1">
-      {blok.processPhotos.slice(0, 4).map((image: ImageType) => (
+      {blok.processPhotos.slice(0, 4).map(image => (
         <Image
           image={image}
           widths={[320, 480, 640, 768, 1024, 1366]}
           sizes={`(min-width: 1000px) 25vw, 50vw`}
           wrapperClass="caption-peek overflow-hidden relative col-span-1 row-span-1"
-          className="w-full"
+          class="w-full"
           captionClass="absolute p-5 bg-gray-darker bottom-0 left-0 right-0 text-white text-xs uppercase font-functionpro transition-transform duration-200 ease-in-out"
         />
       ))}
@@ -218,7 +220,7 @@ function renderContent(content: any) {
 </div>
 
 <section class="grid grid-cols-6">
-  {blok.generalPhotos && blok.generalPhotos.slice(0, 6).map((image) => (
+  {blok.generalPhotos && blok.generalPhotos.slice(0, 6).map(image => (
     <Image
       image={image}
       widths={[320, 480, 640, 768, 1024, 1366]}
@@ -236,7 +238,7 @@ function renderContent(content: any) {
   </h2>
 
   <ul class="mx-auto max-w-7xl mt-[50px]">
-    {blok.faq && blok.faq.map((item: { question: string; answer: string }, index: number) => (
+    {blok.faq && blok.faq.map((item, index) => (
       <li
         x-data={`{ expanded: ${index === 0} }`}
         x-id="['faq-question', 'faq-answer']"

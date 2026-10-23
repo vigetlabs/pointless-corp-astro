@@ -1,4 +1,13 @@
 ---
+interface Props {
+  label: string;
+  name: string;
+  value: string;
+  // Alpine expressions
+  isActive: string;
+  onClick: string;
+}
+
 const { label, name, value, isActive, onClick } = Astro.props;
 ---
 
@@ -7,7 +16,7 @@ const { label, name, value, isActive, onClick } = Astro.props;
     type="radio"
     name={name}
     value={value}
-    checked={isActive}
+    :checked={isActive}
     @click={onClick}
     class="sr-only peer"
   />

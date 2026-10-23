@@ -1,7 +1,10 @@
 ---
+import type { InferGetStaticParamsType } from 'astro';
 import Application from '../layouts/Application.astro';
 import { useStoryblokApi } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import type { ProjectStory } from '../types/storyblok';
+import { richTextParagraphs } from '../utils/richText';
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
@@ -11,18 +14,21 @@ export async function getStaticPaths() {
     per_page: 100,
   });
 
-  return data.stories.map(({ full_slug }) => ({
+  const stories: ProjectStory[] = data.stories;
+
+  return stories.map(({ full_slug }) => ({
     params: { slug: full_slug },
   }));
 }
 
-const { slug } = Astro.params;
+const { slug } = Astro.params as InferGetStaticParamsType<typeof getStaticPaths>;
 
 const storyblokApi = useStoryblokApi();
-const { data: { story } } = await storyblokApi.get(`cdn/stories/${slug}`, {
+const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
   version: 'published',
   resolve_assets: 1,
 });
+const story: ProjectStory = data.story;
 
 const { data: projectData } = await storyblokApi.get('cdn/stories', {
   version: 'published',
@@ -35,6 +41,7 @@ const { data: projectData } = await storyblokApi.get('cdn/stories', {
   per_page: 12,
   sort_by: 'sort_by_date:desc,name:asc'
 });
+const projects: ProjectStory[] = projectData.stories;
 
 // Extract theme colors from the story content
 const themeColors = {
@@ -44,9 +51,9 @@ const themeColors = {
   linkColor: story.content.linkColor?.color,
 };
 
-const description = story.content.description.content[0].content[0].text;
+const description = richTextParagraphs(story.content.description)[0] ?? '';
 ---
 
 <Application title={`${story.name} - Pointlesscorp`} themeColors={themeColors} description={description} metaImage={story.content.logo.filename} slug={slug}>
-  <StoryblokComponent blok={story.content} name={story.name} projects={projectData.stories} />
+  <StoryblokComponent blok={story.content} name={story.name} projects={projects} />
 </Application>
