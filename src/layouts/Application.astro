@@ -50,7 +50,7 @@ const frontContext = import.meta.env.CONTEXT;
 const deployPrimeUrl = import.meta.env.DEPLOY_PRIME_URL;
 
 // Set the root URL based on the environment
-const rootUrl = frontNetlify === true
+const rootUrl = String(frontNetlify) === 'true'
   ? frontContext === 'production'
     ? 'https://pointlesscorp.com/'
     : `${deployPrimeUrl}/`
