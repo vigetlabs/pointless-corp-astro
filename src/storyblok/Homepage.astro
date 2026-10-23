@@ -53,7 +53,7 @@ function renderContent(content: any) {
 
   <div
     x-intersect="shown = true"
-    class="absolute top-0 left-0 w-full h-[240px] bg-gradient-to-b from-black/40 to-black/0 z-10 transition-opacity duration-500 opacity-0"
+    class="absolute top-0 left-0 w-full h-[240px] bg-linear-to-b from-black/40 to-black/0 z-10 transition-opacity duration-500 opacity-0"
     :class="shown ? 'opacity-100' : 'opacity-0'"
   ></div>
 </div>
@@ -245,18 +245,18 @@ function renderContent(content: any) {
         {item.question && (
           <h3 class="relative pl-10">
             <button
-              @click="expanded = !expanded"
-              :aria-expanded="expanded"
-              :aria-controls="$id('faq-answer')"
-              :id="$id('faq-question')"
+              x-on:click="expanded = !expanded"
+              x-bind:aria-expanded="expanded"
+              x-bind:aria-controls="$id('faq-answer')"
+              x-bind:id="$id('faq-question')"
               class="text-base leading-6 text-left uppercase font-functionpro text-green-dark"
             >
               <span
                 class="absolute top-0 left-0 block w-6 h-6 transition-colors duration-300 rounded-full"
-                :class="expanded ? 'bg-red' : 'bg-green-dark'"
+                x-bind:class="expanded ? 'bg-red' : 'bg-green-dark'"
               >
                 <i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white h-[2px]"></i>
-                <i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white transition-transform duration-300 h-[2px]" :class="expanded ? 'rotate-0' : '-rotate-90'"></i>
+                <i class="absolute top-1/2 left-1/2 block w-3 -translate-x-1/2 -translate-y-1/2 bg-white transition-transform duration-300 h-[2px]" x-bind:class="expanded ? 'rotate-0' : '-rotate-90'"></i>
               </span>
 
               {item.question}
@@ -265,8 +265,8 @@ function renderContent(content: any) {
         )}
         {item.answer && (
           <div
-            :id="$id('faq-answer')"
-            :aria-labelledby="$id('faq-question')"
+            x-bind:id="$id('faq-answer')"
+            x-bind:aria-labelledby="$id('faq-question')"
             set:html={renderContent(item.answer)}
             x-show="expanded"
             x-collapse

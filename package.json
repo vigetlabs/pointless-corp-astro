@@ -10,18 +10,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@alpinejs/collapse": "^3.14.3",
-    "@alpinejs/intersect": "^3.14.3",
-    "@alpinejs/persist": "^3.14.1",
-    "@astrojs/alpinejs": "^0.4.3",
-    "@astrojs/check": "^0.9.4",
-    "@astrojs/tailwind": "^6.0.0",
-    "@storyblok/astro": "^6.0.1",
-    "@types/alpinejs": "^3.13.10",
-    "alpinejs": "^3.14.1",
-    "astro": "^5.3.1",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.2",
-    "vite": "^5.4.8"
+    "@alpinejs/collapse": "^3.17.5",
+    "@alpinejs/intersect": "^3.17.5",
+    "@alpinejs/persist": "^3.17.5",
+    "@astrojs/alpinejs": "^1.0.0",
+    "@astrojs/check": "^0.9.12",
+    "@storyblok/astro": "^10.3.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/alpinejs": "^3.17.0",
+    "alpinejs": "^3.17.5",
+    "astro": "^7.4.2",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.5"
   }
 }

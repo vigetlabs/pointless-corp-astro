@@ -124,7 +124,7 @@ function renderContent(content: any) {
               <Image
                 src={`${image.filename}/m/filters:format(avif)`}
                 alt={image.alt || 'Process image'}
-                class="h-auto w-full object-cover aspect-[3/2]"
+                class="h-auto w-full object-cover aspect-3/2"
                 srcset={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]
                   .map(size => `${image.filename}/m/${size}x0/filters:format(avif) ${size}w`)
                   .join(', ')}
@@ -183,7 +183,7 @@ function renderContent(content: any) {
                   {related.sourceName && <><br><span class="text-xs text-white">via {related.sourceName}</span></>}
                 </>
               );
-              return related.url ? <a href={related.url} class="group !no-underline">{content}</a> : content;
+              return related.url ? <a href={related.url} class="group no-underline!">{content}</a> : content;
             })()}
           </li>
         ))}
@@ -200,7 +200,7 @@ function renderContent(content: any) {
         <li class="py-2">
           <a
             href={`/${project.slug}`}
-            class="hover:!no-underline"
+            class="hover:no-underline!"
             data-astro-prefetch
           >
             {project.name}

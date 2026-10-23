@@ -169,7 +169,7 @@ const contentUrl = slug === '/' ? `${rootUrl}` : `${rootUrl}${slug}`;
           </>
         );
 
-        const logoClass = `header-logo ${finalColors.navLinkColor === '#000' ? '!text-black' : '!text-white'}`;
+        const logoClass = `header-logo ${finalColors.navLinkColor === '#000' ? 'text-black!' : 'text-white!'}`;
 
         return currentPath === "/" ? (
           <h1 class={logoClass}>
@@ -185,7 +185,7 @@ const contentUrl = slug === '/' ? `${rootUrl}` : `${rootUrl}${slug}`;
       <nav class="hidden sm:block">
         <ul class="flex gap-4 font-functionpro">
           {navItems.map(item => (
-            <li><a class={`${finalColors.navLinkColor === '#000' ? '!text-black' : '!text-white'} text-lg hover:underline focus:underline uppercase`} href={`/#${item.href}`}>{item.text}</a></li>
+            <li><a class={`${finalColors.navLinkColor === '#000' ? 'text-black!' : 'text-white!'} text-lg hover:underline focus:underline uppercase`} href={`/#${item.href}`}>{item.text}</a></li>
           ))}
         </ul>
       </nav>
