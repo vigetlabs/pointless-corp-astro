@@ -1,7 +1,7 @@
 ---
 import { renderRichText } from '@storyblok/astro';
-import { Image } from 'astro:assets';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro'
+import StoryblokPicture from './components/StoryblokPicture.astro';
 import type { ProjectContent, ProjectStory, RichText } from '../types/storyblok';
 
 interface Props {
@@ -22,14 +22,12 @@ function renderContent(content: RichText) {
 
   <!-- Project Logo -->
   {blok.logo?.filename && (
-    <Image
-      x-data="{ shown: false }"
-      x-intersect.threshold.25="shown = true"
+    <StoryblokPicture
       src={blok.logo.filename}
-      inferSize={true}
       alt=""
-      class="block max-w-full mx-auto mb-5 transition-opacity duration-500 opacity-0"
-      :class="shown ? 'opacity-100' : 'opacity-0'"
+      loading="eager"
+      fetchpriority="high"
+      class="block max-w-full h-auto mx-auto mb-5"
     />
   )}
 
@@ -123,15 +121,11 @@ function renderContent(content: RichText) {
               role="tabpanel"
               :aria-hidden={`currentImage !== ${index}`}
             >
-              <Image
-                src={`${image.filename}/m/filters:format(avif)`}
+              <StoryblokPicture
+                src={image.filename}
                 alt={image.alt || 'Process image'}
                 class="h-auto w-full object-cover aspect-3/2"
-                srcset={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]
-                  .map(size => `${image.filename}/m/${size}x0/filters:format(avif) ${size}w`)
-                  .join(', ')}
-                sizes={`100vw`}
-                inferSize={true}
+                sizes="(min-width: 1280px) 1280px, 100vw"
               />
             </li>
           ))}

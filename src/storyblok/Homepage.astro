@@ -7,9 +7,9 @@ import iconFaq from '../images/svgs/faq.svg?raw';
 import iconContact from '../images/svgs/contact.svg?raw';
 import iconHire from '../images/svgs/hire.svg?raw';
 import iconJoin from '../images/svgs/join.svg?raw';
-import { Image as AstroImage } from 'astro:assets';
 import { renderRichText } from '@storyblok/astro';
 import Image from './components/Image.astro';
+import StoryblokPicture from './components/StoryblokPicture.astro';
 import ProjectList from './components/ProjectList.astro';
 import ContactLink from './components/ContactLink.astro';
 import type { HomepageContent, ProjectStory, RichText } from '../types/storyblok';
@@ -34,23 +34,14 @@ function renderContent(content: RichText) {
   {blok.heroText && <p class="relative mx-auto max-w-7xl text-left uppercase text-white text-[36px] leading-[0.89em] font-functionpro md:text-[82px] lg:text-[96px] z-20">{blok.heroText}</p>}
 
   {blok.featureImages && blok.featureImages.length > 0 && (
-    (() => {
-      const imageFilename = blok.featureImages[0].filename;
-
-      return (
-        <AstroImage
-          src={`${imageFilename}/m/filters:format(avif)`}
-          alt={blok.featureImages[0].title || ''}
-          inferSize={true}
-          srcset={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]
-            .map(size => `${imageFilename}/m/${size}x0/filters:format(avif) ${size}w`)
-            .join(', ')}
-          sizes={`100vw`}
-          class="absolute top-0 left-0 z-0 object-cover w-full h-full transition-opacity duration-500 opacity-0"
-          :class="shown ? 'opacity-100' : 'opacity-0'"
-        />
-      );
-    })()
+    <StoryblokPicture
+      src={blok.featureImages[0].filename}
+      alt={blok.featureImages[0].title || ''}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="absolute top-0 left-0 z-0 object-cover w-full h-full"
+    />
   )}
 
   <div
@@ -94,7 +85,6 @@ function renderContent(content: RichText) {
 {blok.featureImages && blok.featureImages.length > 1 && (
   <Image
     image={blok.featureImages[blok.featureImages.length - 1]}
-    widths={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]}
     sizes={`100vw`}
     class="w-full"
     wrapperClass="w-full relative"

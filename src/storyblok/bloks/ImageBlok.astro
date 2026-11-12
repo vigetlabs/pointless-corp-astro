@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import StoryblokPicture from '../components/StoryblokPicture.astro';
 import type { ImageBlok } from '../../types/storyblok';
 import circle from '../../images/svgs/circle.svg?raw';
 
@@ -15,18 +15,14 @@ const imageUrl = blok.image?.filename || ''
 
 {imageUrl && (
   <div class="relative mx-auto my-10 max-w-7xl image-blok">
-    <Image
+    <StoryblokPicture
       x-data="{ shown: false }"
       x-intersect.threshold.25="shown = true"
-      src={`${imageUrl}/m/filters:format(avif)`}
+      src={imageUrl}
       alt={blok.image.alt || ''}
       class="relative z-10 block h-auto max-w-full mx-auto transition-opacity duration-500 opacity-0"
       :class="shown ? 'opacity-100' : 'opacity-0'"
-      srcset={[320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048]
-        .map(size => `${imageUrl}/m/${size}x0/filters:format(avif) ${size}w`)
-        .join(', ')}
-      sizes={`100vw`}
-      inferSize={true}
+      sizes="(min-width: 1280px) 1280px, 100vw"
     />
 
     <div class="absolute top-0 z-0 w-full h-full max-w-4xl text-center transform -translate-x-1/2 left-1/2">

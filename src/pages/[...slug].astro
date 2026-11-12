@@ -5,6 +5,7 @@ import { useStoryblokApi } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
 import type { ProjectStory } from '../types/storyblok';
 import { richTextParagraphs } from '../utils/richText';
+import { storyblokOgImageUrl } from '../utils/storyblokImage';
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
@@ -52,8 +53,11 @@ const themeColors = {
 };
 
 const description = richTextParagraphs(story.content.description)[0] ?? '';
+const metaImage = story.content.logo?.filename
+  ? storyblokOgImageUrl(story.content.logo.filename, themeColors.backgroundColor)
+  : undefined;
 ---
 
-<Application title={`${story.name} - Pointlesscorp`} themeColors={themeColors} description={description} metaImage={story.content.logo.filename} slug={slug}>
+<Application title={`${story.name} - Pointlesscorp`} themeColors={themeColors} description={description} metaImage={metaImage} slug={slug}>
   <StoryblokComponent blok={story.content} name={story.name} projects={projects} />
 </Application>

@@ -2,7 +2,7 @@
 import iconStampTools from '../../images/svgs/stamp-tools.svg?raw';
 import iconStampExperiments from '../../images/svgs/stamp-experiments.svg?raw';
 import iconStampStunts from '../../images/svgs/stamp-stunts.svg?raw';
-import { Image as AstroImage } from 'astro:assets';
+import StoryblokPicture from './StoryblokPicture.astro';
 import ToggleButton from './ToggleButton.astro';
 import Toggle from './Toggle.astro';
 import { getContrastColor } from '../../utils/colors';
@@ -128,22 +128,13 @@ const { projects } = Astro.props;
             x-transition:leave-end="opacity-0 scale-75"
           >
             {content.icon && (
-              content.icon.filename.endsWith('.svg') ? (
-                <img
-                  src={content.icon.filename}
-                  alt=""
-                  class="w-full h-auto"
-                  loading="lazy"
-                />
-              ) : (
-                <AstroImage
-                  src={`${content.icon.filename}/m/filters:format(avif)`}
-                  alt=""
-                  class="w-full h-auto"
-                  inferSize={true}
-                  loading="lazy"
-                />
-              )
+              <StoryblokPicture
+                src={content.icon.filename}
+                alt=""
+                class="w-full h-auto"
+                widths={[160, 240, 320, 480, 640]}
+                sizes="(min-width: 1280px) 290px, (min-width: 768px) 33vw, 100vw"
+              />
             )}
 
             <div class="px-3 -mt-11">

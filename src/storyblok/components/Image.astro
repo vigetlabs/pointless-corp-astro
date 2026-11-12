@@ -1,5 +1,5 @@
 ---
-import { Image as AstroImage } from 'astro:assets';
+import StoryblokPicture from './StoryblokPicture.astro';
 import type { Asset } from '../../types/storyblok';
 
 interface Props {
@@ -11,21 +11,17 @@ interface Props {
   sizes?: string;
 }
 
-const { image, class: className, wrapperClass, captionClass, widths = [320, 480, 640, 768, 1024, 1366, 1536, 1920, 2048], sizes } = Astro.props;
-
-// Generate srcset based on widths
-const srcset = widths.map(width => `${image.filename}/m/${width}x0/filters:format(avif) ${width}w`).join(', ');
+const { image, class: className, wrapperClass, captionClass, widths, sizes } = Astro.props;
 ---
 
 <figure class={wrapperClass}>
-  <AstroImage
+  <StoryblokPicture
     x-data="{ shown: false }"
     x-intersect.threshold.25="shown = true"
-    src={`${image.filename}/m/filters:format(avif)`}
+    src={image.filename}
     alt={image.alt || ''}
-    srcset={srcset}
+    widths={widths}
     sizes={sizes}
-    inferSize={true}
     class={`block w-full transition-opacity duration-500 opacity-0 ${className || ''}`}
     :class="shown ? 'opacity-100' : 'opacity-0'"
   />

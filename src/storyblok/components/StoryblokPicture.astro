@@ -1,0 +1,48 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import {
+  DEFAULT_QUALITY,
+  getImageDimensions,
+  isSvg,
+  responsiveWidths,
+  storyblokImageUrl,
+  storyblokSrcset,
+} from '../../utils/storyblokImage';
+
+type Props = Omit<HTMLAttributes<'img'>, 'src' | 'srcset' | 'width' | 'height'> & {
+  src: string;
+  alt: string;
+  widths?: number[];
+  quality?: number;
+};
+
+const { src, alt, widths, sizes: sizesProp, quality = DEFAULT_QUALITY, loading = 'lazy', decoding = 'async', ...attrs } = Astro.props;
+
+// Read the size from the asset URL instead of fetching it to reserve layout space
+const dimensions = getImageDimensions(src);
+const candidateWidths = responsiveWidths(src, widths);
+if (candidateWidths.length === 0 && dimensions) candidateWidths.push(dimensions.width);
+const fallbackWidth = candidateWidths.at(-1);
+
+// Without explicit sizes, assume the image renders at its natural size, capped by the viewport
+const sizes = sizesProp ?? (dimensions ? `(min-width: ${dimensions.width}px) ${dimensions.width}px, 100vw` : undefined);
+---
+
+{isSvg(src) ? (
+  <img src={src} alt={alt} width={dimensions?.width} height={dimensions?.height} loading={loading} decoding={decoding} {...attrs} />
+) : (
+  <picture>
+    <source type="image/avif" srcset={storyblokSrcset(src, candidateWidths, { quality, format: 'avif' })} sizes={sizes} />
+    <img
+      src={storyblokImageUrl(src, { width: fallbackWidth, quality })}
+      srcset={storyblokSrcset(src, candidateWidths, { quality })}
+      sizes={sizes}
+      alt={alt}
+      width={dimensions?.width}
+      height={dimensions?.height}
+      loading={loading}
+      decoding={decoding}
+      {...attrs}
+    />
+  </picture>
+)}
